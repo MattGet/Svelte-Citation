@@ -25,6 +25,10 @@
 	import SignedIn from 'clerk-sveltekit/client/SignedIn.svelte';
 	import SignedOut from 'clerk-sveltekit/client/SignedOut.svelte';
 	import UserButton from 'clerk-sveltekit/client/UserButton.svelte';
+	import SignOutButton from 'clerk-sveltekit/client/SignOutButton.svelte';
+	function sOut() {
+		window.location.href = '/';
+	}
 </script>
 
 <!-- App Shell -->
@@ -59,8 +63,8 @@
 					<li><a href="/admin">UserProfile</a></li>
 					<li><a href="/Add Source">Add Source</a></li>
 					<li><a href="/Sources">View Sources</a></li>
+					<li><SignOutButton signOutCallback={() => sOut()} /></li>
 				</SignedIn>
-				<li><a href="/about">About</a></li>
 			</ul>
 		</nav>
 		<!-- --- -->
