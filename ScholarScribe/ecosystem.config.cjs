@@ -7,7 +7,7 @@ module.exports = {
 		// First application
 		{
 			name: 'ScholarScribe', // name of the process in PM2
-			script: 'build/index.js',
+			script: '/home/scholarscribe/Documents/GitHub/Svelte-Citation/ScholarScribe/build/index.js',
 			env_production: {
 				NODE_ENV: 'production',
 				PORT: 5173 // port the app will be launched on
