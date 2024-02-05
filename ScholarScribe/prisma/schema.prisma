@@ -15,4 +15,5 @@ model Source {
   title   String
   content String
   userid  String
+  authorFirstName String
 }

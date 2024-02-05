@@ -4,10 +4,11 @@ import { fail } from "@sveltejs/kit"
 
 export const actions: Actions = {
     createSource: async ({ request }) => {
-        const { title, content, userid } = Object.fromEntries(await request.formData()) as {
+        const { title, content, userid, authorFirstName } = Object.fromEntries(await request.formData()) as {
             title: string
             content: string
             userid: string
+            authorFirstName: string
         }
 
         try {
@@ -16,6 +17,7 @@ export const actions: Actions = {
                     title,
                     content,
                     userid,
+                    authorFirstName,
                 },
             })
         } catch (err) {

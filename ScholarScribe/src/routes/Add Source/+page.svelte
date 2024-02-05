@@ -20,6 +20,10 @@
 					<input class="input" name="title" type="text" placeholder="Title" />
 				</label>
 				<label class="label">
+					<span>Authors First Name</span>
+					<input class="input" name="authorFirstName" type="text" placeholder="Authors First Name" />
+				</label>
+				<label class="label">
 					<span>Content</span>
 					<input class="input" name="content" type="text" placeholder="Content" />
 				</label>
