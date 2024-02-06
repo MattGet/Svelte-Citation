@@ -21,14 +21,6 @@
 	import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';
 	import { storePopup } from '@skeletonlabs/skeleton';
 	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
-
-	import SignedIn from 'clerk-sveltekit/client/SignedIn.svelte';
-	import SignedOut from 'clerk-sveltekit/client/SignedOut.svelte';
-	import UserButton from 'clerk-sveltekit/client/UserButton.svelte';
-	import SignOutButton from 'clerk-sveltekit/client/SignOutButton.svelte';
-	function sOut() {
-		window.location.href = '/';
-	}
 </script>
 
 <!-- App Shell -->
@@ -39,12 +31,7 @@
 			<svelte:fragment slot="lead">
 				<strong class="text-xl uppercase">Scholar Scribe</strong>
 			</svelte:fragment>
-			<svelte:fragment slot="trail">
-				<SignedIn let:user>
-					<p>Hello {user?.fullName}!</p>
-					<UserButton afterSignOutUrl="/" />
-				</SignedIn>
-			</svelte:fragment>
+			<svelte:fragment slot="trail"></svelte:fragment>
 		</AppBar>
 	</svelte:fragment>
 	<!-- Page Route Content -->
@@ -55,16 +42,6 @@
 		<nav class="list-nav">
 			<ul>
 				<li><a href="/">Home</a></li>
-				<SignedOut>
-					<li><a href="/Login">Login</a></li>
-					<li><a href="/SignUp">Sign Up</a></li>
-				</SignedOut>
-				<SignedIn>
-					<li><a href="/admin">UserProfile</a></li>
-					<li><a href="/Add Source">Add Source</a></li>
-					<li><a href="/Sources">View Sources</a></li>
-					<li><SignOutButton signOutCallback={() => sOut()} /></li>
-				</SignedIn>
 			</ul>
 		</nav>
 		<!-- --- -->

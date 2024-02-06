@@ -1,4 +1,4 @@
-import type { HandleClientError } from '@sveltejs/kit'
+/* import type { HandleClientError } from '@sveltejs/kit'
 // To use Clerk components:
 import { initializeClerkClient } from 'clerk-sveltekit/client'
 // Or for headless mode:
@@ -14,4 +14,4 @@ initializeClerkClient(PUBLIC_CLERK_PUBLISHABLE_KEY, {
 
 export const handleError: HandleClientError = async ({ error, event }) => {
     console.error(error, event)
-}
+} */
