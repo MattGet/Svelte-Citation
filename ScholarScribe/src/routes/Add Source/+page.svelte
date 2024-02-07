@@ -24,6 +24,18 @@
 					<input class="input" name="authorFirstName" type="text" placeholder="Authors First Name" />
 				</label>
 				<label class="label">
+					<span>Authors Last Name</span>
+					<input class="input" name="authorLastName" type="text" placeholder="Authors Last Name" />
+				</label>
+				<label class="label">
+					<span>Year</span>
+					<input class="input" name="year" type="text" placeholder="Year" />
+				</label>
+				<label class="label">
+					<span>Publisher</span>
+					<input class="input" name="publisher" type="text" placeholder="Publisher" />
+				</label>
+				<label class="label">
 					<span>Content</span>
 					<input class="input" name="content" type="text" placeholder="Content" />
 				</label>

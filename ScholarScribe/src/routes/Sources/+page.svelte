@@ -19,7 +19,9 @@
 				<th>Title</th>
 				<th>Content</th>
 				<th>Author First Name</th>
+				<th>Author Last Name</th>
 				<th>Delete</th>
+				<th>Year</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -29,6 +31,8 @@
 					<td>{source.title}</td>
 					<td>{source.content}</td>
 					<td>{source.authorFirstName}</td>
+					<td>{source.authorLastName}</td>
+					<td>{source.year}</td>
 					<td>
 						<form action="?/deleteSource&id={source.id}" method="POST">
 							<button type="submit" class="btn variant-filled-error">Delete</button>

@@ -16,4 +16,7 @@ model Source {
   content String
   userid  String
   authorFirstName String
+  authorLastName String
+  year String
+  publisher String
 }
