@@ -20,8 +20,8 @@
 				<th>Content</th>
 				<th>Author First Name</th>
 				<th>Author Last Name</th>
-				<th>Delete</th>
 				<th>Year</th>
+				<th>Delete</th>
 			</tr>
 		</thead>
 		<tbody>
