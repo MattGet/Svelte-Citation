@@ -1,6 +1,9 @@
 import type { Actions, PageServerLoad } from "./$types"
 import { prisma } from "$lib/server/prisma"
 import { fail } from "@sveltejs/kit"
+import FileSaver from 'file-saver';
+
+const { saveAs } = FileSaver;
 
 export const load: PageServerLoad = async () => {
     return {
@@ -49,6 +52,44 @@ export const actions: Actions = {
             console.error(err)
             return fail(500, {
                 message: "Something went wrong deleting your article",
+            })
+        }
+
+        return {
+            status: 200,
+        }
+    },
+    exportJSON: async ({ url }) => {
+        const id = url.searchParams.get("id")
+        if (!id) {
+            return fail(400, { message: "Invalid request" })
+        }
+
+        try {
+            const data = await prisma.source.findUniqueOrThrow({
+                where: {
+                    id: id,
+                },
+            })
+
+
+            var blob = new Blob([JSON.stringify(data)], { type: "application/json;charset=utf-8" });
+
+            var a = document.createElement('a');
+
+            document.body.append(a);
+
+            a.download = data.title;
+
+            a.href = URL.createObjectURL(blob);
+
+            a.click();
+
+            a.remove();
+        } catch (err) {
+            console.error(err)
+            return fail(500, {
+                message: "Something went wrong exporting your article to JSON",
             })
         }
 
