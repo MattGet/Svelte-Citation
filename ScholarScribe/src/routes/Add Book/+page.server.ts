@@ -4,9 +4,9 @@ import { fail } from "@sveltejs/kit"
 
 export const actions: Actions = {
     createSource: async ({ request }) => {
-        const { title, content, userid, authorFirstName, authorLastName, year, publisher } = Object.fromEntries(await request.formData()) as {
+        const { title, URL, userid, authorFirstName, authorLastName, year, publisher} = Object.fromEntries(await request.formData()) as {
             title: string
-            content: string
+            URL: string
             userid: string
             authorFirstName: string
             authorLastName: string
@@ -18,7 +18,7 @@ export const actions: Actions = {
             await prisma.source.create({
                 data: {
                     title,
-                    content,
+                    URL,
                     userid,
                     authorFirstName,
                     authorLastName,

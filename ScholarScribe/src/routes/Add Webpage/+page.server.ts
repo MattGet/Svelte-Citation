@@ -1,16 +1,10 @@
-import type { Actions, PageServerLoad } from "./$types"
+import type { Actions } from "./$types"
 import { prisma } from "$lib/server/prisma"
 import { fail } from "@sveltejs/kit"
 
-export const load: PageServerLoad = async () => {
-    return {
-        sources: await prisma.source.findMany(),
-    }
-}
-
 export const actions: Actions = {
     createSource: async ({ request }) => {
-        const { title, URL, userid, authorFirstName, authorLastName, year, publisher } = Object.fromEntries(await request.formData()) as {
+        const { title, URL, userid, authorFirstName, authorLastName, year, publisher} = Object.fromEntries(await request.formData()) as {
             title: string
             URL: string
             userid: string

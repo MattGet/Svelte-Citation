@@ -36,8 +36,8 @@
 					<input class="input" name="publisher" type="text" placeholder="Publisher" />
 				</label>
 				<label class="label">
-					<span>Content</span>
-					<input class="input" name="content" type="text" placeholder="Content" />
+					<span>URL</span>
+					<input class="input" name="URL" type="text" placeholder="URL" />
 				</label>
 				<input class="input" type="hidden" name="userid" value={user?.id} />
 				<button type="submit" class="btn variant-filled">Submit</button>
