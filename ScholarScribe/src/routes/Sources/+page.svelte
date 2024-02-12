@@ -15,6 +15,7 @@
 	<table class="table table-hover">
 		<thead>
 			<tr>
+				<th>Citation Type</th>
 				<th>Title</th>
 				<th>Author First Name</th>
 				<th>Author Last Name</th>
@@ -24,6 +25,7 @@
 		<tbody>
 			{#each sources as source, i}
 				<tr>
+					<td>{source.type}</td>
 					<td>{source.title}</td>
 					<td>{source.authorFirstName}</td>
 					<td>{source.authorLastName}</td>
@@ -38,7 +40,7 @@
 	</table>
 	<SignedIn let:user>
 		<div class="flex width-full justify-center p-10">
-			<a href="/Add Source" class="btn variant-filled" data-sveltekit-preload-data="hover"
+			<a href="/" class="btn variant-filled" data-sveltekit-preload-data="hover"
 				>Add New Source
 			</a>
 		</div>

@@ -10,7 +10,7 @@ export const load: PageServerLoad = async () => {
 
 export const actions: Actions = {
     createSource: async ({ request }) => {
-        const { title, URL, userid, authorFirstName, authorLastName, year, publisher } = Object.fromEntries(await request.formData()) as {
+        const { title, URL, userid, authorFirstName, authorLastName, year, publisher, type } = Object.fromEntries(await request.formData()) as {
             title: string
             URL: string
             userid: string
@@ -18,6 +18,7 @@ export const actions: Actions = {
             authorLastName: string
             year: string
             publisher: string
+            type: string
         }
 
         try {
@@ -30,6 +31,7 @@ export const actions: Actions = {
                     authorLastName,
                     year,
                     publisher,
+                    type,
                 },
             })
         } catch (err) {

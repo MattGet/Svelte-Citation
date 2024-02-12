@@ -14,10 +14,10 @@
 	<div>
 		<form action="?/createSource" method="POST">
 			<div class="space-y-8 p-20">
-				<h3>New Source</h3>
+				<h3>New Book Citation</h3>
 				<label class="label">
 					<span>Title</span>
-					<input class="input" name="title" type="text" placeholder="Title" />
+					<input class="input" name="title" type="text" placeholder="Title" required/>
 				</label>
 				<label class="label">
 					<span>Authors First Name</span>
@@ -35,10 +35,7 @@
 					<span>Publisher</span>
 					<input class="input" name="publisher" type="text" placeholder="Publisher" />
 				</label>
-				<label class="label">
-					<span>URL</span>
-					<input class="input" name="URL" type="text" placeholder="URL" />
-				</label>
+				<input class="input" type="hidden" name="type" value="Book" />
 				<input class="input" type="hidden" name="userid" value={user?.id} />
 				<button type="submit" class="btn variant-filled">Submit</button>
 			</div>

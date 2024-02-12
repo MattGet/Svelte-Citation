@@ -4,14 +4,15 @@ import { fail } from "@sveltejs/kit"
 
 export const actions: Actions = {
     createSource: async ({ request }) => {
-        const { title, URL, userid, authorFirstName, authorLastName, year, publisher} = Object.fromEntries(await request.formData()) as {
+        const { title, URL, userid, authorFirstName, authorLastName, year, publisher, type} = Object.fromEntries(await request.formData()) as {
             title: string
-            URL: string
+            URL: string //kill
             userid: string
             authorFirstName: string
             authorLastName: string
             year: string
             publisher: string
+            type: string
         }
 
         try {
@@ -24,6 +25,7 @@ export const actions: Actions = {
                     authorLastName,
                     year,
                     publisher,
+                    type,
                 },
             })
         } catch (err) {
