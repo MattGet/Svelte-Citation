@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { popup, type PopupSettings } from '@skeletonlabs/skeleton';
+	import { ListBox, ListBoxItem, popup, type PopupSettings } from '@skeletonlabs/skeleton';
 	import type { PageData } from './$types';
-	import { exportJSON } from '$lib/client/export.funcs';
+	import { exportJSON, exportBibTex } from '$lib/client/export.funcs';
 
 	export let data: PageData;
 
@@ -18,7 +18,24 @@
 		// Defines which side of your trigger the popup will appear
 		placement: 'bottom'
 	};
+
+	let valueSingle: string = 'JSON';
+
+	function routeExport(source: any) {
+		if (valueSingle == 'JSON') {
+			exportJSON(source);
+		} else if (valueSingle == 'BibTex') {
+			exportBibTex(source);
+		} else {
+		}
+	}
 </script>
+
+<ListBox>
+	<ListBoxItem bind:group={valueSingle} name="medium" value="JSON">JSON</ListBoxItem>
+	<ListBoxItem bind:group={valueSingle} name="medium" value="BibTex">BibTex</ListBoxItem>
+	<ListBoxItem bind:group={valueSingle} name="medium" value="Other">Other</ListBoxItem>
+</ListBox>
 
 <!-- Responsive Container (recommended) -->
 <div class="table-container">
@@ -45,7 +62,7 @@
 						</form>
 					</td>
 					<td>
-						<button class="btn variant-filled" on:click={() => exportJSON(source)}>Export</button>
+						<button class="btn variant-filled" on:click={() => routeExport(source)}>Export</button>
 					</td>
 				</tr>
 			{/each}
