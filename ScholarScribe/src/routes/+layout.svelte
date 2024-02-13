@@ -42,6 +42,8 @@
 		<nav class="list-nav">
 			<ul>
 				<li><a href="/">Home</a></li>
+				<li><a href="/signin">Sign In</a></li>
+				<li><a href="/signout">Sign Out</a></li>
 			</ul>
 		</nav>
 		<!-- --- -->

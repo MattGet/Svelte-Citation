@@ -10,6 +10,6 @@ import {
 } from '$env/static/private';
 
 export const { handle, signIn, signOut } = SvelteKitAuth({
-    providers: [GoogleProvider({ clientId: GOOGLE_CLIENT_ID, clientSecret: GOOGLE_CLIENT_SECRET })],
+    providers: [GoogleProvider({ clientId: GOOGLE_CLIENT_ID, clientSecret: GOOGLE_CLIENT_SECRET, allowDangerousEmailAccountLinking: true })],
     adapter: PrismaAdapter(prisma),
 })
