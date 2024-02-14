@@ -15,18 +15,26 @@
 	<table class="table table-hover">
 		<thead>
 			<tr>
-				<th>Id</th>
+				<th>Citation Type</th>
 				<th>Title</th>
-				<th>Content</th>
+				<th>Author First Name</th>
+				<th>Author Last Name</th>
+				<th>More</th>
 				<th>Delete</th>
 			</tr>
 		</thead>
 		<tbody>
 			{#each sources as source, i}
 				<tr>
-					<td>{source.id}</td>
+					<td>{source.type}</td>
 					<td>{source.title}</td>
-					<td>{source.content}</td>
+					<td>{source.authorFirstName}</td>
+					<td>{source.authorLastName}</td>
+					<td>
+						<form action="?/moreInfo&id={source.id}" method="POST">
+							<button type="submit" class="btn variant-filled-error">More</button>
+						</form>
+					</td>
 					<td>
 						<form action="?/deleteSource&id={source.id}" method="POST">
 							<button type="submit" class="btn variant-filled-error">Delete</button>
@@ -38,7 +46,7 @@
 	</table>
 	<SignedIn let:user>
 		<div class="flex width-full justify-center p-10">
-			<a href="/Add Source" class="btn variant-filled" data-sveltekit-preload-data="hover"
+			<a href="/" class="btn variant-filled" data-sveltekit-preload-data="hover"
 				>Add New Source
 			</a>
 		</div>

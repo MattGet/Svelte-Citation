@@ -12,7 +12,12 @@ datasource db {
 
 model Source {
   id      String @id @default(auto()) @map("_id") @db.ObjectId
-  title   String
-  content String
+  type String //need to do work on enum
+  title   String?
+  URL String?
   userid  String
+  authorFirstName String?
+  authorLastName String?
+  year String?
+  publisher String?
 }
