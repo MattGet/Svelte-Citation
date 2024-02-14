@@ -61,7 +61,9 @@
 				</SignedOut>
 				<SignedIn>
 					<li><a href="/admin">UserProfile</a></li>
-					<li><a href="/Add Source">Add Source</a></li>
+					<li><a href="/Add Journal">Add Journal</a></li>
+					<li><a href="/Add Webpage">Add Webpage</a></li>
+					<li><a href="/Add Book">Add Book</a></li>
 					<li><a href="/Sources">View Sources</a></li>
 					<li><SignOutButton signOutCallback={() => sOut()} /></li>
 				</SignedIn>
