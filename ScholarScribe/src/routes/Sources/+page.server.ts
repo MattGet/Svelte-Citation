@@ -59,42 +59,4 @@ export const actions: Actions = {
             status: 200,
         }
     },
-    exportJSON: async ({ url }) => {
-        const id = url.searchParams.get("id")
-        if (!id) {
-            return fail(400, { message: "Invalid request" })
-        }
-
-        try {
-            const data = await prisma.source.findUniqueOrThrow({
-                where: {
-                    id: id,
-                },
-            })
-
-
-            var blob = new Blob([JSON.stringify(data)], { type: "application/json;charset=utf-8" });
-
-            var a = document.createElement('a');
-
-            document.body.append(a);
-
-            a.download = data.title;
-
-            a.href = URL.createObjectURL(blob);
-
-            a.click();
-
-            a.remove();
-        } catch (err) {
-            console.error(err)
-            return fail(500, {
-                message: "Something went wrong exporting your article to JSON",
-            })
-        }
-
-        return {
-            status: 200,
-        }
-    },
 }
