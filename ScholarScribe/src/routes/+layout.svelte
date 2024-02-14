@@ -37,7 +37,7 @@
 		<!-- App Bar -->
 		<AppBar>
 			<svelte:fragment slot="lead">
-				<strong class="text-xl uppercase">Scholar Scribe</strong>
+				<a class="text-xl uppercase" href="/">Scholar Scribe</a>
 			</svelte:fragment>
 			<svelte:fragment slot="trail">
 				<SignedIn let:user>
