@@ -19,6 +19,7 @@
 				<th>Title</th>
 				<th>Author First Name</th>
 				<th>Author Last Name</th>
+				<th>More</th>
 				<th>Delete</th>
 			</tr>
 		</thead>
@@ -29,6 +30,11 @@
 					<td>{source.title}</td>
 					<td>{source.authorFirstName}</td>
 					<td>{source.authorLastName}</td>
+					<td>
+						<form action="?/moreInfo&id={source.id}" method="POST">
+							<button type="submit" class="btn variant-filled-error">More</button>
+						</form>
+					</td>
 					<td>
 						<form action="?/deleteSource&id={source.id}" method="POST">
 							<button type="submit" class="btn variant-filled-error">Delete</button>

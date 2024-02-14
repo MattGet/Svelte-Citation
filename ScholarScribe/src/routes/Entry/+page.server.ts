@@ -66,27 +66,4 @@ export const actions: Actions = {
             status: 200,
         }
     },
-    moreInfo: async ({ url }) => {
-        const id = url.searchParams.get("id")
-        if (!id) {
-            return fail(400, { message: "Invalid request" })
-        }
-
-        try {
-            await prisma.source.findUnique({
-                where: {
-                    id: id,
-                },
-            })
-        } catch (err) {
-            console.error(err)
-            return fail(500, {
-                message: "Something went wrong fetching your citation",
-            })
-        }
-
-        return {
-            status: 200,
-        }
-    },
 }
