@@ -20,4 +20,15 @@ model Source {
   authorLastName  String?
   year            String?
   publisher       String?
+  groupIDs String[] @db.ObjectId
+  groups Group[] @relation(fields: [groupIDs], references: [id])
+}
+
+model Group { 
+id        String @id @default(auto()) @map("_id") @db.ObjectId
+title     String
+userid    String
+description String
+sourceIDs String[] @db.ObjectId
+sources Source[] @relation(fields: [sourceIDs], references: [id])
 }
