@@ -9,15 +9,6 @@
 	import SignedIn from 'clerk-sveltekit/client/SignedIn.svelte';
 	import SignedOut from 'clerk-sveltekit/client/SignedOut.svelte';
 
-	const popupFeatured: PopupSettings = {
-		// Represents the type of event that opens/closed the popup
-		event: 'click',
-		// Matches the data-popup value on your popup element
-		target: 'popupFeatured',
-		// Defines which side of your trigger the popup will appear
-		placement: 'bottom'
-	};
-
 	let valueSingle: string = 'JSON';
 
 	function routeExport(source: any) {
