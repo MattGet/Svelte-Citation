@@ -30,7 +30,11 @@
 		<h4 class="h4">Publisher: {source.publisher}</h4>
 	</div>
 	<div class="container mx-auto p-8 space-y-8">
-		<section>
+		<section class="flex flex-row gap-2">
+			<a class="btn variant-filled-tertiary" href="/Update/{source.id}">Update</a>
+			<form action="?/deleteSource&id={source.id}" method="POST">
+				<button type="submit" class="btn variant-filled-error">Delete</button>
+			</form>
 			<a class="btn variant-filled-primary" href="/Sources">Back to Sources</a>
 			<button
 				use:clipboard={window.location.href}
