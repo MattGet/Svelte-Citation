@@ -2,9 +2,20 @@ import type { Actions } from "./$types"
 import { prisma } from "$lib/server/prisma"
 import { fail, redirect } from "@sveltejs/kit"
 
+//@ts-ignore
+export const load: PageServerLoad = async ({ params }) => {
+    return {
+        source: await prisma.source.findUnique({
+            where: {
+                id: params.sourceid,
+            },
+        })
+    }
+}
+
 export const actions: Actions = {
-    createSource: async ({ request }) => {
-        const { title, URL, userid, authorFirstName, authorLastName, year, publisher, type } = Object.fromEntries(await request.formData()) as {
+    updateSource: async ({ request }) => {
+        const { title, URL, userid, authorFirstName, authorLastName, year, publisher, type, id } = Object.fromEntries(await request.formData()) as {
             title: string
             URL: string
             userid: string
@@ -13,10 +24,14 @@ export const actions: Actions = {
             year: string
             publisher: string //kill
             type: string
+            id: string
         }
 
         try {
-            await prisma.source.create({
+            await prisma.source.update({
+                where: {
+                    id: id
+                },
                 data: {
                     title,
                     URL,
@@ -30,7 +45,7 @@ export const actions: Actions = {
             })
         } catch (err) {
             console.error(err)
-            return fail(500, { message: "Could not create the article." })
+            return fail(500, { message: "Could not update the source!" })
         }
 
         redirect(303, "/Sources")

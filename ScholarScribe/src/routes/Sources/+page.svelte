@@ -31,7 +31,7 @@
 </div>
 
 <!-- Responsive Container (recommended) -->
-<div class="table-container">
+<div class="table-container px-10 pb-10">
 	<!-- Native Table Element -->
 	<table class="table table-hover">
 		<thead>
@@ -39,7 +39,8 @@
 				<th>Citation Type</th>
 				<th>Title</th>
 				<th>Author</th>
-				<th>More</th>
+				<th>Veiw</th>
+				<th>Update</th>
 				<th>Delete</th>
 				<th>Export</th>
 			</tr>
@@ -52,6 +53,9 @@
 					<td>{source.authorFirstName} {source.authorLastName}</td>
 					<td>
 						<a class="btn variant-filled-secondary" href="/Source/{source.id}">View</a>
+					</td>
+					<td>
+						<a class="btn variant-filled-tertiary" href="/Update/{source.id}">Update</a>
 					</td>
 					<td>
 						<form action="?/deleteSource&id={source.id}" method="POST">
