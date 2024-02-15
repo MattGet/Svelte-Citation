@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { ListBox, ListBoxItem, popup, type PopupSettings } from '@skeletonlabs/skeleton';
 	import type { PageData } from './$types';
 	import { exportJSON, exportBibTex } from '$lib/client/export.funcs';
 
@@ -9,15 +8,6 @@
 
 	import SignedIn from 'clerk-sveltekit/client/SignedIn.svelte';
 	import SignedOut from 'clerk-sveltekit/client/SignedOut.svelte';
-
-	const popupFeatured: PopupSettings = {
-		// Represents the type of event that opens/closed the popup
-		event: 'click',
-		// Matches the data-popup value on your popup element
-		target: 'popupFeatured',
-		// Defines which side of your trigger the popup will appear
-		placement: 'bottom'
-	};
 
 	let valueSingle: string = 'JSON';
 
@@ -31,23 +21,26 @@
 	}
 </script>
 
-<ListBox>
-	<ListBoxItem bind:group={valueSingle} name="medium" value="JSON">JSON</ListBoxItem>
-	<ListBoxItem bind:group={valueSingle} name="medium" value="BibTex">BibTex</ListBoxItem>
-	<ListBoxItem bind:group={valueSingle} name="medium" value="Other">Other</ListBoxItem>
-</ListBox>
+<div class="space px-10 py-10">
+	<h1>Export Type</h1>
+	<select class="select" size="1" bind:value={valueSingle}>
+		<option value="JSON">JSON</option>
+		<option value="BibTex">BibTex</option>
+		<option value="Other">Other</option>
+	</select>
+</div>
 
 <!-- Responsive Container (recommended) -->
-<div class="table-container">
+<div class="table-container px-10 pb-10">
 	<!-- Native Table Element -->
 	<table class="table table-hover">
 		<thead>
 			<tr>
 				<th>Citation Type</th>
 				<th>Title</th>
-				<th>Author First Name</th>
-				<th>Author Last Name</th>
-				<th>More</th>
+				<th>Author</th>
+				<th>Veiw</th>
+				<th>Update</th>
 				<th>Delete</th>
 				<th>Export</th>
 			</tr>
@@ -57,12 +50,12 @@
 				<tr>
 					<td>{source.type}</td>
 					<td>{source.title}</td>
-					<td>{source.authorFirstName}</td>
-					<td>{source.authorLastName}</td>
+					<td>{source.authorFirstName} {source.authorLastName}</td>
 					<td>
-						<form action="?/moreInfo&id={source.id}" method="POST">
-							<button type="submit" class="btn variant-filled-error">More</button>
-						</form>
+						<a class="btn variant-filled-secondary" href="/Source/{source.id}">View</a>
+					</td>
+					<td>
+						<a class="btn variant-filled-tertiary" href="/Update/{source.id}">Update</a>
 					</td>
 					<td>
 						<form action="?/deleteSource&id={source.id}" method="POST">
@@ -78,7 +71,7 @@
 	</table>
 	<SignedIn let:user>
 		<div class="flex width-full justify-center p-10">
-			<a href="/" class="btn variant-filled" data-sveltekit-preload-data="hover"
+			<a href="/Add Source" class="btn variant-filled" data-sveltekit-preload-data="hover"
 				>Add New Source
 			</a>
 		</div>

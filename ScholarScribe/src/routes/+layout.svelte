@@ -1,6 +1,12 @@
 <script lang="ts">
 	import '../app.postcss';
-	import { AppShell, AppBar } from '@skeletonlabs/skeleton';
+	import {
+		AppShell,
+		AppBar,
+		ProgressRadial,
+		ProgressBar,
+		LightSwitch
+	} from '@skeletonlabs/skeleton';
 
 	// Highlight JS
 	import hljs from 'highlight.js/lib/core';
@@ -26,6 +32,7 @@
 	import SignedOut from 'clerk-sveltekit/client/SignedOut.svelte';
 	import UserButton from 'clerk-sveltekit/client/UserButton.svelte';
 	import SignOutButton from 'clerk-sveltekit/client/SignOutButton.svelte';
+	import ClerkLoading from 'clerk-sveltekit/client/ClerkLoading.svelte';
 	function sOut() {
 		window.location.href = '/';
 	}
@@ -37,9 +44,10 @@
 		<!-- App Bar -->
 		<AppBar>
 			<svelte:fragment slot="lead">
-				<a class="text-xl uppercase" href="/">Scholar Scribe</a>
+				<a class="text-xl uppercase bold" href="/">Scholar Scribe</a>
 			</svelte:fragment>
 			<svelte:fragment slot="trail">
+				<LightSwitch />
 				<SignedIn let:user>
 					<p>Hello {user?.fullName}!</p>
 					<UserButton afterSignOutUrl="/" />
@@ -55,15 +63,16 @@
 		<nav class="list-nav">
 			<ul>
 				<li><a href="/">Home</a></li>
+				<ClerkLoading>
+					<ProgressBar value={undefined} meter="stroke-primary-500" strokeLinecap="round" />
+				</ClerkLoading>
 				<SignedOut>
 					<li><a href="/Login">Login</a></li>
 					<li><a href="/SignUp">Sign Up</a></li>
 				</SignedOut>
 				<SignedIn>
 					<li><a href="/admin">UserProfile</a></li>
-					<li><a href="/Add Journal">Add Journal</a></li>
-					<li><a href="/Add Webpage">Add Webpage</a></li>
-					<li><a href="/Add Book">Add Book</a></li>
+					<li><a href="/Add Source">Add Source</a></li>
 					<li><a href="/Sources">View Sources</a></li>
 					<li><SignOutButton signOutCallback={() => sOut()} /></li>
 				</SignedIn>
