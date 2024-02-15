@@ -1,6 +1,12 @@
 <script lang="ts">
 	import '../app.postcss';
-	import { AppShell, AppBar, ProgressRadial, ProgressBar } from '@skeletonlabs/skeleton';
+	import {
+		AppShell,
+		AppBar,
+		ProgressRadial,
+		ProgressBar,
+		LightSwitch
+	} from '@skeletonlabs/skeleton';
 
 	// Highlight JS
 	import hljs from 'highlight.js/lib/core';
@@ -38,9 +44,10 @@
 		<!-- App Bar -->
 		<AppBar>
 			<svelte:fragment slot="lead">
-				<a class="text-xl uppercase" href="/">Scholar Scribe</a>
+				<a class="text-xl uppercase bold" href="/">Scholar Scribe</a>
 			</svelte:fragment>
 			<svelte:fragment slot="trail">
+				<LightSwitch />
 				<SignedIn let:user>
 					<p>Hello {user?.fullName}!</p>
 					<UserButton afterSignOutUrl="/" />
