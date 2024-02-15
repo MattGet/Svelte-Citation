@@ -1,10 +1,12 @@
 <script>
+	// @ts-nocheck
+
 	export let user = '';
 </script>
 
 <div>
 	<form action="?/createSource" method="POST">
-		<div class="space-y-8 px-20 py-10 pb-40">
+		<div class="space-y-8 px-20 pt-10 pb-40">
 			<h3>New Website Citation</h3>
 			<label class="label">
 				<span>Title</span>
