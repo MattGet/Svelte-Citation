@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { ListBox, ListBoxItem, popup, type PopupSettings } from '@skeletonlabs/skeleton';
 	import type { PageData } from './$types';
 	import { exportJSON, exportBibTex } from '$lib/client/export.funcs';
 
@@ -31,11 +30,14 @@
 	}
 </script>
 
-<ListBox>
-	<ListBoxItem bind:group={valueSingle} name="medium" value="JSON">JSON</ListBoxItem>
-	<ListBoxItem bind:group={valueSingle} name="medium" value="BibTex">BibTex</ListBoxItem>
-	<ListBoxItem bind:group={valueSingle} name="medium" value="Other">Other</ListBoxItem>
-</ListBox>
+<div class="space px-10 py-10">
+	<h1>Export Type</h1>
+	<select class="select" size="1" bind:value={valueSingle}>
+		<option value="JSON">JSON</option>
+		<option value="BibTex">BibTex</option>
+		<option value="Other">Other</option>
+	</select>
+</div>
 
 <!-- Responsive Container (recommended) -->
 <div class="table-container">
