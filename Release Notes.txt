@@ -1,1 +1,37 @@
-ScolarScribe Version 0.0.1
+Scholar Scribe, A web-based citation engine powered by Sveltekit & MongoDB
+
+
+Scholar Scribe Release V 0.1.1 -  2/16/2024
+
+
+New features:
+  * SvelteKit - Prisma - MongoDB stack running
+  * Running NodeJS web server through an NGINX reverse proxy, managed with PM2
+  * Full CRUD capability with sources/citations
+  * User Accounts with the option for login via OAuth or Credentials
+  * Ability to manually add 3 types of references
+  * Ability to individually view an article
+  * Dark/Light mode with UI
+  * Ability to change UI theme via a config file (Requires Restart)
+  * Ability to export sources in the database as a JSON or BibTex document
+
+
+Known issues:
+  * Conversion between JSON and BIbTex doesnt match information well (Naming convention)
+  * UI will need to scale better to suit a large number of sources 
+  * Ability to copy a link is only working on development builds, not production
+
+
+Possible features in the future:
+  * Ability to import via ISBN or DOI
+  * Export in bibliography formats such as APA
+  * Grouping/tagging of sources
+  * User Groups
+  * User & Global data/citations
+  * Admin dashboard
+  * Import citation from a file (JSON/BibTex)
+
+
+Links:
+  * Project: https://github.com/users/MattGet/projects/2/views/1
+  * GitHub Repo: https://github.com/MattGet/Svelte-Citation
