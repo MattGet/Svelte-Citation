@@ -11,11 +11,17 @@
 	</h1>
 	<p>A Web Based Citation Engine</p>
 	<section>
-		<a class="btn variant-filled-primary" href="https://github.com/users/MattGet/projects/2"
-			>Project</a
+		<a
+			class="btn variant-filled-primary"
+			href="https://github.com/users/MattGet/projects/2"
+			target="_blank"
+			rel="noreferrer noopener">Project</a
 		>
-		<a class="btn variant-filled-tertiary" href="https://github.com/MattGet/Svelte-Citation/"
-			>GitHub</a
+		<a
+			class="btn variant-filled-tertiary"
+			href="https://github.com/MattGet/Svelte-Citation/"
+			target="_blank"
+			rel="noreferrer noopener">GitHub</a
 		>
 	</section>
 </div>

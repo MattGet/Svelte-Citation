@@ -24,7 +24,9 @@
 	</h1>
 	<div class="space-y-4 p-10">
 		<h4 class="h4">Title: {source.title}</h4>
-		<h4 class="h4">URL: <a href={source.URL}>{source.URL}</a></h4>
+		<h4 class="h4">
+			URL: <a href={source.URL} target="_blank" rel="noreferrer noopener">{source.URL}</a>
+		</h4>
 		<h4 class="h4">Author: {source.authorFirstName} {source.authorLastName}</h4>
 		<h4 class="h4">Year: {source.year}</h4>
 		<h4 class="h4">Publisher: {source.publisher}</h4>
