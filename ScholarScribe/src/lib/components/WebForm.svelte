@@ -1,6 +1,10 @@
-<script>
+<script lang="ts">
 	// @ts-nocheck
 	import Author from './Author.svelte';
+
+	import { Month } from '@prisma/client';
+
+	import type { Type } from '@prisma/client';
 
 	export let user = '';
 
@@ -45,12 +49,20 @@
 				>
 			</section>
 			<label class="label">
-				<span>Year Accessed</span>
-				<input class="input" name="year" type="text" placeholder="Year Accessed" />
+				<span>Date</span>
+				<section class="flex flex-row gap-4">
+					<input class="input basis-1/5" name="day" type="number" placeholder="0" />
+					<select class="select" name="month">
+						{#each Object.values(Month) as month}
+							<option value={month}>{month}</option>
+						{/each}
+					</select>
+					<input class="input basis-2/5" name="year" type="number" placeholder="2000" />
+				</section>
 			</label>
 			<label class="label">
 				<span>URL</span>
-				<input class="input" name="URL" type="text" placeholder="URL" required />
+				<input class="input" name="URL" type="link" placeholder="https://www.example.com" />
 			</label>
 			<input class="input" type="hidden" name="type" value="webpage" />
 			<input class="input" type="hidden" name="numAuthors" value={numAuthors} />

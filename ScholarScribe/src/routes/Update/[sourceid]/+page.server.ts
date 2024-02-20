@@ -1,7 +1,7 @@
 import type { Actions } from "./$types"
 import { prisma } from "$lib/server/prisma"
 import { fail, redirect } from "@sveltejs/kit"
-import type { Author, Month } from "@prisma/client"
+import type { Author, Month, Type } from "@prisma/client"
 
 //@ts-ignore
 export const load: PageServerLoad = async ({ params }) => {
@@ -25,7 +25,7 @@ export const actions: Actions = {
             month: Month
             year: string
             publisher: string
-            type: string
+            type: Type
             id: string
         }
 
