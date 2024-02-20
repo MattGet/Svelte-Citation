@@ -14,7 +14,7 @@
 	import SignedOut from 'clerk-sveltekit/client/SignedOut.svelte';
 
 	import Author from '$lib/components/Author.svelte';
-	import { Type, Month } from '@prisma/client';
+	import { Month } from '@prisma/client';
 
 	let maxAuthors = 10;
 
@@ -112,9 +112,9 @@
 				<label>
 					<span>Type</span>
 					<select class="select" size="1" name="type" value={source.type}>
-						<option value={Type.webpage}>Website</option>
-						<option value={Type.article}>Journal</option>
-						<option value={Type.book}>Book</option>
+						<option value="webpage">Website</option>
+						<option value="article">Journal</option>
+						<option value="book">Book</option>
 					</select>
 				</label>
 				<input class="input" type="hidden" name="numAuthors" value={NUMB} />
