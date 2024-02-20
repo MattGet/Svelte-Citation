@@ -52,12 +52,18 @@
 				<span>Date</span>
 				<section class="flex flex-row gap-4">
 					<input class="input basis-1/5" name="day" type="number" placeholder="0" />
-					<select class="select" name="month">
+					<select class="select" name="month" value={null} placeholder="Month">
 						{#each Object.values(Month) as month}
 							<option value={month}>{month}</option>
 						{/each}
 					</select>
-					<input class="input basis-2/5" name="year" type="number" placeholder="2000" />
+					<input
+						class="input basis-2/5"
+						name="year"
+						type="number"
+						placeholder="2000"
+						value={null}
+					/>
 				</section>
 			</label>
 			<input class="input" type="hidden" name="type" value="article" />
