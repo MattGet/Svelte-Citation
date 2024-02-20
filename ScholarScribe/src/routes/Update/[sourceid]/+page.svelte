@@ -14,6 +14,7 @@
 	import SignedOut from 'clerk-sveltekit/client/SignedOut.svelte';
 
 	import Author from '$lib/components/Author.svelte';
+	import { Month } from '@prisma/client';
 
 	let maxAuthors = 10;
 
@@ -71,8 +72,28 @@
 					>
 				</section>
 				<label class="label">
-					<span>Year</span>
-					<input class="input" name="year" type="text" placeholder="Year" value={source.year} />
+					<span>Date</span>
+					<section class="flex flex-row gap-4">
+						<input
+							class="input basis-1/5"
+							name="day"
+							type="number"
+							placeholder="0"
+							value={source.date.day}
+						/>
+						<select class="select" name="month" value={source.date.month}>
+							{#each Object.values(Month) as month}
+								<option value={month}>{month}</option>
+							{/each}
+						</select>
+						<input
+							class="input basis-2/5"
+							name="year"
+							type="number"
+							placeholder="2000"
+							value={source.date.year}
+						/>
+					</section>
 				</label>
 				<label class="label">
 					<span>URL</span>

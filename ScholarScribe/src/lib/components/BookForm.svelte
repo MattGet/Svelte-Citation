@@ -2,6 +2,8 @@
 	// @ts-nocheck
 	import Author from './Author.svelte';
 
+	import { Month } from '@prisma/client';
+
 	export let user = '';
 
 	let maxAuthors = 10;
@@ -45,8 +47,16 @@
 				>
 			</section>
 			<label class="label">
-				<span>Year</span>
-				<input class="input" name="year" type="text" placeholder="Year" />
+				<span>Date</span>
+				<section class="flex flex-row gap-4">
+					<input class="input basis-1/5" name="day" type="number" placeholder="0" />
+					<select class="select" name="month">
+						{#each Object.values(Month) as month}
+							<option value={month}>{month}</option>
+						{/each}
+					</select>
+					<input class="input basis-2/5" name="year" type="number" placeholder="2000" />
+				</section>
 			</label>
 			<label class="label">
 				<span>Publisher</span>

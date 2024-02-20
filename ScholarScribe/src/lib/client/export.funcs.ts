@@ -1,10 +1,24 @@
 //@ts-ignore
 import { Cite } from '@citation-js/core';
 import '@citation-js/plugin-bibtex';
+import { Month } from "@prisma/client";
 
 
 export function exportJSON(source: any) {
-    var jsonse = JSON.stringify(source);
+    console.log("Exporting JSON");
+    let date = { 'date-parts': [Number(source.date.year), Object.keys(Month).indexOf(source.date.month) + 1] }
+
+    let data = {
+        id: source.id,
+        type: source.type,
+        title: source.title,
+        url: source.URL,
+        author: source.author,
+        issued: date,
+        publisher: source.publisher
+    }
+    var jsonse = JSON.stringify(data);
+    console.log("Output: " + jsonse);
     var blob = new Blob([jsonse], { type: 'application/json' });
     var url = URL.createObjectURL(blob);
     var a = document.createElement('a');
@@ -17,7 +31,19 @@ export function exportJSON(source: any) {
 
 export function exportBibTex(source: any) {
     console.log("Export BibTex");
-    var jsonse = JSON.stringify(source);
+    let date = { 'date-parts': [Number(source.date.year), Object.keys(Month).indexOf(source.date.month) + 1] }
+
+    let data = {
+        id: source.id,
+        type: source.type,
+        title: source.title,
+        url: source.URL,
+        author: source.author,
+        issued: date,
+        publisher: source.publisher
+    }
+
+    var jsonse = JSON.stringify(data);
     const example = new Cite(jsonse);
     let output = example.format("bibtex");
     console.log("Output: " + output);

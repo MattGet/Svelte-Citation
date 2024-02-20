@@ -2,14 +2,18 @@ import type { Actions } from "./$types"
 import { prisma } from "$lib/server/prisma"
 import { fail, redirect } from "@sveltejs/kit"
 import type { Author } from "@prisma/client"
+import type { Month } from "@prisma/client"
+
 
 export const actions: Actions = {
     createSource: async ({ request }) => {
         const formData = await request.formData();
-        const { title, URL, userid, year, publisher, type } = Object.fromEntries(formData) as {
+        const { title, URL, userid, day, month, year, publisher, type } = Object.fromEntries(formData) as {
             title: string
             URL: string
             userid: string
+            day: string
+            month: Month
             year: string
             publisher: string
             type: string
@@ -41,7 +45,11 @@ export const actions: Actions = {
                     title,
                     URL,
                     userid,
-                    year,
+                    date: {
+                        year,
+                        month,
+                        day,
+                    },
                     publisher,
                     type,
                     author,

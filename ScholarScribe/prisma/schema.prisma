@@ -17,7 +17,7 @@ model Source {
   URL       String?
   userid    String
   author    Author[]
-  year      String?
+  date      Date?
   publisher String?
 }
 
@@ -25,4 +25,25 @@ type Author {
   family String
   given  String
   suffix String?
+}
+
+type Date {
+  year  String
+  month Month?
+  day   String?
+}
+
+enum Month {
+  January
+  Febuary
+  March
+  April
+  May
+  June
+  July
+  August
+  September
+  October
+  November
+  December
 }

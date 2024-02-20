@@ -1,7 +1,7 @@
 import type { Actions } from "./$types"
 import { prisma } from "$lib/server/prisma"
 import { fail, redirect } from "@sveltejs/kit"
-import type { Author } from "@prisma/client"
+import type { Author, Month } from "@prisma/client"
 
 //@ts-ignore
 export const load: PageServerLoad = async ({ params }) => {
@@ -17,10 +17,12 @@ export const load: PageServerLoad = async ({ params }) => {
 export const actions: Actions = {
     updateSource: async ({ request }) => {
         const formData = await request.formData();
-        const { title, URL, userid, year, publisher, type, id } = Object.fromEntries(formData) as {
+        const { title, URL, userid, day, month, year, publisher, type, id } = Object.fromEntries(formData) as {
             title: string
             URL: string
             userid: string
+            day: string
+            month: Month
             year: string
             publisher: string
             type: string
@@ -56,7 +58,11 @@ export const actions: Actions = {
                     title,
                     URL,
                     userid,
-                    year,
+                    date: {
+                        year,
+                        month,
+                        day,
+                    },
                     publisher,
                     type,
                     author,

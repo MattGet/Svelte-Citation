@@ -31,7 +31,7 @@
 		{#each source.author as author, i}
 			<h4 class="h4">Author {i + 1}: {author.given} {author.family} {author.suffix}</h4>
 		{/each}
-		<h4 class="h4">Year: {source.year}</h4>
+		<h4 class="h4">Date: {source.date.month} {source.date.day} {source.date.year}</h4>
 		<h4 class="h4">Publisher: {source.publisher}</h4>
 	</div>
 	<div class="container mx-auto p-8 space-y-8">
