@@ -17,7 +17,7 @@
 
 	let maxAuthors = 10;
 
-	const numAuthors = data.source.authors.length;
+	const numAuthors = data.source.author.length;
 
 	export let NUMB = numAuthors;
 
@@ -57,10 +57,9 @@
 				{#each { length: NUMB } as _, i}
 					<Author
 						id={i}
-						fv={source.authors[i]?.first}
-						lv={source.authors[i]?.last}
-						vv={source.authors[i]?.von}
-						jv={source.authors[i]?.jr}
+						fv={source.author[i]?.given}
+						lv={source.author[i]?.family}
+						jv={source.author[i]?.suffix}
 					/>
 				{/each}
 				<section class="flex flex-row gap-4">

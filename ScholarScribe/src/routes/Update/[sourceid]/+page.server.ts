@@ -36,16 +36,15 @@ export const actions: Actions = {
             throw new Error("Invalid numbAuthor, must be at least 1");
         }
 
-        let authors = []
+        let author = []
 
         for (let i = 0; i < NUMB; i++) {
-            const first = formData.get(`first[${i}]`) as string;
-            const last = formData.get(`last[${i}]`) as string;
-            const von = formData.get(`von[${i}]`) as string;
-            const jr = formData.get(`jr[${i}]`) as string;
+            const given = formData.get(`given[${i}]`) as string;
+            const family = formData.get(`family[${i}]`) as string;
+            const suffix = formData.get(`suffix[${i}]`) as string;
 
-            let author = { first: first, last: last, von: von, jr: jr } as Author;
-            authors[i] = author;
+            let authors = { given: given, family: family, suffix: suffix } as Author;
+            author[i] = authors;
         }
 
         try {
@@ -60,7 +59,7 @@ export const actions: Actions = {
                     year,
                     publisher,
                     type,
-                    authors,
+                    author,
                 },
             })
         } catch (err) {

@@ -16,14 +16,13 @@ model Source {
   title     String?
   URL       String?
   userid    String
-  authors   Author[]
+  author    Author[]
   year      String?
   publisher String?
 }
 
 type Author {
-  first String
-  last  String
-  von   String?
-  jr    String?
+  family String
+  given  String
+  suffix String?
 }
