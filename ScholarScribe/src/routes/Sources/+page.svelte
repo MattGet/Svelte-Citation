@@ -38,8 +38,8 @@
 			<tr>
 				<th>Citation Type</th>
 				<th>Title</th>
-				<th>Author</th>
-				<th>Veiw</th>
+				<th>Authors</th>
+				<th>View</th>
 				<th>Update</th>
 				<th>Delete</th>
 				<th>Export</th>
@@ -50,7 +50,7 @@
 				<tr>
 					<td>{source.type}</td>
 					<td>{source.title}</td>
-					<td>{source.authorFirstName} {source.authorLastName}</td>
+					<td>{source.authors[0].first} {source.authors[0].last}</td>
 					<td>
 						<a class="btn variant-filled-secondary" href="/Source/{source.id}">View</a>
 					</td>

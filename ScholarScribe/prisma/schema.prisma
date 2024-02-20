@@ -11,13 +11,19 @@ datasource db {
 }
 
 model Source {
-  id              String  @id @default(auto()) @map("_id") @db.ObjectId
-  type            String //need to do work on enum
-  title           String?
-  URL             String?
-  userid          String
-  authorFirstName String?
-  authorLastName  String?
-  year            String?
-  publisher       String?
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  type      String //need to do work on enum
+  title     String?
+  URL       String?
+  userid    String
+  authors   Author[]
+  year      String?
+  publisher String?
+}
+
+type Author {
+  first String
+  last  String
+  von   String?
+  jr    String?
 }

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Author from '$lib/components/Author.svelte';
 	import type { PageData } from './$types';
 	import { clipboard } from '@skeletonlabs/skeleton';
 
@@ -19,7 +20,7 @@
 	<h1 class="h1">
 		<span
 			class="bg-gradient-to-br from-blue-500 to-cyan-300 bg-clip-text text-transparent box-decoration-clone"
-			>{source.type} Information</span
+			>Source Information</span
 		>
 	</h1>
 	<div class="space-y-4 p-10">
@@ -27,7 +28,9 @@
 		<h4 class="h4">
 			URL: <a href={source.URL} target="_blank" rel="noreferrer noopener">{source.URL}</a>
 		</h4>
-		<h4 class="h4">Author: {source.authorFirstName} {source.authorLastName}</h4>
+		{#each source.authors as author, i}
+			<h4 class="h4">Author {i + 1}: {author.first} {author.von} {author.last} {author.jr}</h4>
+		{/each}
 		<h4 class="h4">Year: {source.year}</h4>
 		<h4 class="h4">Publisher: {source.publisher}</h4>
 	</div>
