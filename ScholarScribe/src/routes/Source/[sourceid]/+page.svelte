@@ -33,7 +33,7 @@
 		{#each source.author as author, i}
 			<h4 class="h4">Author {i + 1}: {author.given} {author.family} {author.suffix}</h4>
 		{/each}
-		{#if source.date != null && source.date != ''}
+		{#if source.date != null && source.date != '' && source.date.year != null && source.date.year != ''}
 			<h4 class="h4">Date: {source.date.month} {source.date.day} {source.date.year}</h4>
 		{/if}
 		{#if source.publisher != null && source.publisher != ''}
