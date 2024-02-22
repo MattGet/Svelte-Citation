@@ -25,7 +25,7 @@
 	</h1>
 	<div class="space-y-4 p-10">
 		<h4 class="h4">Title: {source.title}</h4>
-		{#if source.URL != null}
+		{#if source.URL != null && source.URL != ''}
 			<h4 class="h4">
 				URL: <a href={source.URL} target="_blank" rel="noreferrer noopener">{source.URL}</a>
 			</h4>
@@ -33,10 +33,10 @@
 		{#each source.author as author, i}
 			<h4 class="h4">Author {i + 1}: {author.given} {author.family} {author.suffix}</h4>
 		{/each}
-		{#if source.date != null}
+		{#if source.date != null && source.date != ''}
 			<h4 class="h4">Date: {source.date.month} {source.date.day} {source.date.year}</h4>
 		{/if}
-		{#if source.publisher != null}
+		{#if source.publisher != null && source.publisher != ''}
 			<h4 class="h4">Publisher: {source.publisher}</h4>
 		{/if}
 	</div>
