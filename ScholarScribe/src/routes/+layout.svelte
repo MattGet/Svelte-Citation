@@ -5,7 +5,9 @@
 		AppBar,
 		ProgressRadial,
 		ProgressBar,
-		LightSwitch
+		LightSwitch,
+		popup,
+		type PopupSettings
 	} from '@skeletonlabs/skeleton';
 
 	// Highlight JS
@@ -28,11 +30,21 @@
 	import { storePopup } from '@skeletonlabs/skeleton';
 	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
 
+	const theme: PopupSettings = {
+		// Represents the type of event that opens/closed the popup
+		event: 'click',
+		// Matches the data-popup value on your popup element
+		target: 'popupFeatured',
+		// Defines which side of your trigger the popup will appear
+		placement: 'bottom'
+	};
+
 	import SignedIn from 'clerk-sveltekit/client/SignedIn.svelte';
 	import SignedOut from 'clerk-sveltekit/client/SignedOut.svelte';
 	import UserButton from 'clerk-sveltekit/client/UserButton.svelte';
 	import SignOutButton from 'clerk-sveltekit/client/SignOutButton.svelte';
 	import ClerkLoading from 'clerk-sveltekit/client/ClerkLoading.svelte';
+	import Themes from '$lib/components/Themes.svelte';
 	function sOut() {
 		window.location.href = '/';
 	}
@@ -47,7 +59,7 @@
 				<a class="text-xl uppercase bold" href="/">Scholar Scribe</a>
 			</svelte:fragment>
 			<svelte:fragment slot="trail">
-				<LightSwitch />
+				<Themes />
 				<SignedIn let:user>
 					<p>Hello {user?.fullName}!</p>
 					<UserButton afterSignOutUrl="/" />
