@@ -5,7 +5,7 @@ export const actions: Actions = {
     //@ts-ignore
     setTheme: async ({ cookies, request }) => {
         const formData = await request.formData();
-        const theme = formData.get('theme')?.toString() ?? 'skeleton';
+        const theme = formData.get('theme')?.toString() ?? 'hamlindigo';
         // Sets the selected theme to the cookie
         cookies.set('theme', theme, { path: '/' });
         return { theme };
