@@ -62,7 +62,7 @@
 			</label>
 			<label class="label">
 				<span>URL</span>
-				<input class="input" name="URL" type="link" placeholder="https://www.example.com" />
+				<input class="input p-2" name="URL" type="link" placeholder="https://www.example.com" />
 			</label>
 			<input class="input" type="hidden" name="type" value="webpage" />
 			<input class="input" type="hidden" name="numAuthors" value={numAuthors} />
