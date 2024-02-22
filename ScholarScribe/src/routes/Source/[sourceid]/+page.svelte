@@ -25,14 +25,20 @@
 	</h1>
 	<div class="space-y-4 p-10">
 		<h4 class="h4">Title: {source.title}</h4>
-		<h4 class="h4">
-			URL: <a href={source.URL} target="_blank" rel="noreferrer noopener">{source.URL}</a>
-		</h4>
+		{#if source.URL != null}
+			<h4 class="h4">
+				URL: <a href={source.URL} target="_blank" rel="noreferrer noopener">{source.URL}</a>
+			</h4>
+		{/if}
 		{#each source.author as author, i}
 			<h4 class="h4">Author {i + 1}: {author.given} {author.family} {author.suffix}</h4>
 		{/each}
-		<h4 class="h4">Date: {source.date.month} {source.date.day} {source.date.year}</h4>
-		<h4 class="h4">Publisher: {source.publisher}</h4>
+		{#if source.date != null}
+			<h4 class="h4">Date: {source.date.month} {source.date.day} {source.date.year}</h4>
+		{/if}
+		{#if source.publisher != null}
+			<h4 class="h4">Publisher: {source.publisher}</h4>
+		{/if}
 	</div>
 	<div class="container mx-auto p-8 space-y-8">
 		<section class="flex flex-row gap-4">
