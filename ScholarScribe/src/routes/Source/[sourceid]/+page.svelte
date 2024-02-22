@@ -2,6 +2,7 @@
 	import Author from '$lib/components/Author.svelte';
 	import type { PageData } from './$types';
 	import { clipboard } from '@skeletonlabs/skeleton';
+	import { suffixMe } from '$lib/client/helper.funcs';
 
 	export let data: PageData;
 	$: ({ source } = data);
@@ -34,7 +35,7 @@
 			<h4 class="h4">Author {i + 1}: {author.given} {author.family} {author.suffix}</h4>
 		{/each}
 		{#if source.date != null && source.date != '' && source.date.year != null && source.date.year != ''}
-			<h4 class="h4">Date: {source.date.month} {source.date.day} {source.date.year}</h4>
+			<h4 class="h4">Date: {source.date.month} {suffixMe(source.date.day)} {source.date.year}</h4>
 		{/if}
 		{#if source.publisher != null && source.publisher != ''}
 			<h4 class="h4">Publisher: {source.publisher}</h4>
