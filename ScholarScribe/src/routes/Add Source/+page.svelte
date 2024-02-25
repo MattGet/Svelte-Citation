@@ -12,24 +12,24 @@
 	import SignedIn from 'clerk-sveltekit/client/SignedIn.svelte';
 	import SignedOut from 'clerk-sveltekit/client/SignedOut.svelte';
 
-	let form = 'web';
+	let form = 'webpage';
 </script>
 
 <SignedIn let:user>
 	<div class="space px-10 pt-10">
 		<select class="select" size="1" bind:value={form}>
-			<option value="web">Website</option>
-			<option value="journal">Journal</option>
+			<option value="webpage">Website</option>
+			<option value="article">Journal</option>
 			<option value="book">Book</option>
 		</select>
 	</div>
 
-	{#if form == 'web'}
-		<WebForm />
-	{:else if form == 'journal'}
-		<JournalForm />
+	{#if form == 'webpage'}
+		<WebForm user={user?.id} />
+	{:else if form == 'article'}
+		<JournalForm user={user?.id} />
 	{:else if form == 'book'}
-		<BookForm />
+		<BookForm user={user?.id} />
 	{:else}
 		<h1 class="h1">
 			<span

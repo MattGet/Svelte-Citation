@@ -12,13 +12,38 @@
 
 	import SignedIn from 'clerk-sveltekit/client/SignedIn.svelte';
 	import SignedOut from 'clerk-sveltekit/client/SignedOut.svelte';
+
+	import Author from '$lib/components/Author.svelte';
+	import { Month } from '@prisma/client';
+
+	let maxAuthors = 10;
+
+	const numAuthors = data.source.author.length;
+
+	export let NUMB = numAuthors;
+
+	function addAuthorInput() {
+		if (NUMB <= maxAuthors) {
+			NUMB++;
+		} else {
+			alert('Maximum number of authors reached (10).');
+		}
+	}
+
+	function removeAuthorInput() {
+		if (NUMB > 1) {
+			NUMB--;
+		} else {
+			alert('Minimum number of authors reached (1).');
+		}
+	}
 </script>
 
 <SignedIn let:user>
 	<div>
 		<form action="?/updateSource" method="POST">
 			<div class="space-y-8 px-20 pt-10 pb-40">
-				<h3>Update {source.type} Citation</h3>
+				<h3>Update {source.type} citation</h3>
 				<label class="label">
 					<span>Title</span>
 					<input
@@ -30,29 +55,45 @@
 						required
 					/>
 				</label>
-				<label class="label">
-					<span>Authors First Name</span>
-					<input
-						class="input"
-						name="authorFirstName"
-						type="text"
-						placeholder="Authors First Name"
-						value={source.authorFirstName}
+				{#each { length: NUMB } as _, i}
+					<Author
+						id={i}
+						fv={source.author[i]?.given}
+						lv={source.author[i]?.family}
+						jv={source.author[i]?.suffix}
 					/>
-				</label>
+				{/each}
+				<section class="flex flex-row gap-4">
+					<button type="button" class="btn variant-filled" on:click={addAuthorInput}
+						>Add Author</button
+					>
+					<button type="button" class="btn variant-filled" on:click={removeAuthorInput}
+						>Remove Author</button
+					>
+				</section>
 				<label class="label">
-					<span>Authors Last Name</span>
-					<input
-						class="input"
-						name="authorLastName"
-						type="text"
-						placeholder="Authors Last Name"
-						value={source.authorLastName}
-					/>
-				</label>
-				<label class="label">
-					<span>Year</span>
-					<input class="input" name="year" type="text" placeholder="Year" value={source.year} />
+					<span>Date</span>
+					<section class="flex flex-row gap-4">
+						<input
+							class="input basis-1/5"
+							name="day"
+							type="number"
+							placeholder="0"
+							value={source.date.day}
+						/>
+						<select class="select" name="month" value={source.date.month}>
+							{#each Object.values(Month) as month}
+								<option value={month}>{month}</option>
+							{/each}
+						</select>
+						<input
+							class="input basis-2/5"
+							name="year"
+							type="number"
+							placeholder="2000"
+							value={source.date.year}
+						/>
+					</section>
 				</label>
 				<label class="label">
 					<span>URL</span>
@@ -71,11 +112,12 @@
 				<label>
 					<span>Type</span>
 					<select class="select" size="1" name="type" value={source.type}>
-						<option value="Webpage">Website</option>
-						<option value="Journal">Journal</option>
-						<option value="Book">Book</option>
+						<option value="webpage">Website</option>
+						<option value="article">Journal</option>
+						<option value="book">Book</option>
 					</select>
 				</label>
+				<input class="input" type="hidden" name="numAuthors" value={NUMB} />
 				<input class="input" type="hidden" name="userid" value={user?.id} />
 				<input class="input" type="hidden" name="id" value={source.id} />
 				<button type="submit" class="btn variant-filled">Submit</button>

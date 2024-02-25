@@ -1,6 +1,8 @@
 <script lang="ts">
+	import Author from '$lib/components/Author.svelte';
 	import type { PageData } from './$types';
 	import { clipboard } from '@skeletonlabs/skeleton';
+	import { suffixMe } from '$lib/client/helper.funcs';
 
 	export let data: PageData;
 	$: ({ source } = data);
@@ -19,17 +21,25 @@
 	<h1 class="h1">
 		<span
 			class="bg-gradient-to-br from-blue-500 to-cyan-300 bg-clip-text text-transparent box-decoration-clone"
-			>{source.type} Information</span
+			>Source Information</span
 		>
 	</h1>
 	<div class="space-y-4 p-10">
 		<h4 class="h4">Title: {source.title}</h4>
-		<h4 class="h4">
-			URL: <a href={source.URL} target="_blank" rel="noreferrer noopener">{source.URL}</a>
-		</h4>
-		<h4 class="h4">Author: {source.authorFirstName} {source.authorLastName}</h4>
-		<h4 class="h4">Year: {source.year}</h4>
-		<h4 class="h4">Publisher: {source.publisher}</h4>
+		{#if source.URL != null && source.URL != ''}
+			<h4 class="h4">
+				URL: <a href={source.URL} target="_blank" rel="noreferrer noopener">{source.URL}</a>
+			</h4>
+		{/if}
+		{#each source.author as author, i}
+			<h4 class="h4">Author {i + 1}: {author.given} {author.family} {author.suffix}</h4>
+		{/each}
+		{#if source.date != null && source.date != '' && source.date.year != null && source.date.year != ''}
+			<h4 class="h4">Date: {source.date.month} {suffixMe(source.date.day)} {source.date.year}</h4>
+		{/if}
+		{#if source.publisher != null && source.publisher != ''}
+			<h4 class="h4">Publisher: {source.publisher}</h4>
+		{/if}
 	</div>
 	<div class="container mx-auto p-8 space-y-8">
 		<section class="flex flex-row gap-4">

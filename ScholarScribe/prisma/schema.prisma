@@ -11,13 +11,45 @@ datasource db {
 }
 
 model Source {
-  id              String  @id @default(auto()) @map("_id") @db.ObjectId
-  type            String //need to do work on enum
-  title           String?
-  URL             String?
-  userid          String
-  authorFirstName String?
-  authorLastName  String?
-  year            String?
-  publisher       String?
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  type      Type
+  title     String?
+  URL       String?
+  userid    String
+  author    Author[]
+  date      Date?
+  publisher String?
+}
+
+enum Type {
+  webpage
+  article
+  book
+}
+
+type Author {
+  family String
+  given  String
+  suffix String?
+}
+
+type Date {
+  year  String
+  month Month?
+  day   String?
+}
+
+enum Month {
+  January
+  Febuary
+  March
+  April
+  May
+  June
+  July
+  August
+  September
+  October
+  November
+  December
 }
