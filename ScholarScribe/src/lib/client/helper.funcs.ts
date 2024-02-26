@@ -1,5 +1,6 @@
 // "suffixMe" function definition
 export function suffixMe(num: number) {
+    if (num < 1) return '';
     // remainder operations dealing with edge case
     const j = num % 10,
         k = num % 100;
@@ -13,4 +14,18 @@ export function suffixMe(num: number) {
     } else {
         return `${num}th`;
     }
+}
+
+export const Months = {
+    January: 'January',
+    Febuary: 'Febuary',
+    March: 'March',
+    April: 'April',
+    June: 'June',
+    July: 'July',
+    August: 'August',
+    Spetember: 'September',
+    October: 'October',
+    November: 'November',
+    December: 'December',
 }

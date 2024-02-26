@@ -4,10 +4,15 @@ import { defineConfig } from 'vite';
 
 export default defineConfig({
 	plugins: [sveltekit(), purgeCss({
-			safelist: {
-				// any selectors that begin with "hljs-" will not be purged
-				greedy: [/^hljs-/],
-			},
-		}),
+		safelist: {
+			// any selectors that begin with "hljs-" will not be purged
+			greedy: [/^hljs-/],
+		},
+	}),
 	],
+	resolve: {
+		alias: {
+			".prisma/client/index-browser": "./node_modules/.prisma/client/index-browser.js"
+		}
+	}
 });

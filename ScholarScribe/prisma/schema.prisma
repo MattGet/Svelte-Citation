@@ -12,19 +12,13 @@ datasource db {
 
 model Source {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  type      Type
+  type      String
   title     String?
   URL       String?
   userid    String
   author    Author[]
   date      Date?
   publisher String?
-}
-
-enum Type {
-  webpage
-  article
-  book
 }
 
 type Author {
@@ -35,21 +29,6 @@ type Author {
 
 type Date {
   year  String
-  month Month?
+  month String?
   day   String?
-}
-
-enum Month {
-  January
-  Febuary
-  March
-  April
-  May
-  June
-  July
-  August
-  September
-  October
-  November
-  December
 }

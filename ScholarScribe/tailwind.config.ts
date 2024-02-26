@@ -14,7 +14,7 @@ export default {
 		forms,
 		typography,
 		skeleton({
-			themes: { preset: ["skeleton", "wintry", "modern", "hamlindigo", "crimson", "gold-nouveau", "rocket", "seafoam", "sahara", "vintage"] },
+			themes: { preset: ["skeleton", "modern", "hamlindigo", "crimson", "gold-nouveau", "rocket", "seafoam", "sahara", "vintage", "wintry"] },
 		}),
 	],
 } satisfies Config;

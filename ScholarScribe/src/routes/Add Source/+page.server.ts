@@ -1,7 +1,7 @@
 import type { Actions } from "./$types"
 import { prisma } from "$lib/server/prisma"
 import { fail, redirect } from "@sveltejs/kit"
-import type { Author, Month, Type } from "@prisma/client"
+import type { Author } from "@prisma/client"
 
 
 export const actions: Actions = {
@@ -12,10 +12,10 @@ export const actions: Actions = {
             URL: string
             userid: string
             day: string
-            month: Month
+            month: string
             year: string
             publisher: string
-            type: Type
+            type: string
         }
 
         // Extracting numbAuthor as a number, assuming it's part of the form data

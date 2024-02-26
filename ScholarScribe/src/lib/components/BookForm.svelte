@@ -1,8 +1,7 @@
 <script>
 	// @ts-nocheck
 	import Author from './Author.svelte';
-
-	import { Month } from '@prisma/client';
+	import { Months } from '$lib/client/helper.funcs';
 
 	export let user = '';
 
@@ -51,7 +50,7 @@
 				<section class="flex flex-row gap-4">
 					<input class="input basis-1/5" name="day" type="number" placeholder="0" />
 					<select class="select" name="month" value={null} placeholder="Month">
-						{#each Object.values(Month) as month}
+						{#each Object.values(Months) as month}
 							<option value={month}>{month}</option>
 						{/each}
 					</select>
