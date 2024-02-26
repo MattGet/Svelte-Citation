@@ -1,12 +1,12 @@
 //@ts-ignore
 import { Cite } from '@citation-js/core';
 import '@citation-js/plugin-bibtex';
-import { Month } from "@prisma/client";
+import { Months } from './helper.funcs';
 
 
 export function exportJSON(source: any) {
     console.log("Exporting JSON");
-    let date = { 'date-parts': [Number(source.date.year), Object.keys(Month).indexOf(source.date.month) + 1] }
+    let date = { 'date-parts': [Number(source.date.year), Object.keys(Months).indexOf(source.date.month) + 1] }
 
     let data = {
         id: source.id,
@@ -31,7 +31,7 @@ export function exportJSON(source: any) {
 
 export function exportBibTex(source: any) {
     console.log("Export BibTex");
-    let date = { 'date-parts': [Number(source.date.year), Object.keys(Month).indexOf(source.date.month) + 1] }
+    let date = { 'date-parts': [Number(source.date.year), Object.keys(Months).indexOf(source.date.month) + 1] }
 
     let data = {
         id: source.id,
