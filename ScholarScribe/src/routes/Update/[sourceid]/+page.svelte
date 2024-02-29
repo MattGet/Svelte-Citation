@@ -1,4 +1,5 @@
 <script lang="ts">
+	//@ts-nocheck
 	import '../../../app.postcss';
 	import type { PageData } from './$types';
 
@@ -14,7 +15,7 @@
 	import SignedOut from 'clerk-sveltekit/client/SignedOut.svelte';
 
 	import Author from '$lib/components/Author.svelte';
-	import { Month } from '@prisma/client';
+	import { Months } from '$lib/client/helper.funcs';
 
 	let maxAuthors = 10;
 
@@ -82,7 +83,7 @@
 							value={source.date.day}
 						/>
 						<select class="select" name="month" value={source.date.month}>
-							{#each Object.values(Month) as month}
+							{#each Object.values(Months) as month}
 								<option value={month}>{month}</option>
 							{/each}
 						</select>
