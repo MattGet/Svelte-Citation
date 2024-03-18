@@ -11,7 +11,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 
     handleClerk(CLERK_SECRET_KEY, {
         debug: true,
-        protectedPaths: ['/admin'],
+        protectedPaths: ['/Admin'],
         signInUrl: '/Login',
     })
 

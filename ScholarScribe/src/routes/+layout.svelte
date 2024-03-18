@@ -83,7 +83,7 @@
 					<li><a href="/SignUp">Sign Up</a></li>
 				</SignedOut>
 				<SignedIn>
-					<li><a href="/admin">UserProfile</a></li>
+					<li><a href="/User">UserProfile</a></li>
 					<li><a href="/Add Source">Add Source</a></li>
 					<li><a href="/Sources">View Sources</a></li>
 					<li><SignOutButton signOutCallback={() => sOut()} /></li>
