@@ -19,6 +19,12 @@ model Source {
   author    Author[]
   date      Date?
   publisher String?
+  volume_title String?
+  volume String?
+  issue String?
+  page String?
+  edition String?
+  locator String? //patent number
 }
 
 type Author {

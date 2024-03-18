@@ -29,9 +29,9 @@
 <div>
 	<form action="?/createSource" method="POST">
 		<div class="space-y-8 px-20 pt-10 pb-40">
-			<h3>New Journal Article Citation</h3>
+			<h3>New Editorial Citation</h3>
 			<label class="label">
-				<span>Article Title</span>
+				<span>Editorial Title</span>
 				<input class="input" name="title" type="text" placeholder="Title" required />
 			</label>
 			{#each { length: numAuthors } as _, i}
@@ -46,8 +46,8 @@
 				>
 			</section>
 			<label class="label">
-				<span>Journal Title</span>
-				<input class="input" name="volume_title" type="text" placeholder="Journal Title" required />
+				<span>Magazine Title</span>
+				<input class="input" name="volume_title" type="text" placeholder="Magazine Title" required />
 			</label>
 			<label class="label">
 				<span>Volume</span>
@@ -58,11 +58,7 @@
 				<input class="input" name="issue" type="text" placeholder="Issue" required />
 			</label>
 			<label class="label">
-				<span>Page</span>
-				<input class="input" name="page" type="text" placeholder="Page" required />
-			</label>
-			<label class="label">
-				<span>Date</span>
+				<span>Date Published</span>
 				<section class="flex flex-row gap-4">
 					<input class="input basis-1/5" name="day" type="number" placeholder="0" />
 					<select class="select" name="month" value={null} placeholder="Month">
@@ -79,7 +75,11 @@
 					/>
 				</section>
 			</label>
-			<input class="input" type="hidden" name="type" value="article-journal" />
+            <label class="label">
+				<span>Page</span>
+				<input class="input" name="page" type="text" placeholder="Page" required />
+			</label>
+			<input class="input" type="hidden" name="type" value="article-magazine" />
 			<input class="input" type="hidden" name="numAuthors" value={numAuthors} />
 			<input class="input" type="hidden" name="userid" value={user} />
 			<button type="submit" class="btn variant-filled">Submit</button>
