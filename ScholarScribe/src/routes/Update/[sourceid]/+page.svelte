@@ -1,4 +1,5 @@
 <script lang="ts">
+	//@ts-nocheck
 	import '../../../app.postcss';
 	import type { PageData } from './$types';
 
