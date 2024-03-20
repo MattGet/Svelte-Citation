@@ -3,6 +3,11 @@
 	import type { PageData } from './$types';
 	import { clipboard } from '@skeletonlabs/skeleton';
 	import { suffixMe } from '$lib/client/helper.funcs';
+	//@ts-ignore
+	import { Cite } from '@citation-js/core';
+	import '@citation-js/plugin-bibtex';
+
+
 
 	export let data: PageData;
 	$: ({ source } = data);
@@ -58,4 +63,5 @@
 			</button>
 		</section>
 	</div>
+	<h4 class="h4">Citations</h4>
 </div>

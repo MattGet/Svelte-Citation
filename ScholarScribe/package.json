@@ -52,6 +52,7 @@
     "@citation-js/plugin-bibtex": "^0.7.8",
     "@floating-ui/dom": "1.6.1",
     "@prisma/client": "^5.9.0",
+    "citation-js": "^0.7.9",
     "clerk-sveltekit": "^0.4.1",
     "dotenv": "^16.4.1",
     "file-saver": "^2.0.5",

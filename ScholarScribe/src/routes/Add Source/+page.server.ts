@@ -7,7 +7,7 @@ import type { Author } from "@prisma/client"
 export const actions: Actions = {
     createSource: async ({ request }) => {
         const formData = await request.formData();
-        const { title, URL, userid, day, month, year, publisher, type } = Object.fromEntries(formData) as {
+        const { title, URL, userid, day, month, year, publisher, type, volume_title, volume, issue, page, edition, locator} = Object.fromEntries(formData) as {
             title: string
             URL: string
             userid: string
@@ -16,6 +16,12 @@ export const actions: Actions = {
             year: string
             publisher: string
             type: string
+            volume_title: string
+            volume: string
+            issue: string
+            page: string
+            edition: string
+            locator: string
         }
 
         // Extracting numbAuthor as a number, assuming it's part of the form data
@@ -52,6 +58,12 @@ export const actions: Actions = {
                     publisher,
                     type,
                     author,
+                    volume_title,
+                    volume,
+                    issue,
+                    page,
+                    edition,
+                    locator,
                 },
             })
 
