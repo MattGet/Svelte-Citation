@@ -44,6 +44,7 @@
 	import UserButton from 'clerk-sveltekit/client/UserButton.svelte';
 	import SignOutButton from 'clerk-sveltekit/client/SignOutButton.svelte';
 	import ClerkLoading from 'clerk-sveltekit/client/ClerkLoading.svelte';
+	import ClerkLoaded from 'clerk-sveltekit/client/ClerkLoaded.svelte';
 	import Themes from '$lib/components/Themes.svelte';
 	function sOut() {
 		window.location.href = '/';
@@ -78,16 +79,21 @@
 				<ClerkLoading>
 					<ProgressBar value={undefined} meter="stroke-primary-500" strokeLinecap="round" />
 				</ClerkLoading>
+				<ClerkLoaded let:clerk>
+					{#if clerk?.user?.organizationMemberships[0]?.organization.name == 'Scholar Scribe' || clerk?.user?.publicMetadata.role == 'Admin'}
+						<li><a href="/admin">Admin</a></li>
+					{/if}
+				</ClerkLoaded>
 				<SignedOut>
 					<li><a href="/Login">Login</a></li>
 					<li><a href="/SignUp">Sign Up</a></li>
 				</SignedOut>
 				<SignedIn>
 					<li><a href="/User">UserProfile</a></li>
-					<li><a href="/Add Source">Add Source</a></li>
-					<li><a href="/Sources">View Sources</a></li>
 					<li><SignOutButton signOutCallback={() => sOut()} /></li>
+					<li><a href="/Add Source">Add Source</a></li>
 				</SignedIn>
+				<li><a href="/Sources">View Sources</a></li>
 			</ul>
 		</nav>
 		<!-- --- -->

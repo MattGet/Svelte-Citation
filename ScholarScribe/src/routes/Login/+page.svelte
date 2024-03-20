@@ -3,5 +3,5 @@
 </script>
 
 <div style="display:flex; height:100%; align-items: center; justify-content: center">
-	<SignIn redirectUrl="/admin" />
+	<SignIn redirectUrl="/User" />
 </div>

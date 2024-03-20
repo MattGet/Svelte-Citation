@@ -3,6 +3,8 @@
 	import type { PageData } from './$types';
 	import { clipboard } from '@skeletonlabs/skeleton';
 	import { suffixMe } from '$lib/client/helper.funcs';
+	import ClerkLoaded from 'clerk-sveltekit/client/ClerkLoaded.svelte';
+	import AdminBanner from '$lib/components/AdminBanner.svelte';
 
 	export let data: PageData;
 	$: ({ source } = data);
@@ -16,6 +18,8 @@
 		}, 1000);
 	}
 </script>
+
+<AdminBanner />
 
 <div class="p-10">
 	<h1 class="h1">
@@ -43,10 +47,14 @@
 	</div>
 	<div class="container mx-auto p-8 space-y-8">
 		<section class="flex flex-row gap-4">
-			<a class="btn variant-filled-tertiary" href="/Update/{source.id}">Update</a>
-			<form action="?/deleteSource&id={source.id}" method="POST">
-				<button type="submit" class="btn variant-filled-error">Delete</button>
-			</form>
+			<ClerkLoaded let:clerk>
+				{#if clerk?.user?.publicMetadata.role == 'Admin' || clerk?.user?.id == source.userid}
+					<a class="btn variant-filled-tertiary" href="/Update/{source.id}">Update</a>
+					<form action="?/deleteSource&id={source.id}" method="POST">
+						<button type="submit" class="btn variant-filled-error">Delete</button>
+					</form>
+				{/if}
+			</ClerkLoaded>
 			<a class="btn variant-filled-primary" href="/Sources">Back to Sources</a>
 			<button
 				use:clipboard={window.location.href}
