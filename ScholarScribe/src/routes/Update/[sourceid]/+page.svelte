@@ -14,7 +14,7 @@
 	import SignedOut from 'clerk-sveltekit/client/SignedOut.svelte';
 
 	import Author from '$lib/components/Author.svelte';
-	import { Month } from '@prisma/client';
+	import { Months } from '$lib/client/helper.funcs';
 
 	let maxAuthors = 10;
 
@@ -37,6 +37,8 @@
 			alert('Minimum number of authors reached (1).');
 		}
 	}
+	import { InputChip } from '@skeletonlabs/skeleton';
+	let list: string[] = ['foo', 'bar', 'fizz', 'buzz'];
 </script>
 
 <SignedIn let:user>
@@ -82,7 +84,7 @@
 							value={source.date.day}
 						/>
 						<select class="select" name="month" value={source.date.month}>
-							{#each Object.values(Month) as month}
+							{#each Object.values(Months) as month}
 								<option value={month}>{month}</option>
 							{/each}
 						</select>
@@ -116,6 +118,11 @@
 						<option value="article">Journal</option>
 						<option value="book">Book</option>
 					</select>
+				</label>
+				<!-- svelte-ignore a11y-label-has-associated-control -->
+				<label>
+					<span>Tags</span>
+					<InputChip bind:value={list} name="chips" placeholder="Enter" />
 				</label>
 				<input class="input" type="hidden" name="numAuthors" value={NUMB} />
 				<input class="input" type="hidden" name="userid" value={user?.id} />

@@ -19,6 +19,7 @@ model Source {
   author    Author[]
   date      Date?
   publisher String?
+  keywords  String[]
 }
 
 type Author {
