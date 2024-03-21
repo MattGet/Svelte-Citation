@@ -29,15 +29,15 @@
 	</div>
 
 	{#if form == 'webpage'}
-		<WebForm user={user?.id} />
+		<WebForm user={user} />
 	{:else if form == 'journal'}
-		<JournalForm user={user?.id} />
+		<JournalForm user={user} />
 	{:else if form == 'book'}
-		<BookForm user={user?.id} />
+		<BookForm user={user} />
 	{:else if form == 'patent'}
-		<PatentForm user={user?.id} />
+		<PatentForm user={user} />
 	{:else if form == 'magazine'}
-		<MagazineForm user={user?.id} />
+		<MagazineForm user={user} />
 	{:else}
 		<h1 class="h1">
 			<span
@@ -47,5 +47,3 @@
 		</h1>
 	{/if}
 </SignedIn>
-
-<SignedOut></SignedOut>

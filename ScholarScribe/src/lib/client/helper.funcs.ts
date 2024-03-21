@@ -1,3 +1,4 @@
+
 // "suffixMe" function definition
 export function suffixMe(num: number) {
     if (num < 1) return '';
@@ -14,6 +15,12 @@ export function suffixMe(num: number) {
     } else {
         return `${num}th`;
     }
+}
+
+export async function getUser(userid: string) {
+    let res = await fetch('/api/users/userid');
+    let data = res.json();
+    return data;
 }
 
 export const Months = {

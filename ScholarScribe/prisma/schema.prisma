@@ -16,6 +16,7 @@ model Source {
   title     String?
   URL       String?
   userid    String
+  user      String?
   author    Author[]
   date      Date?
   publisher String?
