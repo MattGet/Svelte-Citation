@@ -5,6 +5,9 @@
 	import { suffixMe } from '$lib/client/helper.funcs';
 	import ClerkLoaded from 'clerk-sveltekit/client/ClerkLoaded.svelte';
 	import AdminBanner from '$lib/components/AdminBanner.svelte';
+	//@ts-ignore
+	import { Cite } from '@citation-js/core';
+	import '@citation-js/plugin-bibtex';
 
 	export let data: PageData;
 	$: ({ source } = data);
@@ -67,4 +70,5 @@
 			</button>
 		</section>
 	</div>
+	<h4 class="h4">Citations</h4>
 </div>

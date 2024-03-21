@@ -15,7 +15,13 @@ export function exportJSON(source: any) {
         url: source.URL,
         author: source.author,
         issued: date,
-        publisher: source.publisher
+        publisher: source.publisher,
+        volume_title: source.volume_title,
+        volume: source.volume,
+        issue: source.issue,
+        page: source.page,
+        edition: source.edition,
+        locator: source.locator
     }
     var jsonse = JSON.stringify(data);
     console.log("Output: " + jsonse);
@@ -40,7 +46,13 @@ export function exportBibTex(source: any) {
         url: source.URL,
         author: source.author,
         issued: date,
-        publisher: source.publisher
+        publisher: source.publisher,
+        volume_title: source.volume_title,
+        volume: source.volume,
+        issue: source.issue,
+        page: source.page,
+        edition: source.edition,
+        locator: source.locator
     }
 
     var jsonse = JSON.stringify(data);

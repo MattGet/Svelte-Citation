@@ -3,7 +3,7 @@
 	import Author from './Author.svelte';
 	import { Months } from '$lib/client/helper.funcs';
 
-	export let user;
+	export let user = '';
 
 	let maxAuthors = 10;
 
@@ -29,10 +29,10 @@
 <div>
 	<form action="?/createSource" method="POST">
 		<div class="space-y-8 px-20 pt-10 pb-40">
-			<h3>New Book Citation</h3>
+			<h3>New Patent Citation</h3>
 			<label class="label">
-				<span>Title</span>
-				<input class="input" name="title" type="text" placeholder="Title" required />
+				<span>Patent Title</span>
+				<input class="input" name="title" type="text" placeholder="Patent Title" required />
 			</label>
 			{#each { length: numAuthors } as _, i}
 				<Author id={i} />
@@ -46,7 +46,7 @@
 				>
 			</section>
 			<label class="label">
-				<span>Date</span>
+				<span>Date Filed</span>
 				<section class="flex flex-row gap-4">
 					<input class="input basis-1/5" name="day" type="number" placeholder="0" />
 					<select class="select" name="month" value={null} placeholder="Month">
@@ -58,21 +58,12 @@
 				</section>
 			</label>
 			<label class="label">
-				<span>Publisher</span>
-				<input class="input" name="publisher" type="text" placeholder="Publisher" />
+				<span>Patent Number</span>
+				<input class="input" name="locator" type="text" placeholder="Patent Number" />
 			</label>
-			<label class="label">
-				<span>Volume</span>
-				<input class="input" name="volume" type="text" placeholder="Volume" />
-			</label>
-			<label class="label">
-				<span>Edition</span>
-				<input class="input" name="edition" type="text" placeholder="Edition" />
-			</label>
-			<input class="input" type="hidden" name="type" value="book" />
+			<input class="input" type="hidden" name="type" value="patent" />
 			<input class="input" type="hidden" name="numAuthors" value={numAuthors} />
-			<input class="input" type="hidden" name="userid" value={user?.id} />
-			<input class="input" type="hidden" name="user" value={JSON.stringify(user)} />
+			<input class="input" type="hidden" name="userid" value={user} />
 			<button type="submit" class="btn variant-filled">Submit</button>
 		</div>
 	</form>

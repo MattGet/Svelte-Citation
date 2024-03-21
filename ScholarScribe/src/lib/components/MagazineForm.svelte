@@ -3,7 +3,7 @@
 	import Author from './Author.svelte';
 	import { Months } from '$lib/client/helper.funcs';
 
-	export let user;
+	export let user = '';
 
 	let maxAuthors = 10;
 
@@ -29,9 +29,9 @@
 <div>
 	<form action="?/createSource" method="POST">
 		<div class="space-y-8 px-20 pt-10 pb-40">
-			<h3>New Book Citation</h3>
+			<h3>New Editorial Citation</h3>
 			<label class="label">
-				<span>Title</span>
+				<span>Editorial Title</span>
 				<input class="input" name="title" type="text" placeholder="Title" required />
 			</label>
 			{#each { length: numAuthors } as _, i}
@@ -46,7 +46,19 @@
 				>
 			</section>
 			<label class="label">
-				<span>Date</span>
+				<span>Magazine Title</span>
+				<input class="input" name="volume_title" type="text" placeholder="Magazine Title" required />
+			</label>
+			<label class="label">
+				<span>Volume</span>
+				<input class="input" name="volume" type="text" placeholder="Volume" required />
+			</label>
+			<label class="label">
+				<span>Issue</span>
+				<input class="input" name="issue" type="text" placeholder="Issue" required />
+			</label>
+			<label class="label">
+				<span>Date Published</span>
 				<section class="flex flex-row gap-4">
 					<input class="input basis-1/5" name="day" type="number" placeholder="0" />
 					<select class="select" name="month" value={null} placeholder="Month">
@@ -54,25 +66,22 @@
 							<option value={month}>{month}</option>
 						{/each}
 					</select>
-					<input class="input basis-2/5" name="year" type="number" placeholder="2000" />
+					<input
+						class="input basis-2/5"
+						name="year"
+						type="number"
+						placeholder="2000"
+						value={null}
+					/>
 				</section>
 			</label>
-			<label class="label">
-				<span>Publisher</span>
-				<input class="input" name="publisher" type="text" placeholder="Publisher" />
+            <label class="label">
+				<span>Page</span>
+				<input class="input" name="page" type="text" placeholder="Page" required />
 			</label>
-			<label class="label">
-				<span>Volume</span>
-				<input class="input" name="volume" type="text" placeholder="Volume" />
-			</label>
-			<label class="label">
-				<span>Edition</span>
-				<input class="input" name="edition" type="text" placeholder="Edition" />
-			</label>
-			<input class="input" type="hidden" name="type" value="book" />
+			<input class="input" type="hidden" name="type" value="article-magazine" />
 			<input class="input" type="hidden" name="numAuthors" value={numAuthors} />
-			<input class="input" type="hidden" name="userid" value={user?.id} />
-			<input class="input" type="hidden" name="user" value={JSON.stringify(user)} />
+			<input class="input" type="hidden" name="userid" value={user} />
 			<button type="submit" class="btn variant-filled">Submit</button>
 		</div>
 	</form>
