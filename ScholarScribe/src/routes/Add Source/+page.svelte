@@ -25,11 +25,11 @@
 	</div>
 
 	{#if form == 'webpage'}
-		<WebForm user={user?.id} />
+		<WebForm {user} />
 	{:else if form == 'article'}
-		<JournalForm user={user?.id} />
+		<JournalForm {user} />
 	{:else if form == 'book'}
-		<BookForm user={user?.id} />
+		<BookForm {user} />
 	{:else}
 		<h1 class="h1">
 			<span
@@ -39,5 +39,3 @@
 		</h1>
 	{/if}
 </SignedIn>
-
-<SignedOut></SignedOut>

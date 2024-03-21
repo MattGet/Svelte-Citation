@@ -29,6 +29,7 @@
 		>
 	</h1>
 	<div class="space-y-4 p-10">
+		<h4 class="h4">Created By: {JSON.parse(source.user)?.fullName}</h4>
 		<h4 class="h4">Title: {source.title}</h4>
 		{#if source.URL != null && source.URL != ''}
 			<h4 class="h4">

@@ -13,6 +13,7 @@
 		<th>First Name</th>
 		<th>Last Name</th>
 		<th>Email</th>
+		<th>Last Active</th>
 		<th>Role</th>
 		<th>Update</th>
 		<tbody>
@@ -21,6 +22,7 @@
 					<td>{user.firstName}</td>
 					<td>{user.lastName}</td>
 					<td>{user.emailAddresses[0].emailAddress}</td>
+					<td>{new Date(user.lastSignInAt).toLocaleString()}</td>
 					<td>
 						<!-- {console.log(user.publicMetadata)} -->
 						{#if user.publicMetadata.role == 'Admin'}
@@ -33,7 +35,7 @@
 					</td>
 					<td>
 						<form action="?/updateRole&id={user.id}" method="POST">
-							<div class="flex gap-2">
+							<div class="flex x-2">
 								<select class="select" name="role" value={user.publicMetadata.role}>
 									<option value="User">User</option>
 									<option value="Admin">Admin</option>

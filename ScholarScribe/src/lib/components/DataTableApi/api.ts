@@ -9,10 +9,6 @@ export const reload = async (state: State) => {
     return JSON.stringify(response);
 };
 
-const serializeNonPOJOs = (value: object | null) => {
-    return JSON.parse(JSON.stringify(value));
-};
-
 const getParams = (state: State) => {
     const { pageNumber, rowsPerPage, sort, filters, search } = state;
 
