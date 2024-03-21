@@ -35,7 +35,7 @@
 					</td>
 					<td>
 						<form action="?/updateRole&id={user.id}" method="POST">
-							<div class="flex x-2">
+							<div class="flex gap-2">
 								<select class="select" name="role" value={user.publicMetadata.role}>
 									<option value="User">User</option>
 									<option value="Admin">Admin</option>
