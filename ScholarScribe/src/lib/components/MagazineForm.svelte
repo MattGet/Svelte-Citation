@@ -3,7 +3,7 @@
 	import Author from './Author.svelte';
 	import { Months } from '$lib/client/helper.funcs';
 
-	export let user = '';
+	export let user;
 
 	let maxAuthors = 10;
 
@@ -47,7 +47,13 @@
 			</section>
 			<label class="label">
 				<span>Magazine Title</span>
-				<input class="input" name="volume_title" type="text" placeholder="Magazine Title" required />
+				<input
+					class="input"
+					name="volume_title"
+					type="text"
+					placeholder="Magazine Title"
+					required
+				/>
 			</label>
 			<label class="label">
 				<span>Volume</span>
@@ -75,13 +81,14 @@
 					/>
 				</section>
 			</label>
-            <label class="label">
+			<label class="label">
 				<span>Page</span>
 				<input class="input" name="page" type="text" placeholder="Page" required />
 			</label>
 			<input class="input" type="hidden" name="type" value="article-magazine" />
 			<input class="input" type="hidden" name="numAuthors" value={numAuthors} />
-			<input class="input" type="hidden" name="userid" value={user} />
+			<input class="input" type="hidden" name="userid" value={user?.id} />
+			<input class="input" type="hidden" name="user" value={JSON.stringify(user)} />
 			<button type="submit" class="btn variant-filled">Submit</button>
 		</div>
 	</form>

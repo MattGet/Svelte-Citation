@@ -32,9 +32,9 @@
 		>
 	</h1>
 	<div class="space-y-4 p-10">
-		<h4 class="h4">Created By: {JSON.parse(source.user)?.fullName}</h4>
-		<h4 class="h4">Title: {source.title}</h4>
-		{#if source.URL != null && source.URL != ''}
+		<h4 class="h4">Created By: {JSON.parse(source?.user)?.fullName}</h4>
+		<h4 class="h4">Title: {source?.title}</h4>
+		{#if source?.URL != null && source?.URL != ''}
 			<h4 class="h4">
 				URL: <a href={source.URL} target="_blank" rel="noreferrer noopener">{source.URL}</a>
 			</h4>
@@ -45,7 +45,7 @@
 		{#if source.date != null && source.date != '' && source.date.year != null && source.date.year != ''}
 			<h4 class="h4">Date: {source.date.month} {suffixMe(source.date.day)} {source.date.year}</h4>
 		{/if}
-		{#if source.publisher != null && source.publisher != ''}
+		{#if source?.publisher != null && source.publisher != ''}
 			<h4 class="h4">Publisher: {source.publisher}</h4>
 		{/if}
 	</div>
@@ -70,5 +70,4 @@
 			</button>
 		</section>
 	</div>
-	<h4 class="h4">Citations</h4>
 </div>
