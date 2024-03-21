@@ -24,7 +24,6 @@
 </script>
 
 <AdminBanner />
-
 <div class="space px-10 py-10">
 	<h1>Export Type</h1>
 	<select class="select" size="1" bind:value={valueSingle}>
@@ -70,6 +69,9 @@
 										<button type="submit" class="btn variant-filled-error">Delete</button>
 									</form>
 								</td>
+							{:else}
+								<td><div class="btn variant-filled-tertiary">N/A</div></td>
+								<td><div class="btn variant-filled-error">N/A</div></td>
 							{/if}
 						</SignedIn>
 					</ClerkLoaded>
@@ -88,3 +90,18 @@
 		</div>
 	</SignedIn>
 </div>
+
+<style lang="scss">
+	td {
+		padding: 5px;
+		justify-content: center;
+		text-align: center;
+		align-items: center;
+	}
+	th {
+		padding: 5px;
+		justify-content: center;
+		text-align: center;
+		align-items: center;
+	}
+</style>

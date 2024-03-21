@@ -33,11 +33,13 @@
 					</td>
 					<td>
 						<form action="?/updateRole&id={user.id}" method="POST">
-							<select class="select" name="role" value={user.publicMetadata.role}>
-								<option value="User">User</option>
-								<option value="Admin">Admin</option>
-							</select>
-							<button type="submit" class="btn variant-filled-error">Update</button>
+							<div class="flex gap-2">
+								<select class="select" name="role" value={user.publicMetadata.role}>
+									<option value="User">User</option>
+									<option value="Admin">Admin</option>
+								</select>
+								<button type="submit" class="btn variant-filled-error">Update</button>
+							</div>
 						</form>
 					</td>
 				</tr>
@@ -47,3 +49,18 @@
 	<!-- Footer -->
 	<footer class="flex justify-between"></footer>
 </div>
+
+<style lang="scss">
+	td {
+		padding: 5px;
+		justify-content: center;
+		text-align: center;
+		align-items: center;
+	}
+	th {
+		padding: 5px;
+		justify-content: center;
+		text-align: center;
+		align-items: center;
+	}
+</style>
