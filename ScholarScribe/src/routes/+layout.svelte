@@ -86,7 +86,8 @@
 					<li><a href="/admin">UserProfile</a></li>
 					<li><a href="/Add Source">Add Source</a></li>
 					<li><a href="/Sources">View Sources</a></li>
-					<li><a href="/Add Groups">View Groups</a></li>
+					<li><a href="/Add Groups">Add Groups</a></li>
+					<li><a href="/Groups">View Groups</a></li>
 					<li><SignOutButton signOutCallback={() => sOut()} /></li>
 				</SignedIn>
 			</ul>

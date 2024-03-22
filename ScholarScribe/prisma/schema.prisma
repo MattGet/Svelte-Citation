@@ -40,11 +40,10 @@ type Groups {
   title       String
   author      Author[]
   date        Date?
-  genDel      String?
-  genre       String? 
+  genDel      String
+  genre       String[] 
   tags        String[]
   isPublic    Boolean? 
-
 }
 
 type Date {

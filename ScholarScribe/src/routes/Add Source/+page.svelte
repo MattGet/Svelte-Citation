@@ -15,6 +15,7 @@
 	import SignedOut from 'clerk-sveltekit/client/SignedOut.svelte';
 
 	let form = 'webpage';
+	
 </script>
 
 <SignedIn let:user>
