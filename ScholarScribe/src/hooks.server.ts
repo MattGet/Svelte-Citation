@@ -23,8 +23,8 @@ export const handle: Handle = async ({ event, resolve }) => {
     if (cookieTheme) {
         theme = cookieTheme;
     } else {
-        event.cookies.set('theme', 'hamlindigo', { path: '/' });
-        theme = 'hamlindigo';
+        event.cookies.set('theme', 'wintry', { path: '/' });
+        theme = 'wintry';
     }
 
     return await resolve(event, {

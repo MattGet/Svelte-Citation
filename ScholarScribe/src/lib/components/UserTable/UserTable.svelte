@@ -5,7 +5,7 @@
 	export let users;
 </script>
 
-<div class=" overflow-x-auto space-y-4">
+<div class=" overflow-x-auto space-y-4 px-5">
 	<!-- Header -->
 	<header class="flex justify-between gap-4"></header>
 	<!-- Table -->
