@@ -11,28 +11,29 @@ datasource db {
 }
 
 model Source {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  type      String
-  title     String?
-  URL       String?
-  userid    String
-  groups    Groups[]
-  author    Author[]
-  date      Date?
-  publisher String?
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  type         String
+  title        String?
+  URL          String?
+  userid       String
+  user         String?
+  author       Author[]
+  date         Date?
+  publisher    String?
   volume_title String?
   volume String?
   issue String?
   page String?
   edition String?
   locator String? //patent number
-  
 }
 
 type Author {
-  family String
-  given  String
-  suffix String?
+  family      String
+  given       String
+  suffix      String?
+  sequence    String?
+  affiliation String[]
 }
 type Groups {
   sourceid    String?   

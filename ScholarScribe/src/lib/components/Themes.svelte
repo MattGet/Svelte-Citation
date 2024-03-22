@@ -43,8 +43,7 @@
 		class="btn variant-soft-primary"
 		use:popup={{ event: 'click', target: 'theme', closeQuery: 'a[href]' }}
 	>
-		<i class="fa-solid fa-palette text-lg md:!hidden" />
-		<span class="hidden md:inline-block">Theme</span>
+		<i class="fa-solid fa-palette text-lg" />
 		<i class="fa-solid fa-caret-down" />
 	</button>
 	<!-- popup -->

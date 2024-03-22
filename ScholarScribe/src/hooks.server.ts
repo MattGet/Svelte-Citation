@@ -11,7 +11,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 
     handleClerk(CLERK_SECRET_KEY, {
         debug: true,
-        protectedPaths: ['/admin'],
+        protectedPaths: ['/Admin'],
         signInUrl: '/Login',
     })
 
@@ -23,8 +23,8 @@ export const handle: Handle = async ({ event, resolve }) => {
     if (cookieTheme) {
         theme = cookieTheme;
     } else {
-        event.cookies.set('theme', 'hamlindigo', { path: '/' });
-        theme = 'hamlindigo';
+        event.cookies.set('theme', 'wintry', { path: '/' });
+        theme = 'wintry';
     }
 
     return await resolve(event, {

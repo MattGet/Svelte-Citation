@@ -44,10 +44,9 @@
 	import UserButton from 'clerk-sveltekit/client/UserButton.svelte';
 	import SignOutButton from 'clerk-sveltekit/client/SignOutButton.svelte';
 	import ClerkLoading from 'clerk-sveltekit/client/ClerkLoading.svelte';
+	import ClerkLoaded from 'clerk-sveltekit/client/ClerkLoaded.svelte';
 	import Themes from '$lib/components/Themes.svelte';
-	function sOut() {
-		window.location.href = '/';
-	}
+	import NavSandwich from '$lib/components/NavSandwich.svelte';
 </script>
 
 <!-- App Shell -->
@@ -56,7 +55,8 @@
 		<!-- App Bar -->
 		<AppBar>
 			<svelte:fragment slot="lead">
-				<a class="text-xl uppercase bold" href="/">Scholar Scribe</a>
+				<NavSandwich />
+				<a class="text-xl uppercase bold px-4" href="/">Scholar Scribe</a>
 			</svelte:fragment>
 			<svelte:fragment slot="trail">
 				<Themes />
@@ -69,29 +69,4 @@
 	</svelte:fragment>
 	<!-- Page Route Content -->
 	<slot />
-
-	<svelte:fragment slot="sidebarLeft">
-		<!-- Insert the list: -->
-		<nav class="list-nav">
-			<ul>
-				<li><a href="/">Home</a></li>
-				<ClerkLoading>
-					<ProgressBar value={undefined} meter="stroke-primary-500" strokeLinecap="round" />
-				</ClerkLoading>
-				<SignedOut>
-					<li><a href="/Login">Login</a></li>
-					<li><a href="/SignUp">Sign Up</a></li>
-				</SignedOut>
-				<SignedIn>
-					<li><a href="/admin">UserProfile</a></li>
-					<li><a href="/Add Source">Add Source</a></li>
-					<li><a href="/Sources">View Sources</a></li>
-					<li><a href="/Add Groups">Add Groups</a></li>
-					<li><a href="/Groups">View Groups</a></li>
-					<li><SignOutButton signOutCallback={() => sOut()} /></li>
-				</SignedIn>
-			</ul>
-		</nav>
-		<!-- --- -->
-	</svelte:fragment>
 </AppShell>

@@ -2,26 +2,51 @@
 	import { Avatar } from '@skeletonlabs/skeleton';
 </script>
 
-<div class="container mx-auto p-8 space-y-8">
-	<h1 class="h1">
-		<span
-			class="bg-gradient-to-br from-blue-500 to-cyan-300 bg-clip-text text-transparent box-decoration-clone"
-			>Welcome to Scholar Scribe</span
-		>
-	</h1>
-	<p>A Web Based Citation Engine</p>
-	<section>
-		<a
-			class="btn variant-filled-primary"
-			href="https://github.com/users/MattGet/projects/2"
-			target="_blank"
-			rel="noreferrer noopener">Project</a
-		>
-		<a
-			class="btn variant-filled-tertiary"
-			href="https://github.com/MattGet/Svelte-Citation/"
-			target="_blank"
-			rel="noreferrer noopener">GitHub</a
-		>
-	</section>
-</div>
+<section
+	class="relative flex h-full shrink-0 flex-col items-center justify-center gap-8 p-4 font-display md:gap-12"
+>
+	<div class="p-4">
+		<section class="flex-col grow items-center justify-center p-4">
+			<h1 class="h1">Welcome to Scholar Scribe</h1>
+			<br />
+			<h4 class="h4 font-bold subpixel-antialiased">A Web Based Citation Engine</h4>
+			<br />
+			<section class="flex gap-4">
+				<a
+					class="btn variant-filled-primary"
+					href="https://github.com/users/MattGet/projects/2"
+					target="_blank"
+					rel="noreferrer noopener">Project</a
+				>
+				<a
+					class="btn variant-filled-tertiary"
+					href="https://github.com/MattGet/Svelte-Citation/"
+					target="_blank"
+					rel="noreferrer noopener">GitHub</a
+				>
+			</section>
+		</section>
+	</div>
+	<video
+		class="absolute -z-10 h-full w-full object-cover"
+		muted
+		autoplay
+		loop
+		playsinline
+		disablepictureinpicture
+	>
+		<source src="/Mesh.mp4" type="video/mp4" />
+	</video>
+</section>
+
+<style lang="scss">
+	h4 {
+		text-align: center;
+	}
+	section {
+		padding: 5px;
+		justify-content: center;
+		text-align: center;
+		align-items: center;
+	}
+</style>

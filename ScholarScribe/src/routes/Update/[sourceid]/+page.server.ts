@@ -17,16 +17,23 @@ export const load: PageServerLoad = async ({ params }) => {
 export const actions: Actions = {
     updateSource: async ({ request }) => {
         const formData = await request.formData();
-        const { title, URL, userid, day, month, year, publisher, type, id } = Object.fromEntries(formData) as {
+        const { title, URL, userid, user, day, month, year, publisher, type, id, volume_title, volume, issue, page, edition, locator } = Object.fromEntries(formData) as {
             title: string
             URL: string
             userid: string
+            user: string
             day: string
             month: string
             year: string
             publisher: string
             type: string
             id: string
+            volume_title: string
+            volume: string
+            issue: string
+            page: string
+            edition: string
+            locator: string
         }
 
         // Extracting numbAuthor as a number, assuming it's part of the form data
@@ -58,6 +65,7 @@ export const actions: Actions = {
                     title,
                     URL,
                     userid,
+                    user,
                     date: {
                         year,
                         month,
@@ -66,6 +74,12 @@ export const actions: Actions = {
                     publisher,
                     type,
                     author,
+                    volume_title,
+                    volume,
+                    issue,
+                    page,
+                    edition,
+                    locator,
                 },
             })
         } catch (err) {

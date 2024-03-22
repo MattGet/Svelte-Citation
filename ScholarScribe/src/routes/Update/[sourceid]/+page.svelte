@@ -14,7 +14,7 @@
 	import SignedIn from 'clerk-sveltekit/client/SignedIn.svelte';
 	import SignedOut from 'clerk-sveltekit/client/SignedOut.svelte';
 
-	import Author from '$lib/components/Author.svelte';
+	import Author from '$lib/components/Forms/Author.svelte';
 	import { Months } from '$lib/client/helper.funcs';
 
 	let maxAuthors = 10;
@@ -98,6 +98,36 @@
 						/>
 					</section>
 				</label>
+				<section class="flex flex-row gap-4">
+					<label class="label basis-2/5">
+						<span>Volume Title</span>
+						<input
+							class="input"
+							name="volume_title"
+							type="text"
+							placeholder="volume"
+							value={source.volume_title}
+						/>
+					</label>
+					<label class="label basis-1/5">
+						<span>Issue</span>
+						<input class="input" name="issue" type="number" placeholder="0" value={source.issue} />
+					</label>
+					<label class="label basis-1/5">
+						<span>Volume Number</span>
+						<input
+							class="input"
+							name="volume"
+							type="number"
+							placeholder="0"
+							value={source.volume}
+						/>
+					</label>
+					<label class="label basis-1/5">
+						<span>Pages</span>
+						<input class="input" name="page" type="text" placeholder="1-10" value={source.page} />
+					</label>
+				</section>
 				<label class="label">
 					<span>URL</span>
 					<input class="input" name="URL" type="text" placeholder="URL" value={source.URL} />
@@ -116,7 +146,7 @@
 					<span>Type</span>
 					<select class="select" size="1" name="type" value={source.type}>
 						<option value="webpage">Website</option>
-						<option value="article">Journal</option>
+						<option value="article-journal">Journal</option>
 						<option value="book">Book</option>
 					</select>
 				</label>
@@ -127,6 +157,7 @@
 				</label>
 				<input class="input" type="hidden" name="numAuthors" value={NUMB} />
 				<input class="input" type="hidden" name="userid" value={user?.id} />
+				<input class="input" type="hidden" name="user" value={JSON.stringify(user)} />
 				<input class="input" type="hidden" name="id" value={source.id} />
 				<button type="submit" class="btn variant-filled">Submit</button>
 			</div>
