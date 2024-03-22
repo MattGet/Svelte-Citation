@@ -65,7 +65,7 @@
 				<tr>
 					<td>{JSON.parse(source.user ?? '')?.fullName}</td>
 					<td>{source.type}</td>
-					<td>{source.title}</td>
+					<td>{source.title.length > 30 ? source.title.substring(0, 30) + '...' : source.title}</td>
 					<td>{source.author[0]?.given} {source.author[0]?.family}</td>
 					<td>
 						<a class="btn variant-filled-secondary" href="/Source/{source.id}">View</a>
