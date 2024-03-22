@@ -1,6 +1,4 @@
 import type { Action } from '@sveltejs/kit';
-
-
 export const actions: { createGroup: Action } = {
     createGroup: async ({ request }) => {
         const formData = new URLSearchParams(await request.text());

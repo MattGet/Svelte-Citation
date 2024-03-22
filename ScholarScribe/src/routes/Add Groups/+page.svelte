@@ -1,7 +1,7 @@
 <script lang="ts">
     import SignedIn from 'clerk-sveltekit/client/SignedIn.svelte';
     import SignedOut from 'clerk-sveltekit/client/SignedOut.svelte';
-	import createGroup from '$lib/components/GroupForm.svelte';
+	  import createGroup from '$lib/components/GroupForm.svelte';
 	let group = {
         title: '',
         userid: '',
