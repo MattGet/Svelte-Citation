@@ -16,9 +16,9 @@ model Source {
   title     String?
   URL       String?
   userid    String
+  groups    Groups[]
   author    Author[]
   date      Date?
-  keywords  Keywords?
   publisher String?
   volume_title String?
   volume String?
@@ -34,12 +34,15 @@ type Author {
   given  String
   suffix String?
 }
-type Keywords {
-  sourceid    String   
+type Groups {
+  sourceid    String?   
+  userid      String
   title       String
   author      Author[]
   date        Date?
+  genDel      String?
   genre       String? 
+  tags        String[]
   isPublic    Boolean? 
 
 }
