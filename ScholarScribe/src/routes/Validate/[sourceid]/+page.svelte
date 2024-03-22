@@ -153,7 +153,7 @@
 				<input class="input" type="hidden" name="user" value={JSON.stringify(user)} />
 				<input class="input" type="hidden" name="id" value={source.id} />
 				<section class="flex flex-row gap-4">
-					<button type="submit" class="btn variant-filled">Submit</button>
+					<button type="submit" class="btn variant-filled-success">Submit</button>
 					<form action="?/deleteSource&id={source.id}" method="POST">
 						<button type="submit" class="btn variant-filled-error">Cancel Import</button>
 					</form>

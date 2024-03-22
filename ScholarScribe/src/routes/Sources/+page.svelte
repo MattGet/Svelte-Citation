@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	import { exportJSON, exportBibTex } from '$lib/client/export.funcs';
+	import { enhance } from '$app/forms';
 
 	export let data: PageData;
 
@@ -8,6 +9,7 @@
 
 	import SignedIn from 'clerk-sveltekit/client/SignedIn.svelte';
 	import AdminBanner from '$lib/components/AdminBanner.svelte';
+	import type { SubmitFunction } from '@sveltejs/kit';
 
 	let valueSingle: string = 'JSON';
 
@@ -19,6 +21,16 @@
 		} else {
 		}
 	}
+
+	const submit: SubmitFunction = async ({ cancel }) => {
+		if (confirm('Are you sure you want to delete this post?')) {
+			return async ({ update }) => {
+				return update();
+			};
+		} else {
+			cancel();
+		}
+	};
 </script>
 
 <AdminBanner />
@@ -51,7 +63,7 @@
 		<tbody>
 			{#each sources as source, i}
 				<tr>
-					<td>{JSON.parse(source.user)?.fullName}</td>
+					<td>{JSON.parse(source.user ?? '')?.fullName}</td>
 					<td>{source.type}</td>
 					<td>{source.title}</td>
 					<td>{source.author[0]?.given} {source.author[0]?.family}</td>
@@ -64,7 +76,7 @@
 								<a class="btn variant-filled-tertiary" href="/Update/{source.id}">Update</a>
 							</td>
 							<td>
-								<form action="?/deleteSource&id={source.id}" method="POST">
+								<form action="?/deleteSource&id={source.id}" method="POST" use:enhance={submit}>
 									<button type="submit" class="btn variant-filled-error">Delete</button>
 								</form>
 							</td>
