@@ -15,6 +15,27 @@ export const load: PageServerLoad = async ({ params }) => {
 }
 
 export const actions: Actions = {
+    deleteSource: async ({ url }) => {
+        const id = url.searchParams.get("id")
+        if (!id) {
+            return fail(400, { message: "Invalid request" })
+        }
+
+        try {
+            await prisma.source.delete({
+                where: {
+                    id: id,
+                },
+            })
+        } catch (err) {
+            console.error(err)
+            return fail(500, {
+                message: "Something went wrong deleting your article",
+            })
+        }
+
+        redirect(303, "/Sources")
+    },
     updateSource: async ({ request }) => {
         const formData = await request.formData();
         const { title, URL, userid, user, day, month, year, publisher, type, id, volume_title, volume, issue, page, edition, locator } = Object.fromEntries(formData) as {
