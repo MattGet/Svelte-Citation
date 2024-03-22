@@ -7,9 +7,9 @@
 >
 	<div class="p-4">
 		<section class="flex-col grow items-center justify-center p-4">
-			<h1 class="h1">Welcome to Scholar Scribe</h1>
+			<h1 class="h1 subpixel-antialiased text-white">Welcome to Scholar Scribe</h1>
 			<br />
-			<h4 class="h4 font-bold subpixel-antialiased">A Web Based Citation Engine</h4>
+			<h4 class="h4 font-bold subpixel-antialiased text-white">A Web Based Citation Engine</h4>
 			<br />
 			<section class="flex gap-4">
 				<a
