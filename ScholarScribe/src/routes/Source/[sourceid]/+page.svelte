@@ -1,13 +1,10 @@
 <script lang="ts">
-	import Author from '$lib/components/Author.svelte';
 	import type { PageData } from './$types';
 	import { clipboard } from '@skeletonlabs/skeleton';
 	import { suffixMe } from '$lib/client/helper.funcs';
 	import ClerkLoaded from 'clerk-sveltekit/client/ClerkLoaded.svelte';
 	import AdminBanner from '$lib/components/AdminBanner.svelte';
 	//@ts-ignore
-	import { Cite } from '@citation-js/core';
-	import '@citation-js/plugin-bibtex';
 
 	export let data: PageData;
 	$: ({ source } = data);
@@ -40,13 +37,41 @@
 			</h4>
 		{/if}
 		{#each source.author as author, i}
-			<h4 class="h4">Author {i + 1}: {author.given} {author.family} {author.suffix}</h4>
+			<h4 class="h4">
+				Author {i + 1}: {author.given ?? ''}
+				{author.family ?? ''}
+				{author.suffix ?? ''}
+			</h4>
 		{/each}
 		{#if source.date != null && source.date != '' && source.date.year != null && source.date.year != ''}
-			<h4 class="h4">Date: {source.date.month} {suffixMe(source.date.day)} {source.date.year}</h4>
+			<h4 class="h4">
+				Date: {source.date.month ?? ''}
+				{suffixMe(source.date.day)}
+				{source.date.year ?? ''}
+			</h4>
 		{/if}
 		{#if source?.publisher != null && source.publisher != ''}
 			<h4 class="h4">Publisher: {source.publisher}</h4>
+		{/if}
+		{#if source?.volume_title != null && source.volume_title != ''}
+			<h4 class="h4">
+				Volume Title: {source.volume_title ?? ''}
+			</h4>
+		{/if}
+		{#if source?.issue != null && source.issue != ''}
+			<h4 class="h4">
+				Issue: {source.issue ?? ''}
+			</h4>
+		{/if}
+		{#if source?.volume != null && source.volume != ''}
+			<h4 class="h4">
+				Volume Number: {source.volume ?? ''}
+			</h4>
+		{/if}
+		{#if source?.page != null && source.page != ''}
+			<h4 class="h4">
+				Pages: {source.page ?? ''}
+			</h4>
 		{/if}
 	</div>
 	<div class="container mx-auto p-8 space-y-8">

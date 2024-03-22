@@ -41,10 +41,10 @@
 </script>
 
 <SignedIn let:user>
-	<div>
+	<div class="flex-col justify-center">
 		<form action="?/updateSource" method="POST">
-			<div class="space-y-8 px-20 pt-10 pb-40">
-				<h3>Update {source.type} citation</h3>
+			<div class="space-y-8 px-20 pt-10 pb-10">
+				<h1 class="h1">Confirm {source.type} import</h1>
 				<label class="label">
 					<span>Title</span>
 					<input
@@ -152,7 +152,12 @@
 				<input class="input" type="hidden" name="userid" value={user?.id} />
 				<input class="input" type="hidden" name="user" value={JSON.stringify(user)} />
 				<input class="input" type="hidden" name="id" value={source.id} />
-				<button type="submit" class="btn variant-filled">Submit</button>
+				<section class="flex flex-row gap-4">
+					<button type="submit" class="btn variant-filled">Submit</button>
+					<form action="?/deleteSource&id={source.id}" method="POST">
+						<button type="submit" class="btn variant-filled-error">Cancel Import</button>
+					</form>
+				</section>
 			</div>
 		</form>
 	</div>
