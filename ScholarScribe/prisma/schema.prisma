@@ -39,9 +39,7 @@ model Group {
   id           String   @id @default(auto()) @map("_id") @db.ObjectId
   sourceid    String?   
   userid      String
-  title       String
-  author      Author[]
-  date        Date?
+  title       String @unique
   genDel      String
   genre       String[] 
   tags        String[]

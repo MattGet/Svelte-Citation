@@ -57,12 +57,13 @@
     "@citation-js/plugin-isbn": "^0.4.0",
     "@clerk/backend": "^0.38.3",
     "@floating-ui/dom": "1.6.1",
-    "@prisma/client": "^5.9.0",
+    "@prisma/client": "^5.11.0",
     "@vincjo/datatables": "^1.14.5",
     "citation-js": "^0.7.9",
     "clerk-sveltekit": "^0.4.1",
     "dotenv": "^16.4.1",
     "file-saver": "^2.0.5",
-    "highlight.js": "11.9.0"
+    "highlight.js": "11.9.0",
+    "svelte-routing": "^2.12.0"
   }
 }

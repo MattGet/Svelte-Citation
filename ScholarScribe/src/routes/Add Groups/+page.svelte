@@ -1,108 +1,113 @@
 <script lang="ts">
-  // Import the Prisma client instance
+  import { navigate } from 'svelte-routing'; // Import navigate for redirect
+
+  let isLoading = false;
+  let errorMessage = '';
+  let successMessage = '';
 
   // Function to create a new group
+
   async function createGroup(event: Event) {
-    event.preventDefault();
-    
-    // Extract form data
-    const formData = new FormData(event.target as HTMLFormElement);
-    const title = formData.get('title') as string;
-    const userId = formData.get('userid') as string;
-    const genDel = formData.get('genDel') as string;
-    const isPublic = formData.get('isPublic') === 'on';
+  event.preventDefault();
 
-    // Call the Prisma createGroup function
-    try {
-      const newGroup = await prisma.group.create({
-        data: {
-          title,
-          userId,
-          genDel,
-          isPublic,
-        },
-      });
-      console.log('New group created:', newGroup);
-    } catch (error) {
-      console.error('Error creating group:', error);
-    }
-  }
+  const formData = new FormData(event.target as HTMLFormElement);
+  const title = formData.get('title') as string;
+  const userid = formData.get('userid') as string;
+  const genDel = formData.get('genDel') as string;
+  const genre = (formData.get('genre') as string).split(',').map(genre => genre.trim());
+  const tags = (formData.get('tags') as string).split(',').map(tag => tag.trim());
+  const isPublic = formData.get('isPublic') === 'on';
 
-  // Function to get a group by ID
-  async function getGroupById(groupId: number) {
-    try {
-      const group = await prisma.group.findUnique({
-        where: {
-          id: groupId,
-        },
-      });
-      console.log('Group found:', group);
-      return group;
-    } catch (error) {
-      console.error('Error fetching group:', error);
-      return null;
-    }
-  }
+  try {
+    const response = await fetch('src/routes/Add Groups/_page.server.ts', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ title, userid, genDel, genre, tags, isPublic }),
+    });
 
-  // Function to update a group
-  async function updateGroup(groupId: number, data: { title?: string; userId?: string; genDel?: string; isPublic?: boolean }) {
-    try {
-      const updatedGroup = await prisma.group.update({
-        where: {
-          id: groupId,
-        },
-        data,
-      });
-      console.log('Group updated:', updatedGroup);
-      return updatedGroup;
-    } catch (error) {
-      console.error('Error updating group:', error);
-      return null;
+    if (response.ok) {
+      console.log('New group created successfully');
+      // Handle success
+    } else {
+      console.error('Error creating group:', response.statusText);
+      // Handle error
     }
+  } catch (error) {
+    console.error('Error creating group:', error);
+    // Handle error
   }
+}
 
-  // Function to delete a group
-  async function deleteGroup(groupId: number) {
-    try {
-      await prisma.group.delete({
-        where: {
-          id: groupId,
-        },
-      });
-      console.log('Group deleted');
-    } catch (error) {
-      console.error('Error deleting group:', error);
-    }
-  }
 </script>
 
 
+{#if errorMessage}
+  <div class="error-message">{errorMessage}</div>
+{/if}
+
+{#if successMessage}
+  <div class="success-message">{successMessage}</div>
+{/if}
+
 <form class="variant-filled-primary" on:submit={createGroup}>
   <label>
-      Title:
-      <input type="text" name="title">
+    Title:
+    <input type="text" name="title">
   </label>
   <label>
-      User ID:
-      <input type="text" name="userid">
+    User ID:
+    <input type="text" name="userid">
   </label>
   <label>
-      General Delegation:
-      <input type="text" name="genDel">
+    General Delegation:
+    <input type="text" name="genDel">
   </label>
   <label>
-      Is the Group public?:
-      <input type="checkbox" name="isPublic">
+    Genre (comma-separated):
+    <input type="text" name="genre">
   </label>
-  <button type="submit" class="btn btn-lg variant-filled-tertiary">Create Group</button>
+  <label>
+    Tags (comma-separated):
+    <input type="text" name="tags">
+  </label>
+  <label>
+    Is the Group public?:
+    <input type="checkbox" name="isPublic">
+  </label>
+  <button type="submit" class="btn btn-lg variant-filled-tertiary" disabled={isLoading}>
+    {#if isLoading}
+      <span>Loading...</span>
+    {:else}
+      <span>Create Group</span>
+    {/if}
+  </button>
 </form>
+
 <style>
+  .error-message, .success-message {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 4px;
+  }
+
+  .error-message {
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    color: #721c24;
+  }
+
+  .success-message {
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+    color: #155724;
+  }
   form {
     max-width: 400px;
     margin: 0 auto;
     padding: 20px;
     border-radius: 8px;
-    
   }
 
   label {
@@ -132,6 +137,4 @@
     border: none;
     cursor: pointer;
   }
-
-  
 </style>
