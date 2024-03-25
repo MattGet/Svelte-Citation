@@ -1,6 +1,39 @@
 Scholar Scribe, A web-based citation engine powered by Sveltekit & MongoDB
 
 
+Scholar Scribe Release V 0.1.2 -  3/22/2024
+
+
+New features:
+  * Redesigned UI, is now more friendly for mobile and smaller screens
+  * BibTex Export now contains full source information
+  * Increased information density and source types
+  * Ability to customize themes on demand
+  * Admin role and root user designation
+  * Layered access control
+  * Ability to import via DOI or ISBN, with support for multiple APIs
+  * Ability to share references
+
+Known issues:
+  * UI will need to scale better to suit a large number of sources 
+  * Ability to copy a link does not work on reverse proxy
+
+
+Possible features in the future:
+  * Export in bibliography formats such as APA, MLA, Chicago
+  * Grouping/tagging of sources
+  * User Groups
+  * Import citation from a file (JSON/BibTex)
+  * Import and Export citation database
+  * Import from zotero or mendelay
+
+
+Links:
+  * Project: https://github.com/users/MattGet/projects/2/views/1
+  * GitHub Repo: https://github.com/MattGet/Svelte-Citation
+
+
+
 Scholar Scribe Release V 0.1.1 -  2/16/2024
 
 
