@@ -35,7 +35,8 @@ type Author {
   sequence    String?
   affiliation String[]
 }
-type Groups {
+model Group {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
   sourceid    String?   
   userid      String
   title       String
