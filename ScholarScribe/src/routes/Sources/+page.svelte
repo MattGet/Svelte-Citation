@@ -81,8 +81,8 @@
 								</form>
 							</td>
 						{:else}
-							<td><div class="btn variant-filled-tertiary">N/A</div></td>
-							<td><div class="btn variant-filled-error">N/A</div></td>
+							<td><!-- <div class="variant-filled-tertiary p-3">Not Owner</div> --></td>
+							<td><!-- <div class="variant-filled-error p-3">Not Owner</div> --></td>
 						{/if}
 					</SignedIn>
 					<td>
@@ -107,6 +107,7 @@
 		justify-content: center;
 		text-align: center;
 		align-items: center;
+		vertical-align: middle;
 	}
 	th {
 		padding: 5px;
