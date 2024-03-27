@@ -9,14 +9,16 @@
 
 	// Floating UI for Popups
 	import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';
-	import { storePopup } from '@skeletonlabs/skeleton';
+	import { CodeBlock, TreeView, TreeViewItem, storePopup } from '@skeletonlabs/skeleton';
 	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
 
 	import SignedIn from 'clerk-sveltekit/client/SignedIn.svelte';
 	import SignedOut from 'clerk-sveltekit/client/SignedOut.svelte';
+	import MasterFormComponents from '$lib/components/Forms/MasterFormComponents.svelte';
 
 	let formType = 'import';
 	export let form;
+	let source: any;
 </script>
 
 <SignedIn let:user>
@@ -31,15 +33,38 @@
 		</select>
 	</div>
 
-	{#if form?.message}
-		<div class="flex justify-center pt-8">
-			<div class="card p-4 variant-filled-error" style="width: 50%;">
-				<h4 class="h4" style="text-align: center;">{form.message}</h4>
-			</div>
-		</div>
-	{/if}
 	{#if formType == 'import'}
-		<Import {user} />
+		{#if form?.message}
+			<div class="flex justify-center pt-8">
+				<div class="card p-4 variant-filled-error" style="width: 50%;">
+					<h4 class="h4" style="text-align: center;">{form.message}</h4>
+				</div>
+			</div>
+			<div class="card p-4 m-10">
+				<TreeView>
+					<TreeViewItem>
+						Import Again
+						<svelte:fragment slot="children">
+							<Import {user} />
+						</svelte:fragment>
+					</TreeViewItem>
+					<TreeViewItem>
+						Cite Manually
+						<svelte:fragment slot="children">
+							<form action="?/createSource" method="POST">
+								<div class="space-y-8 px-20 pt-10 pb-40">
+									<h3>Manually Import Citation</h3>
+									<MasterFormComponents {source} {user} />
+									<button type="submit" class="btn variant-filled">Submit</button>
+								</div>
+							</form>
+						</svelte:fragment>
+					</TreeViewItem>
+				</TreeView>
+			</div>
+		{:else}
+			<Import {user} />
+		{/if}
 	{:else if formType == 'webpage'}
 		<WebForm {user} />
 	{:else if formType == 'journal'}
