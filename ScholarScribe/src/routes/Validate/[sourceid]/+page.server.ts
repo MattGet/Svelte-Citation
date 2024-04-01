@@ -34,7 +34,7 @@ export const actions: Actions = {
             })
         }
 
-        redirect(303, "/Sources")
+        redirect(303, "/Add Source")
     },
     updateSource: async ({ request }) => {
         const formData = await request.formData();

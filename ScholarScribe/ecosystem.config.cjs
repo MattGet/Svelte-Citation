@@ -16,8 +16,10 @@ module.exports = {
                 PORT: 5173, // port the app will be launched on
                 ORIGIN: 'http://ramen.valpo.edu'
             },
-            watch: true,
-            ignore_watch: ['node_modules'],
+			watch: ["prisma", "src"],
+			// Delay between restart
+			watch_delay: 10000,
+			ignore_watch : ["node_modules", "client/img", "\\.git", "*.log"],
 		}
 	]
 };
