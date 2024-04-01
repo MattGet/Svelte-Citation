@@ -19,7 +19,7 @@
   const isPublic = formData.get('isPublic') === 'on';
 
   try {
-    const response = await fetch('src/routes/Add Groups/_page.server.ts', {
+    const response = await fetch('src/routes/Groups/+page.server.ts', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

@@ -1,30 +1,13 @@
-// +page.server.ts
-
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-export async function _post(request: any) {
-    const { title, userid, genDel, isPublic } = request.body;
-
+export async function _getGroups() {
     try {
-        const newGroup = await prisma.group.create({
-            data: {
-                title,
-                userid,
-                genDel,
-                isPublic
-            }
-        });
-
-        return {
-            status: 201,
-            body: newGroup
-        };
+        const groups = await prisma.group.findMany();
+        return groups;
     } catch (error) {
-        return {
-            status: 500,
-            body: { error: 'Error creating group' }
-        };
+        console.error('Error fetching groups:', error);
+        throw error;
     }
 }

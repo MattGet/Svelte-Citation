@@ -1,16 +1,16 @@
-<!-- GroupList.svelte -->
+<!-- Groups.svelte -->
 
 <script lang="ts">
-    import { PrismaClient } from '@prisma/client';
     import { onMount } from 'svelte';
+    import { getGroups } from './Groups/+page.server';
 
-    const prisma = new PrismaClient();
+
     let groups: any[] = [];
 
-    // Function to fetch groups from the database
+    // Function to fetch groups from the server
     async function fetchGroups() {
         try {
-            groups = await prisma.group.findMany();
+            groups = await getGroups();
             console.log('Groups fetched:', groups);
         } catch (error) {
             console.error('Error fetching groups:', error);
