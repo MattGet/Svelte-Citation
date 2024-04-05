@@ -3,23 +3,25 @@
 	import { redirect } from '@sveltejs/kit';
 	import type { PageData } from './$types';
 	import { selectedSources } from '$lib/client/helper.funcs';
+	import { exportType, bibStyle } from '../../stores/sources';
+	import { get } from 'svelte/store';
 
-	let valueSingle: string = 'JSON';
 	export let data: PageData;
+	export let form;
 
 	let sourceIds: string[];
 	$: ({ sources } = data);
 	let selection = selectedSources();
 
-	function routeExport(source: any) {
-		if (valueSingle === 'JSON') {
-			exportJSON(source);
-		} else if (valueSingle === 'BibTex') {
-			exportBibTex(source);
-		} else if (valueSingle === 'Bibliography') {
-			const sourceId = JSON.stringify(source.id);
-			redirect(300, `/CSL/${sourceId}`);
-		}
+	// Function to handle changes in selection
+	function handleChange(event: any) {
+		console.log(event.target.value);
+		exportType.update(event.target.value);
+	}
+
+	function handleChange2(event: any) {
+		console.log(event.target.value);
+		bibStyle.update(event.target.value);
 	}
 
 	function test() {
@@ -30,15 +32,55 @@
 
 <div class="space px-10 py-10">
 	<h1>Export Type</h1>
-	<select class="select" size="1" bind:value={valueSingle}>
+	<select class="select" size="1" on:change={handleChange} bind:value={$exportType}>
 		<option value="JSON">JSON</option>
 		<option value="BibTex">BibTex</option>
 		<option value="Bibliography">Bibliography</option>
 	</select>
 </div>
 
+{#if $exportType == 'Bibliography'}
+	<h1 class="h2 px-10">Export Bibliography</h1>
+	<form class="form p-10" action="?/citeBib" method="POST">
+		<span class="h4">Select Style:</span>
+		<div class="flex gap-10">
+			<select
+				class="select"
+				style="width: 300px"
+				size="1"
+				on:change={handleChange2}
+				bind:value={$bibStyle}
+			>
+				<input class="input" name="style" placeholder="Select Style" />
+				<option value="apa">APA</option>
+				<option value="harvard">Harvard</option>
+				<option value="vancouver">Vancouver</option>
+			</select>
+			<input type="hidden" name="sourceList" value={JSON.stringify(selection)} />
+			<button type="submit" class="btn variant-filled">Submit</button>
+		</div>
+	</form>
+	<div class="px-10">
+		<div class="card p-5">
+			<h4 class="h4 pb-5">Bibliography:</h4>
+			{#if form?.bib}
+				{#each JSON.parse(form?.bib) as bib}
+					{@html bib[1]}
+					<br />
+				{/each}
+			{/if}
+		</div>
+	</div>
+{:else if $exportType == 'BibTex'}
+	<h1 class="h2 px-10">Export BibTex</h1>
+{:else if $exportType == 'JSON'}
+	<h1 class="h2 px-10">Export JSON</h1>
+{/if}
+
+<br />
+<h2 class="h3 px-10 pb-5">Selected Sources:</h2>
 <!-- Responsive Container (recommended) -->
-<div class="table-container px-10 pb-10">
+<div class="table-container px-10">
 	<!-- Native Table Element -->
 	<table class="table table-hover">
 		<thead>
@@ -71,7 +113,7 @@
 		</tbody>
 	</table>
 </div>
-<div class="flex width-full justify-center pb-10 px-10">
+<div class="flex width-full justify-center p-10">
 	<a href="/Sources" class="btn variant-filled" data-sveltekit-preload-data="hover"
 		>Return to Source List
 	</a>

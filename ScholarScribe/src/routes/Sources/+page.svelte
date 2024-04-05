@@ -85,7 +85,7 @@
 
 <AdminBanner />
 <!-- Buttons for "Select All" and "Deselect All" -->
-<div class="flex gap-4 pb-10 px-10">
+<div class="flex gap-4 p-10">
 	<button class="btn variant-filled-primary" on:click={selectAll}>Select All</button>
 	<button class="btn variant-filled-secondary" on:click={deselectAll}>Deselect All</button>
 </div>
