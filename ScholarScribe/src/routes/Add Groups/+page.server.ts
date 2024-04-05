@@ -1,45 +1,37 @@
-import type { Actions } from "./$types"
-import { prisma } from "$lib/server/prisma"
-import { fail, redirect } from "@sveltejs/kit"
-import type { Author } from "@prisma/client"
-import '@citation-js/plugin-doi'
-import '@citation-js/plugin-isbn'
-import '@citation-js/plugin-csl'
-
-
+import type { Actions } from "./$types";
+import { prisma } from "$lib/server/prisma";
+import { fail, redirect } from "@sveltejs/kit";
 
 export const actions: Actions = {
     creategroup: async ({ request }) => {
-        const formData = await request.formData();
-        const { title, userid, genDel, genre, tags, isPublic } = Object.fromEntries(formData) as {
-            title: string
-            userid: string
-            genDel: string
-            genre: string
-            tags: string
-            isPublic:string 
-        }
-
-        // Extracting numbAuthor as a number, assuming it's part of the form data
-        
-       
-        
         try {
+            const formData = await request.formData();
+            const title = formData.get('title') as string;
+            const userid = formData.get('userid') as string;
+            const genDel = formData.get('genDel') as string;
+            const genre = formData.getAll('genre') as string[];
+            const tags = formData.getAll('tags') as string[];
+            const isPublicValue = formData.get('isPublic') as string;
+            const isPublic = isPublicValue === 'true';
+
+            // Assuming Prisma model and fields are correctly defined
             const group = await prisma.group.create({
                 data: {
-                  title,
-                  userid,
-                  genDel,
-                  genre,
-                  tags,
-                  isPublic
+                    title,
+                    userid,
+                    genDel,
+                    genre,
+                    tags,
+                    isPublic,
                 },
-            })
-        } catch (err) {
-            console.error(err)
-            return fail(500, { message: "Could not create the article." })
-        }
+            });
 
-        redirect(303, "/Sources");
+            // Redirect to the groups page after successful creation
+            return redirect(303, "/Groups");
+        } catch (err) {
+            console.error(err);
+            // Return a failure response to the client
+            return fail(500, { message: "Could not create the group." });
+        }
     },
-}
+};

@@ -1,60 +1,116 @@
-<!-- Groups.svelte -->
-
 <script lang="ts">
-    import { onMount } from 'svelte';
-    import { getGroups } from './Groups/+page.server';
+	import type { PageData } from './$types';
+	import { exportJSON, exportBibTex } from '$lib/client/export.funcs';
+	import { enhance } from '$app/forms';
 
+	export let data: PageData;
+	$: ({ groups } = data);
 
-    let groups: any[] = [];
+	import SignedIn from 'clerk-sveltekit/client/SignedIn.svelte';
+	import AdminBanner from '$lib/components/AdminBanner.svelte';
+	import type { SubmitFunction } from '@sveltejs/kit';
 
-    // Function to fetch groups from the server
-    async function fetchGroups() {
-        try {
-            groups = await getGroups();
-            console.log('Groups fetched:', groups);
-        } catch (error) {
-            console.error('Error fetching groups:', error);
-        }
-    }
+	let valueSingle: string = 'JSON';
 
-    // Fetch groups when the component is mounted
-    onMount(fetchGroups);
+	function routeExport(group: any) {
+		if (valueSingle == 'JSON') {
+			exportJSON(group);
+		} else if (valueSingle == 'BibTex') {
+			exportBibTex(group);
+		} else {
+		}
+	}
+
+	const submit: SubmitFunction = async ({ cancel }) => {
+		if (confirm('Are you sure you want to delete this post?')) {
+			return async ({ update }) => {
+				return update();
+			};
+		} else {
+			cancel();
+		}
+	};
 </script>
 
-<style>
-    table {
-        width: 100%;
-        border-collapse: collapse;
-    }
+<AdminBanner />
+<div class="space px-10 py-10">
+	<h1>Export Type</h1>
+	<select class="select" size="1" bind:value={valueSingle}>
+		<option value="JSON">JSON</option>
+		<option value="BibTex">BibTex</option>
+		<option value="Other">Other</option>
+	</select>
+</div>
+<!-- Responsive Container (recommended) -->
+<div class="table-container px-10 pb-10">
+	<!-- Native Table Element -->
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th>Created By</th>
+				<th>Citation Type</th>
+				<th>Title</th>
+				<th>Authors</th>
+				<th>View</th>
+				<SignedIn>
+					<th>Update</th>
+					<th>Delete</th>
+				</SignedIn>
+				<th>Export</th>
+			</tr>
+		</thead>
+		<tbody>
+			{#each groups as group, i}
+				<tr>
+					<td>{JSON.parse(group.user ?? '')?.fullName}</td>
+					<td>{group.type}</td>
+					<td>{group.title.length > 30 ? group.title.substring(0, 30) + '...' : group.title}</td>
+					<td>
+						<a class="btn variant-filled-secondary" href="/Source/{group.id}">View</a>
+					</td>
+					<SignedIn let:user>
+						{#if user?.publicMetadata.role == 'Admin' || user?.id == group.userid}
+							<td>
+								<a class="btn variant-filled-tertiary" href="/Update/{group.id}">Update</a>
+							</td>
+							<td>
+								<form action="?/deleteSource&id={group.id}" method="POST" use:enhance={submit}>
+									<button type="submit" class="btn variant-filled-error">Delete</button>
+								</form>
+							</td>
+						{:else}
+							<td><!-- <div class="variant-filled-tertiary p-3">Not Owner</div> --></td>
+							<td><!-- <div class="variant-filled-error p-3">Not Owner</div> --></td>
+						{/if}
+					</SignedIn>
+					<td>
+						<button class="btn variant-filled" on:click={() => routeExport(group)}>Export</button>
+					</td>
+				</tr>
+			{/each}
+		</tbody>
+	</table>
+	<SignedIn let:user>
+		<div class="flex width-full justify-center p-10">
+			<a href="/Add Source" class="btn variant-filled" data-sveltekit-preload-data="hover"
+				>Add New Source
+			</a>
+		</div>
+	</SignedIn>
+</div>
 
-    th, td {
-        padding: 8px;
-        border: 1px solid #ddd;
-        text-align: left;
-    }
+<style lang="scss">
+	td {
+		padding: 5px;
+		justify-content: center;
+		text-align: center;
+		align-items: center;
+		vertical-align: middle;
+	}
+	th {
+		padding: 5px;
+		justify-content: center;
+		text-align: center;
+		align-items: center;
+	}
 </style>
-
-{#if groups.length > 0}
-    <table>
-        <thead>
-            <tr>
-                <th>Title</th>
-                <th>User ID</th>
-                <th>General Delegation</th>
-                <th>Is Public</th>
-            </tr>
-        </thead>
-        <tbody>
-            {#each groups as group}
-                <tr>
-                    <td>{group.title}</td>
-                    <td>{group.userid}</td>
-                    <td>{group.genDel}</td>
-                    <td>{group.isPublic ? 'Yes' : 'No'}</td>
-                </tr>
-            {/each}
-        </tbody>
-    </table>
-{:else}
-    <p>No groups found.</p>
-{/if}

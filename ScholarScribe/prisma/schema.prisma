@@ -26,6 +26,8 @@ model Source {
   page String?
   edition String?
   locator String? //patent number
+  groupids String[]   @db.ObjectId
+  groups    Group[]  @relation(fields: [groupids], references: [id])
 }
 
 type Author {
@@ -37,13 +39,14 @@ type Author {
 }
 model Group {
   id           String   @id @default(auto()) @map("_id") @db.ObjectId
-  sourceid    String?   
   userid      String
   title       String @unique
   genDel      String
-  genre       String[] 
+  genre       String[]
   tags        String[]
-  isPublic    Boolean? 
+  isPublic    Boolean
+  sourceids   String[] @db.ObjectId
+  users       Source[]   @relation(fields: [sourceids], references: [id])
 }
 
 type Date {
