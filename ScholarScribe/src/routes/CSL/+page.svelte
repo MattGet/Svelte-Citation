@@ -31,7 +31,7 @@
 </script>
 
 <div class="space px-10 py-10">
-	<h1>Export Type</h1>
+	<h1 class="h3">Export Type:</h1>
 	<select class="select" size="1" on:change={handleChange} bind:value={$exportType}>
 		<option value="JSON">JSON</option>
 		<option value="BibTex">BibTex</option>
@@ -39,8 +39,10 @@
 	</select>
 </div>
 
+<hr class="pb-10" />
+
 {#if $exportType == 'Bibliography'}
-	<h1 class="h2 px-10">Export Bibliography</h1>
+	<h1 class="h3 px-10">Export Bibliography</h1>
 	<form class="form p-10" action="?/citeBib" method="POST">
 		<span class="h4">Select Style:</span>
 		<div class="flex gap-10">
@@ -72,9 +74,9 @@
 		</div>
 	</div>
 {:else if $exportType == 'BibTex'}
-	<h1 class="h2 px-10">Export BibTex</h1>
+	<h1 class="h3 px-10">Export BibTex</h1>
 {:else if $exportType == 'JSON'}
-	<h1 class="h2 px-10">Export JSON</h1>
+	<h1 class="h3 px-10">Export JSON</h1>
 {/if}
 
 <br />
@@ -100,7 +102,9 @@
 						<td>{JSON.parse(source.user ?? '')?.fullName}</td>
 						<td>{source.type}</td>
 						<td
-							>{source.title.length > 30 ? source.title.substring(0, 30) + '...' : source.title}</td
+							>{source.title?.length ?? 30 > 30
+								? source.title?.substring(0, 30) + '...'
+								: source.title}</td
 						>
 						<td>{source.author[0]?.given} {source.author[0]?.family}</td>
 						<td>
