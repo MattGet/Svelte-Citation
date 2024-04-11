@@ -42,13 +42,13 @@ export const actions: Actions = {
 
         const csl = formatArrayToCSL(selection)
         // console.log(csl);
-
+        // console.log(`Formatting citation in ${style}.`)
         let data = cite(csl, style);
 
 
-        console.log(data);
+        //console.log(data);
         let bib = JSON.stringify(data);
-        console.log(bib);
+        //console.log(bib);
         return { bib };
     },
 }

@@ -29,7 +29,7 @@
 			<option value="journal">Journal</option>
 			<option value="book">Book</option>
 			<option value="patent">Patent</option>
-			<option value="magazine">Editorial</option>
+			<option value="magazine">Magazine</option>
 		</select>
 	</div>
 
