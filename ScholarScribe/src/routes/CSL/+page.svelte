@@ -6,6 +6,7 @@
 	import { exportType, bibStyle } from '../../stores/sources';
 	import { get } from 'svelte/store';
 	import { enhance } from '$app/forms';
+	import TextDisplay from '$lib/components/TextDisplay.svelte';
 
 	export let data: PageData;
 	export let form;
@@ -27,8 +28,7 @@
 	}
 
 	function test() {
-		console.log(selectedSources());
-		console.log(data);
+		console.log(JSON.parse(form?.Tex));
 	}
 
 	const submit: SubmitFunction = async ({ formData }) => {
@@ -85,8 +85,36 @@
 	</div>
 {:else if $exportType == 'BibTex'}
 	<h1 class="h3 px-10">Export BibTex</h1>
+	<form class="form p-10" action="?/citeTex" method="POST" use:enhance={submit}>
+		<div class="flex gap-10">
+			<input type="hidden" name="sourceList" value={JSON.stringify(selection)} />
+			<button type="submit" class="btn variant-filled">Generate BibTex</button>
+		</div>
+	</form>
+	<div class="px-10">
+		<div class="card p-5">
+			<h4 class="h4 pb-5">BibTex:</h4>
+			{#if form?.Tex}
+				<TextDisplay line={JSON.parse(form?.Tex)} />
+			{/if}
+		</div>
+	</div>
 {:else if $exportType == 'JSON'}
 	<h1 class="h3 px-10">Export JSON</h1>
+	<form class="form p-10" action="?/citeJson" method="POST" use:enhance={submit}>
+		<div class="flex gap-10">
+			<input type="hidden" name="sourceList" value={JSON.stringify(selection)} />
+			<button type="submit" class="btn variant-filled">Generate JSON</button>
+		</div>
+	</form>
+	<div class="px-10">
+		<div class="card p-5">
+			<h4 class="h4 pb-5">JSON:</h4>
+			{#if form?.Json}
+				<TextDisplay line={form?.Json} />
+			{/if}
+		</div>
+	</div>
 {/if}
 
 <br />
@@ -132,3 +160,4 @@
 		>Return to Source List
 	</a>
 </div>
+<!-- <button class="button varient-filled-primary" on:click={test}>Test</button> -->

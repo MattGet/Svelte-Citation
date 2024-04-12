@@ -34,6 +34,26 @@ export function exportBibTex(source: any) {
     a.remove();
 }
 
+export function formatArrayToBibTex(sources: any[]) {
+    console.log("Export BibTexs");
+
+    var jsonse = formatArrayToCSL(sources);
+    const example = new Cite(jsonse);
+    let output = example.format("bibtex");
+    console.log("Output: " + output);
+    return output;
+}
+
+export function formatArrayToJson(sources: any[]) {
+    console.log("Export Jsons");
+
+    var jsonse = formatArrayToCSL(sources);
+    const example = new Cite(jsonse);
+    let output = example.format("data");
+    console.log("Output: " + output);
+    return output;
+}
+
 export function formatToCSL(source: any) {
     let date = { 'date-parts': [Number(source.date.year), Object.keys(Months).indexOf(source.date.month) + 1] }
 

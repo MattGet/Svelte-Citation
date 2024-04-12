@@ -59,6 +59,7 @@
     "@floating-ui/dom": "1.6.1",
     "@prisma/client": "^5.9.0",
     "@vincjo/datatables": "^1.14.5",
+    "bibtex": "^0.9.0",
     "citation-js": "^0.7.9",
     "citeproc": "^2.4.63",
     "clerk-sveltekit": "^0.4.1",
