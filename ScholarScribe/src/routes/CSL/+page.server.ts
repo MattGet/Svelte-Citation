@@ -3,14 +3,16 @@ import { prisma } from "$lib/server/prisma";
 import { sourceList } from "../../stores/sources";
 import { get } from "svelte/store";
 import { fail, redirect } from "@sveltejs/kit";
-import { cite, formatArrayToCSL } from "$lib/client/export.funcs";
+import { cite, formatArrayToCSL, getTemplates } from "$lib/client/export.funcs";
 
 export const load: PageServerLoad = async () => {
     try {
         // Fetch data from Prisma using the selected source IDs
         const fetchedSources = await prisma.source.findMany();
+        let templateList = getTemplates();
         return {
             sources: fetchedSources,
+            templates: serializeNonPOJOs(templateList),
         };
     } catch (error) {
         console.error("Error loading data:", error);
@@ -52,3 +54,8 @@ export const actions: Actions = {
         return { bib };
     },
 }
+
+// Returns value as a plain old javascript object
+const serializeNonPOJOs = (value: object | null) => {
+    return structuredClone(value)
+};

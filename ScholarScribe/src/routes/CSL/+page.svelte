@@ -12,6 +12,7 @@
 
 	let sourceIds: string[];
 	$: ({ sources } = data);
+	$: ({ templates } = data);
 	let selection = selectedSources();
 
 	// Function to handle changes in selection
@@ -63,9 +64,9 @@
 				on:change={handleChange2}
 				bind:value={$bibStyle}
 			>
-				<option value="apa">APA</option>
-				<option value="harvard1">Harvard</option>
-				<option value="vancouver">Vancouver</option>
+				{#each Object.entries(templates?.data) as template, i}
+					<option value={template[0]}>{template[0]}</option>
+				{/each}
 			</select>
 			<input type="hidden" name="sourceList" value={JSON.stringify(selection)} />
 			<button type="submit" class="btn variant-filled">Submit</button>

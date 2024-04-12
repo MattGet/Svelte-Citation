@@ -1,5 +1,5 @@
 //@ts-ignore
-import { Cite } from '@citation-js/core';
+import { Cite, plugins } from '@citation-js/core';
 import '@citation-js/plugin-bibtex'; import '@citation-js/plugin-csl'
 import { Months } from './helper.funcs';
 
@@ -91,4 +91,21 @@ export function cite(data: string, stlye: string) {
         template: stlye,
     })
     return output;
+}
+
+export async function registerStyle(name: string, template: string) {
+    let config = plugins.config.get('@csl');
+    config.templates.add(name, template);
+    console.log(`Registered ${name} style`);
+}
+
+export async function removeStyle(name: string) {
+    let config = plugins.config.get('@csl');
+    config.templates.remove(name);
+    console.log(`Removed ${name} style`);
+}
+
+export function getTemplates() {
+    let config = plugins.config.get('@csl');
+    return config.templates;
 }

@@ -114,6 +114,7 @@
 					<td
 						><input
 							type="checkbox"
+							class="p-4"
 							bind:checked={$sourceList[source.id]}
 							on:change={(e) => handleCheckboxChange(e, source.id)}
 						/></td
