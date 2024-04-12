@@ -5,6 +5,7 @@
 	import PatentForm from '$lib/components/Forms/PatentForm.svelte';
 	import MagazineForm from '$lib/components/Forms/MagazineForm.svelte';
 	import Import from '$lib/components/Forms/Import.svelte';
+	import MusicForm from '$lib/components/Forms/MusicForm.svelte';
 	import '../../app.postcss';
 
 	// Floating UI for Popups
@@ -29,7 +30,9 @@
 			<option value="journal">Journal</option>
 			<option value="book">Book</option>
 			<option value="patent">Patent</option>
-			<option value="magazine">Magazine</option>
+			<option value="magazine">Editorial</option>
+			<option value="music">Music</option>
+
 		</select>
 	</div>
 
@@ -75,6 +78,8 @@
 		<PatentForm {user} />
 	{:else if formType == 'magazine'}
 		<MagazineForm {user} />
+	{:else if formType == 'music'}
+		<MusicForm {user} />
 	{:else}
 		<h1 class="h1">
 			<span
