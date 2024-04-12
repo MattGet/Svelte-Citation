@@ -1,5 +1,6 @@
 <script>
 	import { Avatar } from '@skeletonlabs/skeleton';
+	import { storeTheme } from '$lib/stores/stores';
 </script>
 
 <section
@@ -27,16 +28,20 @@
 			</section>
 		</section>
 	</div>
-	<video
-		class="absolute -z-10 h-full w-full object-cover"
-		muted
-		autoplay
-		loop
-		playsinline
-		disablepictureinpicture
-	>
-		<source src="/Mesh.mp4" type="video/mp4" />
-	</video>
+	{#if $storeTheme == 'Valpo Radiate'}
+		<img class="absolute -z-10 h-full w-full object-cover" src="/Valpo.jpg" alt="Valpo Campus" />
+	{:else}
+		<video
+			class="absolute -z-10 h-full w-full object-cover"
+			muted
+			autoplay
+			loop
+			playsinline
+			disablepictureinpicture
+		>
+			<source src="/Mesh.mp4" type="video/mp4" />
+		</video>
+	{/if}
 </section>
 
 <style lang="scss">
