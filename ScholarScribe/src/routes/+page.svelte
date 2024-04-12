@@ -47,6 +47,19 @@
 <style lang="scss">
 	h4 {
 		text-align: center;
+		text-shadow:
+			-1px 0 black,
+			0 1px black,
+			1px 0 black,
+			0 -1px black;
+	}
+	h1 {
+		text-align: center;
+		text-shadow:
+			-1px 0 black,
+			0 1px black,
+			1px 0 black,
+			0 -1px black;
 	}
 	section {
 		padding: 5px;
