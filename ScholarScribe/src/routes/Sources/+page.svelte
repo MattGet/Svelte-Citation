@@ -9,18 +9,12 @@
 
 	import SignedIn from 'clerk-sveltekit/client/SignedIn.svelte';
 	import AdminBanner from '$lib/components/AdminBanner.svelte';
-	import type { SubmitFunction } from '@sveltejs/kit';
-
-	let valueSingle: string = 'JSON';
-
-	function routeExport(source: any) {
-		if (valueSingle == 'JSON') {
-			exportJSON(source);
-		} else if (valueSingle == 'BibTex') {
-			exportBibTex(source);
-		} else {
-		}
-	}
+	import { redirect, type SubmitFunction } from '@sveltejs/kit';
+	import { sourceList } from '../../stores/sources';
+	import { onMount } from 'svelte';
+	import { derived } from 'svelte/store';
+	import { TabAnchor, TabGroup } from '@skeletonlabs/skeleton';
+	import { page } from '$app/stores';
 
 	const submit: SubmitFunction = async ({ cancel }) => {
 		if (confirm('Are you sure you want to delete this post?')) {
@@ -31,16 +25,69 @@
 			cancel();
 		}
 	};
+
+	// Function to handle checkbox change
+	function handleCheckboxChange(event: Event, id: string) {
+		sourceList.update((existingCheckedState) => ({
+			...existingCheckedState,
+			[id]: (event.target as HTMLInputElement).checked
+		}));
+		console.log($sourceList);
+	}
+
+	// Function to populate the store with all checkboxes
+	function populateStoreWithCheckboxes() {
+		const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+		checkboxes.forEach((checkbox: HTMLInputElement) => {
+			const id = checkbox.dataset.itemId;
+			if (id) {
+				sourceList.update((existingCheckedState) => {
+					const newCheckedState = { ...existingCheckedState };
+					newCheckedState[id] = checkbox.checked;
+					return newCheckedState;
+				});
+			}
+		});
+	}
+
+	// Function to handle "Select All" button click
+	function selectAll() {
+		sourceList.update((existingCheckedState) => {
+			const newCheckedState = { ...existingCheckedState };
+			Object.keys(newCheckedState).forEach((key) => {
+				newCheckedState[key] = true;
+			});
+			return newCheckedState;
+		});
+	}
+
+	// Function to handle "Deselect All" button click
+	function deselectAll() {
+		sourceList.update((existingCheckedState) => {
+			const newCheckedState = { ...existingCheckedState };
+			Object.keys(newCheckedState).forEach((key) => {
+				newCheckedState[key] = false;
+			});
+			return newCheckedState;
+		});
+	}
+
+	// Derive a store to check if any item is selected
+	const anySourceSelected = derived(sourceList, ($sourceList) => {
+		return Object.values($sourceList).some((checked) => checked);
+	});
+
+	onMount(() => {
+		// Populate the store with all checkboxes on the page
+		populateStoreWithCheckboxes();
+	});
 </script>
 
 <AdminBanner />
-<div class="space px-10 py-10">
-	<h1>Export Type</h1>
-	<select class="select" size="1" bind:value={valueSingle}>
-		<option value="JSON">JSON</option>
-		<option value="BibTex">BibTex</option>
-		<option value="Other">Other</option>
-	</select>
+<!-- Buttons for "Select All" and "Deselect All" -->
+<div class="flex gap-4 p-10">
+	<button class="btn variant-filled-primary" on:click={selectAll}>Select All</button>
+	<button class="btn variant-filled-secondary" on:click={deselectAll}>Deselect All</button>
 </div>
 <!-- Responsive Container (recommended) -->
 <div class="table-container px-10 pb-10">
@@ -48,6 +95,7 @@
 	<table class="table table-hover">
 		<thead>
 			<tr>
+				<th>Select</th>
 				<th>Created By</th>
 				<th>Citation Type</th>
 				<th>Title</th>
@@ -57,12 +105,20 @@
 					<th>Update</th>
 					<th>Delete</th>
 				</SignedIn>
-				<th>Export</th>
+				<!-- <th>Export</th> -->
 			</tr>
 		</thead>
 		<tbody>
 			{#each sources as source, i}
 				<tr>
+					<td
+						><input
+							type="checkbox"
+							class="p-4"
+							bind:checked={$sourceList[source.id]}
+							on:change={(e) => handleCheckboxChange(e, source.id)}
+						/></td
+					>
 					<td>{JSON.parse(source.user ?? '')?.fullName}</td>
 					<td>{source.type}</td>
 					<td>{source.title.length > 30 ? source.title.substring(0, 30) + '...' : source.title}</td>
@@ -85,9 +141,7 @@
 							<td><!-- <div class="variant-filled-error p-3">Not Owner</div> --></td>
 						{/if}
 					</SignedIn>
-					<td>
-						<button class="btn variant-filled" on:click={() => routeExport(source)}>Export</button>
-					</td>
+					<!-- <td><button class="btn variant-filled" on:click={() => routeExport(source)}>Export</button></td> -->
 				</tr>
 			{/each}
 		</tbody>
@@ -99,6 +153,25 @@
 			</a>
 		</div>
 	</SignedIn>
+</div>
+<div class="fixed bottom-0" hidden={!$anySourceSelected}>
+	<TabGroup
+		justify="justify-center"
+		active="variant-filled-primary"
+		hover="hover:variant-soft-primary"
+		flex="flex-1 lg:flex-none"
+		rounded=""
+		border=""
+		class="card w-screen"
+	>
+		<TabAnchor href="/CSL" selected={$page.url.pathname === '/CSL'} class="card w-screen">
+			<svelte:fragment slot="lead"
+				><i class="fa fa-download" aria-hidden="true"></i></svelte:fragment
+			>
+			<span>Export</span>
+		</TabAnchor>
+		<!-- ... -->
+	</TabGroup>
 </div>
 
 <style lang="scss">

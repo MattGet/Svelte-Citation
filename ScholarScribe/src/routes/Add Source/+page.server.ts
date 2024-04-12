@@ -92,7 +92,7 @@ export const actions: Actions = {
         let output;
         if (importType == "doi") {
             try {
-                let ref = new Cite(importText);
+                let ref = await Cite.async(importText);
                 output = ref.format('data');
             }
             catch (Error) {
@@ -102,7 +102,7 @@ export const actions: Actions = {
         }
         else if (importType == "isbn") {
             try {
-                let ref = new Cite(importText);
+                let ref = await Cite.async(importText);
                 output = ref.format('data');
             }
             catch (Error) {

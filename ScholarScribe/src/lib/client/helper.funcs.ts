@@ -1,3 +1,5 @@
+import { get } from "svelte/store";
+import { sourceList } from "../../stores/sources";
 
 // "suffixMe" function definition
 export function suffixMe(num: number) {
@@ -36,3 +38,13 @@ export const Months = {
     November: 'November',
     December: 'December',
 }
+
+// Function to get names of selected items
+function getSelectedSources() {
+    const sources = get(sourceList);
+    let sourceArray: string[] = Object.keys(sources).filter((key) => sources[key] === true);
+    //console.log(`Selecting: ${sourceArray}`);
+    return sourceArray;
+}
+
+export const selectedSources = () => getSelectedSources();
