@@ -43,10 +43,10 @@
 			{/each}
 			<section class="flex flex-row gap-4">
 				<button type="button" class="btn variant-filled" on:click={addAuthorInput}
-					>Add Author</button
+					>Add Artist</button
 				>
 				<button type="button" class="btn variant-filled" on:click={removeAuthorInput}
-					>Remove Author</button
+					>Remove Artist</button
 				>
 			</section>
 			<label class="label">
