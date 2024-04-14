@@ -3,6 +3,7 @@ import type { Config } from 'tailwindcss'
 import forms from '@tailwindcss/forms';
 import typography from '@tailwindcss/typography';
 import { skeleton } from '@skeletonlabs/tw-plugin'
+import { groundedRadiate } from './grounded-radiate'
 
 export default {
 	darkMode: 'class',
@@ -14,7 +15,7 @@ export default {
 		forms,
 		typography,
 		skeleton({
-			themes: { preset: ["skeleton", "modern", "hamlindigo", "crimson", "gold-nouveau", "rocket", "seafoam", "sahara", "vintage", "wintry"] },
+			themes: { preset: ["skeleton", "modern", "hamlindigo", "crimson", "gold-nouveau", "rocket", "seafoam", "sahara", "vintage", "wintry"], custom: [groundedRadiate] },
 		}),
 	],
 } satisfies Config;
