@@ -38,7 +38,7 @@ type Author {
   affiliation String[]
 }
 model Group {
-  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
   userid      String
   title       String @unique
   genDel      String
@@ -46,7 +46,7 @@ model Group {
   tags        String[]
   isPublic    Boolean
   sourceids   String[] @db.ObjectId
-  users       Source[]   @relation(fields: [sourceids], references: [id])
+  sources     Source[]   @relation(fields: [sourceids], references: [id])
 }
 
 type Date {
