@@ -33,7 +33,6 @@
 				<th>Secondary Genres</th>
 				<th>Tags</th>
 				<th>Title</th>
-				<th>Users</th>
 				<SignedIn>
 					<th>Delete</th>
 				</SignedIn>
@@ -49,9 +48,6 @@
 					<td>{group.title}</td>
 					<SignedIn let:user>
 						{#if user?.publicMetadata.role == 'Admin' || user?.id == group.userid}
-							<td>
-								<a class="btn variant-filled-tertiary" href="/Update/{group.id}">Update</a>
-							</td>
 							<td>
 								<form action="?/deleteGroup&id={group.id}" method="POST" use:enhance={submit}>
 									<button type="submit" class="btn variant-filled-error">Delete</button>

@@ -25,7 +25,7 @@
     <input type="text" name="genDel">
   </label>
   <label>
-    Genre (comma-separated):
+    Secondary Genres (comma-separated):
     <input type="text" name="genre">
   </label>
   <InputChip bind:value={tags} name="tags" placeholder="Enter tags here..." />
