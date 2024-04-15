@@ -30,6 +30,7 @@ export const Months = {
     Febuary: 'Febuary',
     March: 'March',
     April: 'April',
+    May: 'May',
     June: 'June',
     July: 'July',
     August: 'August',
