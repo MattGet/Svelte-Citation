@@ -4,7 +4,7 @@
   import SignedOut from 'clerk-sveltekit/client/SignedOut.svelte';
   import { InputChip } from '@skeletonlabs/skeleton';
   let isLoading = false;
-  let tags: string[] = ['foo', 'bar', 'fizz', 'buzz'];
+  let tags: string[] = [];
   // Function to create a new group
 </script>
 
@@ -28,7 +28,7 @@
     Genre (comma-separated):
     <input type="text" name="genre">
   </label>
-  <InputChip bind:value={tags} name="chips" placeholder="Enter any value..." />
+  <InputChip bind:value={tags} name="tags" placeholder="Enter tags here..." />
   <label>
     Is the Group public?:
     <input type="checkbox" name="isPublic">
