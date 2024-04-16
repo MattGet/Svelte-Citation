@@ -12,11 +12,13 @@ import { Months } from "$lib/client/helper.funcs";
 export const actions: Actions = {
     createSource: async ({ request }) => {
         const formData = await request.formData();
-        const { title, URL, userid, user, day, month, year, publisher, type, volume_title, volume, issue, page, edition, locator } = Object.fromEntries(formData) as {
+        const { title, URL, userid, user, creator, time, day, month, year, publisher, type, volume_title, volume, issue, page, edition, locator } = Object.fromEntries(formData) as {
             title: string
             URL: string
             userid: string
             user: string
+            creator: string
+            time: string
             day: string
             month: string
             year: string
@@ -57,6 +59,8 @@ export const actions: Actions = {
                     URL,
                     userid,
                     user,
+                    creator,
+                    last_updated: time,
                     date: {
                         year,
                         month,
@@ -82,11 +86,13 @@ export const actions: Actions = {
     },
     importSource: async ({ request }) => {
         const formData = await request.formData();
-        const { importType, importText, userid, user } = Object.fromEntries(formData) as {
+        const { importType, importText, userid, user, creator, time } = Object.fromEntries(formData) as {
             importType: string
             importText: string
             userid: string
             user: string
+            creator: string
+            time: string
         }
 
         let output;
@@ -141,6 +147,8 @@ export const actions: Actions = {
                     URL,
                     userid,
                     user,
+                    creator,
+                    last_updated: time,
                     date: {
                         year,
                         month,

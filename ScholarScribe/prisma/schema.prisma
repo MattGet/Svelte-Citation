@@ -12,6 +12,7 @@ datasource db {
 
 model Source {
   id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  creator      String
   type         String
   title        String?
   URL          String?
@@ -26,6 +27,7 @@ model Source {
   page         String?
   edition      String?
   locator      String? //patent number
+  last_updated String?
 }
 
 type Author {

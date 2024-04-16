@@ -19,6 +19,8 @@
 			</label>
 			<input class="input" type="hidden" name="userid" value={user?.id} />
 			<input class="input" type="hidden" name="user" value={JSON.stringify(user)} />
+			<input class="input" type="hidden" name="creator" value={user?.fullName ?? ''} />
+			<input class="input" type="hidden" name="time" value={Date.now().toString()} />
 			<button type="submit" class="btn variant-filled">Submit</button>
 		</div>
 	</form>

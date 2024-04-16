@@ -137,7 +137,7 @@
 			{#each sources as source, i}
 				{#if selection.includes(source.id)}
 					<tr>
-						<td>{JSON.parse(source.user ?? '')?.fullName}</td>
+						<td>{source.creator}</td>
 						<td>{source.type}</td>
 						<td
 							>{source.title?.length ?? 30 > 30

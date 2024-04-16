@@ -34,7 +34,7 @@
 				<span>Song Title</span>
 				<input class="input" name="title" type="text" placeholder="Song Title" required />
 			</label>
-            <label class="label">
+			<label class="label">
 				<span>Album</span>
 				<input class="input" name="volume_title" type="text" placeholder="Album" required />
 			</label>
@@ -75,6 +75,8 @@
 			<input class="input" type="hidden" name="numAuthors" value={numAuthors} />
 			<input class="input" type="hidden" name="userid" value={user?.id} />
 			<input class="input" type="hidden" name="user" value={JSON.stringify(user)} />
+			<input class="input" type="hidden" name="creator" value={user?.fullName ?? ''} />
+			<input class="input" type="hidden" name="time" value={Date.now().toString()} />
 			<button type="submit" class="btn variant-filled">Submit</button>
 		</div>
 	</form>
