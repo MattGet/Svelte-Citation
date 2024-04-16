@@ -13,6 +13,7 @@
 					<select class="select" name="importType" value="doi">
 						<option value="doi">DOI</option>
 						<option value="isbn">ISBN</option>
+						<option value="npm">NPM</option>
 					</select>
 					<input class="input" name="importText" type="text" placeholder="ISBN/DOI" required />
 				</section>
