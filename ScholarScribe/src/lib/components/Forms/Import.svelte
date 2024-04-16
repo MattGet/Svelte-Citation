@@ -10,7 +10,7 @@
 			<label class="label">
 				<span>Import by:</span>
 				<section class="flex flex-row gap-4">
-					<select class="select" name="importType" value={null}>
+					<select class="select" name="importType" value="doi">
 						<option value="doi">DOI</option>
 						<option value="isbn">ISBN</option>
 					</select>

@@ -2,6 +2,7 @@ import type { Actions } from "./$types"
 import { prisma } from "$lib/server/prisma"
 import { fail, redirect } from "@sveltejs/kit"
 import type { Author } from "@prisma/client"
+// @ts-ignore
 import { Cite } from '@citation-js/core';
 import '@citation-js/plugin-doi'
 import '@citation-js/plugin-isbn'
@@ -117,7 +118,7 @@ export const actions: Actions = {
             }
         }
         else {
-            output = null;
+            return fail(500, { message: "No Import Type Selected!" })
         }
 
         const data = JSON.parse(output)[0];
@@ -128,7 +129,7 @@ export const actions: Actions = {
         let year;
         let month;
         let day;
-        if (date[0] != null) year = String(date[0]);
+        if (date[0] != null) { year = String(date[0]); } else year = "0000";
         if (date[1] != null) month = Object.keys(Months).at(date[1] - 1);
         if (date[2] != null) day = String(date[2]);
         let publisher = data.publisher;

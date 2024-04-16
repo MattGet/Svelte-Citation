@@ -45,6 +45,7 @@
 	// Function to populate the store with all checkboxes
 	function populateStoreWithCheckboxes() {
 		const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+		// @ts-ignore
 		checkboxes.forEach((checkbox: HTMLInputElement) => {
 			const id = checkbox.dataset.itemId;
 			if (id) {

@@ -27,9 +27,7 @@
 		bibStyle.set(event.target.value);
 	}
 
-	function test() {
-		console.log(JSON.parse(form?.Tex));
-	}
+	function test() {}
 
 	const submit: SubmitFunction = async ({ formData }) => {
 		bibStyle.set(formData.get('style') as string);
