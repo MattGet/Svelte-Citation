@@ -1,4 +1,5 @@
 <script lang="ts">
+	// @ts-nocheck
 	import type { PageData } from './$types';
 	import { exportJSON, exportBibTex } from '$lib/client/export.funcs';
 	import { applyAction, enhance } from '$app/forms';
@@ -116,6 +117,9 @@
 					<th>Update</th>
 					<th>Delete</th>
 				</SignedIn>
+			</tr>
+			<tr>
+				<hr />
 			</tr>
 			<tr>
 				<th />
