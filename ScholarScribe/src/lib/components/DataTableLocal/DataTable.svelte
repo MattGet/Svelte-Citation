@@ -1,8 +1,8 @@
 <script>
-	export let users;
+	export let sources;
 	import { DataHandler } from '@vincjo/datatables';
 
-	const handler = new DataHandler(users, { rowsPerPage: 5 });
+	const handler = new DataHandler(sources, { rowsPerPage: 5 });
 	const rows = handler.getRows();
 
 	import Search from '$lib/components/DataTableLocal/Search.svelte';
@@ -23,19 +23,25 @@
 	<table class="table table-hover table-compact w-full table-auto">
 		<thead>
 			<tr>
-				<ThSort {handler} orderBy="firstName">First name</ThSort>
-				<ThSort {handler} orderBy="lastName">Last name</ThSort>
+				<ThSort {handler} orderBy="user">Created By</ThSort>
+				<ThSort {handler} orderBy="type">Source Type</ThSort>
+				<ThSort {handler} orderBy="title">Title</ThSort>
+				<ThSort {handler} orderBy="author">Author</ThSort>
 			</tr>
 			<tr>
-				<ThFilter {handler} filterBy="firstName" />
-				<ThFilter {handler} filterBy="lastName" />
+				<ThFilter {handler} filterBy="user" />
+				<ThFilter {handler} filterBy="type" />
+				<ThFilter {handler} filterBy="title" />
+				<ThFilter {handler} filterBy="author" />
 			</tr>
 		</thead>
 		<tbody>
 			{#each $rows as row}
 				<tr>
-					<td>{row.firstName}</td>
-					<td>{row.lastName}</td>
+					<td>{JSON.parse(row.user ?? '')?.fullName}</td>
+					<td>{row.type}</td>
+					<td>{row.title.length > 30 ? row.title.substring(0, 30) + '...' : row.title}</td>
+					<td>{row.author[0]?.given} {row.author[0]?.family}</td>
 				</tr>
 			{/each}
 		</tbody>

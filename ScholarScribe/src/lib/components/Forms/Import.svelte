@@ -10,15 +10,18 @@
 			<label class="label">
 				<span>Import by:</span>
 				<section class="flex flex-row gap-4">
-					<select class="select" name="importType" value={null}>
+					<select class="select" name="importType" value="doi">
 						<option value="doi">DOI</option>
 						<option value="isbn">ISBN</option>
+						<option value="npm">NPM</option>
 					</select>
 					<input class="input" name="importText" type="text" placeholder="ISBN/DOI" required />
 				</section>
 			</label>
 			<input class="input" type="hidden" name="userid" value={user?.id} />
 			<input class="input" type="hidden" name="user" value={JSON.stringify(user)} />
+			<input class="input" type="hidden" name="creator" value={user?.fullName ?? ''} />
+			<input class="input" type="hidden" name="time" value={Date.now().toString()} />
 			<button type="submit" class="btn variant-filled">Submit</button>
 		</div>
 	</form>

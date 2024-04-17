@@ -27,9 +27,7 @@
 		bibStyle.set(event.target.value);
 	}
 
-	function test() {
-		console.log(JSON.parse(form?.Tex));
-	}
+	function test() {}
 
 	const submit: SubmitFunction = async ({ formData }) => {
 		bibStyle.set(formData.get('style') as string);
@@ -137,7 +135,7 @@
 			{#each sources as source, i}
 				{#if selection.includes(source.id)}
 					<tr>
-						<td>{JSON.parse(source.user ?? '')?.fullName}</td>
+						<td>{source.creator}</td>
 						<td>{source.type}</td>
 						<td
 							>{source.title?.length ?? 30 > 30
