@@ -6,6 +6,7 @@ import { Cite } from '@citation-js/core';
 import '@citation-js/plugin-doi'
 import '@citation-js/plugin-isbn'
 import '@citation-js/plugin-csl'
+import '@citation-js/plugin-bibtex'
 import { Months } from "$lib/client/helper.funcs";
 
 
@@ -108,6 +109,16 @@ export const actions: Actions = {
             catch (Error) {
                 console.error(Error)
                 return fail(500, { message: "Could not fetch ISBN info." })
+            }
+        }
+        else if (importType == "bibtex") {
+            try {
+                let ref = await Cite.async(importText);
+                output = ref.format('data');
+            }
+            catch (Error) {
+                console.error(Error)
+                return fail(500, { message: "Could not fetch BibTex info." })
             }
         }
         else {

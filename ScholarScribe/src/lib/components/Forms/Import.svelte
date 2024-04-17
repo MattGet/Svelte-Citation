@@ -13,6 +13,7 @@
 					<select class="select" name="importType" value={null}>
 						<option value="doi">DOI</option>
 						<option value="isbn">ISBN</option>
+						<option value="bibtex">BibTex</option>
 					</select>
 					<input class="input" name="importText" type="text" placeholder="ISBN/DOI" required />
 				</section>
