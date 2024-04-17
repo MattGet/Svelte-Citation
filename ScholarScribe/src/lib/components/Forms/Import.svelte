@@ -15,7 +15,7 @@
 						<option value="isbn">ISBN</option>
 						<option value="bibtex">BibTex</option>
 					</select>
-					<input class="input" name="importText" type="text" placeholder="ISBN/DOI" required />
+					<input class="input" name="importText" type="text" placeholder="Import Text" required />
 				</section>
 			</label>
 			<input class="input" type="hidden" name="userid" value={user?.id} />
