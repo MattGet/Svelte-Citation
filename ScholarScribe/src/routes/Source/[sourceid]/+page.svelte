@@ -1,4 +1,5 @@
 <script lang="ts">
+	// @ts-nocheck
 	import type { PageData } from './$types';
 	import { clipboard } from '@skeletonlabs/skeleton';
 	import { suffixMe } from '$lib/client/helper.funcs';
@@ -6,7 +7,6 @@
 	import AdminBanner from '$lib/components/AdminBanner.svelte';
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import { enhance } from '$app/forms';
-	//@ts-ignore
 
 	export let data: PageData;
 	$: ({ source } = data);

@@ -40,7 +40,7 @@ export function formatArrayToBibTex(sources: any[]) {
     var jsonse = formatArrayToCSL(sources);
     const example = new Cite(jsonse);
     let output = example.format("bibtex");
-    console.log("Output: " + output);
+    // console.log("Output: " + output);
     return output;
 }
 
@@ -50,7 +50,7 @@ export function formatArrayToJson(sources: any[]) {
     var jsonse = formatArrayToCSL(sources);
     const example = new Cite(jsonse);
     let output = example.format("data");
-    console.log("Output: " + output);
+    // console.log("Output: " + output);
     return output;
 }
 

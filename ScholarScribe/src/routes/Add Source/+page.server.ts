@@ -1,23 +1,26 @@
-import type { Actions } from "./$types"
-import { prisma } from "$lib/server/prisma"
-import { fail, redirect } from "@sveltejs/kit"
-import type { Author } from "@prisma/client"
+import type { Actions } from "./$types";
+import { prisma } from "$lib/server/prisma";
+import { fail, redirect } from "@sveltejs/kit";
+import type { Author } from "@prisma/client";
+// @ts-ignore
 import { Cite } from '@citation-js/core';
 import '@citation-js/plugin-doi'
 import '@citation-js/plugin-isbn'
 import '@citation-js/plugin-csl'
 import '@citation-js/plugin-bibtex'
+import '@citation-js/plugin-software-formats';
 import { Months } from "$lib/client/helper.funcs";
-
 
 export const actions: Actions = {
     createSource: async ({ request }) => {
         const formData = await request.formData();
-        const { title, URL, userid, user, day, month, year, publisher, type, volume_title, volume, issue, page, edition, locator } = Object.fromEntries(formData) as {
+        const { title, URL, userid, user, creator, time, day, month, year, publisher, type, volume_title, volume, issue, page, edition, locator } = Object.fromEntries(formData) as {
             title: string
             URL: string
             userid: string
             user: string
+            creator: string
+            time: string
             day: string
             month: string
             year: string
@@ -58,6 +61,8 @@ export const actions: Actions = {
                     URL,
                     userid,
                     user,
+                    creator,
+                    last_updated: time,
                     date: {
                         year,
                         month,
@@ -83,11 +88,13 @@ export const actions: Actions = {
     },
     importSource: async ({ request }) => {
         const formData = await request.formData();
-        const { importType, importText, userid, user } = Object.fromEntries(formData) as {
+        const { importType, importText, userid, user, creator, time } = Object.fromEntries(formData) as {
             importType: string
             importText: string
             userid: string
             user: string
+            creator: string
+            time: string
         }
 
         let output;
@@ -112,7 +119,7 @@ export const actions: Actions = {
             }
         }
         else if (importType == "bibtex") {
-            try {
+          try {
                 let ref = await Cite.async(importText);
                 output = ref.format('data');
             }
@@ -121,8 +128,18 @@ export const actions: Actions = {
                 return fail(500, { message: "Could not fetch BibTex info." })
             }
         }
+        else if (importType == "npm") {
+            try {
+                let ref = await Cite.async(importText);
+                output = ref.format('data');
+            }
+            catch (Error) {
+                console.error(Error)
+                return fail(500, { message: "Could not fetch NPM info." })
+            }
+        }
         else {
-            output = null;
+            return fail(500, { message: "No Import Type Selected!" })
         }
 
         const data = JSON.parse(output)[0];
@@ -133,7 +150,7 @@ export const actions: Actions = {
         let year;
         let month;
         let day;
-        if (date[0] != null) year = String(date[0]);
+        if (date[0] != null) { year = String(date[0]); } else year = "0000";
         if (date[1] != null) month = Object.keys(Months).at(date[1] - 1);
         if (date[2] != null) day = String(date[2]);
         let publisher = data.publisher;
@@ -152,6 +169,8 @@ export const actions: Actions = {
                     URL,
                     userid,
                     user,
+                    creator,
+                    last_updated: time,
                     date: {
                         year,
                         month,
