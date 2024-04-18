@@ -97,14 +97,16 @@
 				{/if}
 			</ClerkLoaded>
 			<a class="btn variant-filled-primary" href="/Sources">Back to Sources</a>
-			<button
-				use:clipboard={window.location.href}
-				class="btn variant-filled-secondary"
-				on:click={onClickHandler}
-				disabled={copied}
-			>
-				{copied ? 'Copied 👍' : 'Copy Link'}
-			</button>
+			{#if window.isSecureContext}
+				<button
+					use:clipboard={window.location.href}
+					class="btn variant-filled-secondary"
+					on:click={onClickHandler}
+					disabled={copied}
+				>
+					{copied ? 'Copied 👍' : 'Copy Link'}
+				</button>
+			{/if}
 		</section>
 	</div>
 </div>
