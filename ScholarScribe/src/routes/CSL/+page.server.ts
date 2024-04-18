@@ -1,9 +1,7 @@
 import type { Actions, PageServerLoad } from "./$types";
 import { prisma } from "$lib/server/prisma";
-import { sourceList } from "../../stores/sources";
-import { get } from "svelte/store";
 import { fail, redirect } from "@sveltejs/kit";
-import { cite, formatArrayToBibTex, formatArrayToCSL, formatArrayToJson, getTemplates } from "$lib/client/export.funcs";
+import { cite, citeRaw, formatArrayToBibTex, formatArrayToCSL, formatArrayToJson, getTemplates } from "$lib/client/export.funcs";
 
 export const load: PageServerLoad = async () => {
     try {
