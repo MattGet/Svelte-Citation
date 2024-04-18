@@ -75,7 +75,11 @@
 	<div class="px-10">
 		<div class="flex gap-10 pb-5" style="text-align: center;">
 			<h3 class="h3">Bibliography</h3>
-			<CopyButton data={{ element: 'bib-data' }} buttonName="Copy Bibliography" />
+			<CopyButton data={{ element: 'bib-data' }} buttonName="Copy Bib as HTML" />
+			<CopyButton
+				data={form?.bibtext.replace(/\\n/g, '\n\n').replace(/['"]+/g, '')}
+				buttonName="Copy Bib as text"
+			/>
 		</div>
 		<div class="card p-5">
 			{#if form?.bib}

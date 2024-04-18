@@ -44,12 +44,21 @@ export const actions: Actions = {
         // console.log(csl);
         // console.log(`Formatting citation in ${style}.`)
         let data = cite(csl, style);
+        let data2 = citeRaw(csl, style) as string[];
+
+        let list: string = ``;
+        data2.forEach((element: any) => {
+            list += element[1];
+            console.log(element[1]);
+        });
 
 
-        //console.log(data);
+
+        //console.log(data2);
         let bib = JSON.stringify(data);
+        let bibtext = JSON.stringify(list);
         //console.log(bib);
-        return { bib };
+        return { bib, bibtext };
     },
     citeTex: async ({ request }) => {
         const formData = await request.formData();
@@ -72,7 +81,7 @@ export const actions: Actions = {
         }
         // console.log(sourceList);
         // console.log(csl);
-        // console.log(`Formatting citation in ${style}.`)
+        // console.log(`Formatting citation in ${ style }.`)
         let data = formatArrayToBibTex(selection);
 
         //console.log(data);
@@ -101,7 +110,7 @@ export const actions: Actions = {
         }
         // console.log(sourceList);
         // console.log(csl);
-        // console.log(`Formatting citation in ${style}.`)
+        // console.log(`Formatting citation in ${ style }.`)
         let Json = formatArrayToJson(selection);
 
         //console.log(data);
