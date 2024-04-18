@@ -28,17 +28,19 @@
     Secondary Genres (comma-separated):
     <input type="text" name="genre">
   </label>
+  
   <InputChip bind:value={tags} name="tags" placeholder="Enter tags here..." />
   <label>
     Is the Group public?:
     <input type="checkbox" name="isPublic">
   </label>
-  <button type="submit" class="btn btn-lg variant-filled-tertiary" disabled={isLoading}>
+  <button type="submit" class="btn btn-lg variant-filled-tertiary" >
     {#if isLoading}
       <span>Loading...</span>
     {:else}
       <span>Create Group</span>
     {/if}
+    
   </button>
 </form>
 

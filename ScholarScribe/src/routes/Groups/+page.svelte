@@ -28,6 +28,7 @@
 	<table class="table table-hover">
 		<thead>
 			<tr>
+				<th>Sources</th>
 				<th>Created By</th>
 				<th>Primary Genre</th>
 				<th>Secondary Genres</th>
@@ -41,22 +42,18 @@
 		<tbody>
 			{#each groups as group, i}
 				<tr>
+					
 					<td>{group.userid}</td>
 					<td>{group.genDel}</td>
 					<td>{group.genre}</td>
 					<td>{group.tags}</td>
 					<td>{group.title}</td>
 					<SignedIn let:user>
-						{#if user?.publicMetadata.role == 'Admin' || user?.id == group.userid}
 							<td>
 								<form action="?/deleteGroup&id={group.id}" method="POST" use:enhance={submit}>
 									<button type="submit" class="btn variant-filled-error">Delete</button>
 								</form>
 							</td>
-						{:else}
-							<td><!-- <div class="variant-filled-tertiary p-3">Not Owner</div> --></td>
-							<td><!-- <div class="variant-filled-error p-3">Not Owner</div> --></td>
-						{/if}
 					</SignedIn>
 				</tr>
 			{/each}

@@ -28,6 +28,8 @@ model Source {
   locator String? //patent number
   groupids String[]   @db.ObjectId
   groups    Group[]  @relation(fields: [groupids], references: [id])
+  tagids    String[]   @db.ObjectId
+  tags      Tags[]  @relation(fields: [tagids], references: [id])
 }
 
 type Author {
@@ -43,11 +45,24 @@ model Group {
   title       String @unique
   genDel      String
   genre       String[]
-  tags        String[]
   isPublic    Boolean
   sourceids   String[] @db.ObjectId
   sources     Source[]   @relation(fields: [sourceids], references: [id])
+  tagids      String[] @db.ObjectId
+  tags        Tags[]   @relation(fields: [tagids], references: [id])
 }
+model Tags{
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  sourceids   String[] @db.ObjectId
+  sources     Source[]   @relation(fields: [sourceids], references: [id])
+  groupids    String[]   @db.ObjectId
+  groups      Group[]  @relation(fields: [groupids], references: [id])
+  text        String
+  timeCreated DateTime
+  
+}
+
+
 
 type Date {
   year  String

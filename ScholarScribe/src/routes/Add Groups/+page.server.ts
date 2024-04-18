@@ -13,7 +13,7 @@ export const actions: Actions = {
             const tags = formData.getAll('tags') as string[];
             const isPublicValue = formData.get('isPublic') as string;
             const isPublic = isPublicValue === 'true';
-
+            const sourceids = prisma.source.findMany as unknown as string[]; 
             // Assuming Prisma model and fields are correctly defined
             const group = await prisma.group.create({
                 data: {
@@ -23,6 +23,7 @@ export const actions: Actions = {
                     genre,
                     tags,
                     isPublic,
+                    sourceids
                 },
             });
 
