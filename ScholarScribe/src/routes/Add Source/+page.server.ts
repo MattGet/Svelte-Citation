@@ -10,6 +10,8 @@ import '@citation-js/plugin-csl'
 import '@citation-js/plugin-bibtex'
 import '@citation-js/plugin-software-formats';
 import { Months } from "$lib/client/helper.funcs";
+import type { Stringifier } from "postcss";
+import { importList } from "../../stores/sources";
 
 export const actions: Actions = {
     createSource: async ({ request }) => {
@@ -119,7 +121,7 @@ export const actions: Actions = {
             }
         }
         else if (importType == "bibtex") {
-          try {
+            try {
                 let ref = await Cite.async(importText);
                 output = ref.format('data');
             }
@@ -194,5 +196,98 @@ export const actions: Actions = {
         }
 
         redirect(303, `/Validate/${id}`)
+    },
+    importFile: async ({ request }) => {
+        const formData = Object.fromEntries(await request.formData());
+        if (
+            !(formData.fileToUpload as File).name ||
+            (formData.fileToUpload as File).name === 'undefined'
+        ) {
+            return fail(400, {
+                error: true,
+                message: 'You must provide a file to upload'
+            });
+        }
+
+        const { fileToUpload } = formData as { fileToUpload: File };
+        const { userid, user, creator, time, } = formData as {
+            userid: string
+            user: string
+            creator: string
+            time: string
+        };
+
+        let template = await fileToUpload.text(); // The actual text file
+        // console.log(template)
+        let output;
+        try {
+            let ref = await Cite.async(template);
+            output = ref.format('data');
+        }
+        catch (Error) {
+            console.error(Error)
+            return fail(500, { message: "Could not parse file data." })
+        }
+
+        // console.log(output);
+
+        let sourceList: string[] = [];
+
+        const sources = JSON.parse(output);
+
+        await sources.forEach(async (data: any) => {
+            let date = data.issued['date-parts'][0];
+            let title = data.title;
+            let type = data.type;
+            let URL = data.URL;
+            let year;
+            let month;
+            let day;
+            if (date[0] != null) { year = String(date[0]); } else year = "0000";
+            if (date[1] != null) month = Object.keys(Months).at(date[1] - 1);
+            if (date[2] != null) day = String(date[2]);
+            let publisher = data.publisher;
+            let author = data.author;
+            let volume = data.volume;
+            let page = data.page;
+            let volume_title = data["container-title"];
+            let issue = data.issue;
+            let edition = data.edition;
+            let locator = data.locator;
+            let id;
+            try {
+                const source = await prisma.source.create({
+                    data: {
+                        title,
+                        URL,
+                        userid,
+                        user,
+                        creator,
+                        last_updated: time,
+                        date: {
+                            year,
+                            month,
+                            day,
+                        },
+                        publisher,
+                        type,
+                        author,
+                        volume_title,
+                        volume,
+                        issue,
+                        page,
+                        edition,
+                        locator,
+                    },
+                })
+                sourceList.push(source.id);
+            } catch (err) {
+                console.error(err)
+                return fail(500, { message: "Could not create the article." })
+            }
+        })
+
+        importList.set(sourceList);
+        redirect(303, `/Validate/`)
     },
 }

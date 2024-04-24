@@ -1,4 +1,5 @@
 <script lang="ts">
+	// @ts-nocheck
 	import ClerkLoaded from 'clerk-sveltekit/client/ClerkLoaded.svelte';
 	import type { PageData } from './$types';
 	import UserTable from '$lib/components/UserTable/UserTable.svelte';
