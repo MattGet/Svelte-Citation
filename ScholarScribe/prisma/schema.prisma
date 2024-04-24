@@ -54,12 +54,6 @@ model Source {
   script_writer Author[]
   series_creator Author[]
   translator Author[]
-  accessed Date? //dates may need to be removed due to type mismatch
-  available_date Date?
-  event_date Date?
-  issued Date?
-  original_date Date?
-  submitted Date?
   citation_key String?
   language String?
   journalAbbreviation String?
@@ -77,7 +71,6 @@ model Source {
   citation_label String?
   collection_number String?
   collection_title String?
-  container_title String?
   container_title_short String?
   dimensions String?
   division String?
@@ -111,7 +104,6 @@ model Source {
   reviewed_title String?
   scale String?
   section String?
-  source String?
   status String?
   supplement String?
   title_short String?
