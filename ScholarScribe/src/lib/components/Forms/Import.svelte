@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { FileDropzone } from '@skeletonlabs/skeleton';
 	// @ts-nocheck
-	export let user;
+	export let user: any;
 
 	let type = 'bibtex';
 </script>
