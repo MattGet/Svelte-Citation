@@ -1,5 +1,6 @@
 <script>
 	import { clipboard } from '@skeletonlabs/skeleton';
+	import CopyButton from './CopyButton.svelte';
 
 	export let line = '';
 
@@ -44,9 +45,9 @@
 		<textarea cols="100" rows="10">
 			{line}
 		</textarea>
-		<button class="btn variant-filled" style="height:70px" use:clipboard={line}
-			>Copy to Clipboard</button
-		>
+		<div>
+			<CopyButton data={line} buttonName="Copy Text" />
+		</div>
 	</div>
 </div>
 

@@ -10,11 +10,12 @@ module.exports = {
 			script: '/home/scholarscribe/Documents/GitHub/Svelte-Citation/ScholarScribe/build/index.js',
 			env_production: {
 				NODE_ENV: 'production',
-				PORT: 5173 // port the app will be launched on
+				PORT: 5173, // port the app will be launched on
+				ORIGIN: 'https://ramen.valpo.edu',
 			},
             env:{
                 PORT: 5173, // port the app will be launched on
-                ORIGIN: 'http://ramen.valpo.edu'
+                ORIGIN: 'https://ramen.valpo.edu',
             },
 			watch: ["prisma", "src"],
 			// Delay between restart

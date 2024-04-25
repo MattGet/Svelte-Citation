@@ -34,6 +34,7 @@
 		<option value="book">Book</option>
 		<option value="patent">Patent</option>
 		<option value="article-magazine">Editorial</option>
+		<option value="paper-conference">Conference</option>
 	</select>
 </label>
 <label class="label">

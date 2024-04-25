@@ -35,7 +35,7 @@ export function exportBibTex(source: any) {
 }
 
 export function formatArrayToBibTex(sources: any[]) {
-    console.log("Export BibTexs");
+    console.log("Export BibTexArray");
 
     var jsonse = formatArrayToCSL(sources);
     const example = new Cite(jsonse);
@@ -45,7 +45,7 @@ export function formatArrayToBibTex(sources: any[]) {
 }
 
 export function formatArrayToJson(sources: any[]) {
-    console.log("Export Jsons");
+    console.log("Export JsonArray");
 
     var jsonse = formatArrayToCSL(sources);
     const example = new Cite(jsonse);
@@ -272,6 +272,17 @@ export function cite(data: string, stlye: string) {
     let output = citeObject.format('bibliography', {
         asEntryArray: true,
         format: 'html',
+        template: stlye,
+    })
+    return output;
+}
+
+export function citeRaw(data: string, stlye: string) {
+    const citeObject = new Cite(data);
+    let date = (new Date()).toLocaleDateString()
+    let output = citeObject.format('bibliography', {
+        asEntryArray: true,
+        format: 'text',
         template: stlye,
     })
     return output;

@@ -12,7 +12,7 @@ datasource db {
 
 model Source {
   id           String   @id @default(auto()) @map("_id") @db.ObjectId
-  creator      String
+  creator      String?
   type         String
   title        String?
   URL          String?
