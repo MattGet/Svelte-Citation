@@ -144,59 +144,65 @@ export const actions: Actions = {
             return fail(500, { message: "No Import Type Selected!" })
         }
 
-        const data = JSON.parse(output)[0];
-        let date = data.issued['date-parts'][0];
-        let title = data.title;
-        let type = data.type;
-        let URL = data.URL;
-        let year;
-        let month;
-        let day;
-        if (date[0] != null) { year = String(date[0]); } else year = "0000";
-        if (date[1] != null) month = Object.keys(Months).at(date[1] - 1);
-        if (date[2] != null) day = String(date[2]);
-        let publisher = data.publisher;
-        let author = data.author;
-        let volume = data.volume;
-        let page = data.page;
-        let volume_title = data["container-title"];
-        let issue = data.issue;
-        let edition = data.edition;
-        let locator = data.locator;
         let sourceList: string[] = [];
-        try {
-            const source = await prisma.source.create({
-                data: {
-                    title,
-                    URL,
-                    userid,
-                    user,
-                    creator,
-                    last_updated: time,
-                    date: {
-                        year,
-                        month,
-                        day,
-                    },
-                    publisher,
-                    type,
-                    author,
-                    volume_title,
-                    volume,
-                    issue,
-                    page,
-                    edition,
-                    locator,
-                },
-            })
-            sourceList.push(source.id);
-        } catch (err) {
-            console.error(err)
-            return fail(500, { message: "Could not create the article." })
-        }
 
+        const sources = JSON.parse(output);
+
+        await sources.forEach(async (data: any) => {
+            //console.log(data);
+            let date = data.issued['date-parts'][0];
+            let title = data.title;
+            let type = data.type;
+            let URL = data.URL;
+            let year;
+            let month;
+            let day;
+            if (date[0] != null) { year = String(date[0]); } else year = "0000";
+            if (date[1] != null) month = Object.keys(Months).at(date[1] - 1);
+            if (date[2] != null) day = String(date[2]);
+            let publisher = data.publisher;
+            let author = data.author;
+            let volume = data.volume;
+            let page = data.page;
+            let volume_title = data["container-title"];
+            let issue = data.issue;
+            let edition = data.edition;
+            let locator = data.locator;
+            let id;
+            try {
+                const source = await prisma.source.create({
+                    data: {
+                        title,
+                        URL,
+                        userid,
+                        user,
+                        creator,
+                        last_updated: time,
+                        date: {
+                            year,
+                            month,
+                            day,
+                        },
+                        publisher,
+                        type,
+                        author,
+                        volume_title,
+                        volume,
+                        issue,
+                        page,
+                        edition,
+                        locator,
+                    },
+                })
+                sourceList.push(source.id);
+            } catch (err) {
+                console.error(err)
+                return fail(500, { message: "Could not create the article." })
+            }
+        })
+        await new Promise(f => setTimeout(f, 1000));
         importList.set(sourceList);
-        redirect(303, `/Validate/`)
+        throw redirect(303, `/Validate/`)
     },
     importFile: async ({ request }) => {
         const formData = Object.fromEntries(await request.formData());
@@ -289,6 +295,6 @@ export const actions: Actions = {
         })
 
         importList.set(sourceList);
-        redirect(303, `/Validate/`)
+        throw redirect(303, `/Validate/`)
     },
 }

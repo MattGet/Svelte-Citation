@@ -7,12 +7,14 @@ import { get } from "svelte/store"
 
 //@ts-ignore
 export const load: PageServerLoad = async () => {
+    const list = get(importList);
+    let sources = await prisma.source.findMany({
+        where: {
+            id: { in: list },
+        },
+    })
     return {
-        sources: await prisma.source.findMany({
-            where: {
-                id: { in: get(importList) },
-            },
-        })
+        sources: sources
     }
 }
 
