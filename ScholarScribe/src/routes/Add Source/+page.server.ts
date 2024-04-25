@@ -130,6 +130,16 @@ export const actions: Actions = {
                 return fail(500, { message: "Could not fetch BibTex info." })
             }
         }
+        else if (importType == "json") {
+            try {
+                let ref = await Cite.async(importText);
+                output = ref.format('data');
+            }
+            catch (Error) {
+                console.error(Error)
+                return fail(500, { message: "Could not fetch JSON info." })
+            }
+        }
         else if (importType == "npm") {
             try {
                 let ref = await Cite.async(importText);
@@ -293,7 +303,7 @@ export const actions: Actions = {
                 return fail(500, { message: "Could not create the article." })
             }
         })
-
+        await new Promise(f => setTimeout(f, 1000));
         importList.set(sourceList);
         throw redirect(303, `/Validate/`)
     },

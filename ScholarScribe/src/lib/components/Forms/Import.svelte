@@ -14,12 +14,13 @@
 				<span>Import by:</span>
 				<section class="flex flex-col gap-4">
 					<select class="select" name="importType" bind:value={type}>
+						<option value="json">JSON</option>
 						<option value="bibtex">BibTex</option>
 						<option value="doi">DOI</option>
 						<option value="isbn">ISBN</option>
 						<option value="npm">NPM</option>
 					</select>
-					{#if type == 'bibtex'}
+					{#if type == 'bibtex' || type == 'json'}
 						<textarea cols="100" rows="10" name="importText"></textarea>
 					{:else}
 						<input class="input" name="importText" type="text" placeholder="Import Text" required />
