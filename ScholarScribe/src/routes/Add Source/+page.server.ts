@@ -163,7 +163,7 @@ export const actions: Actions = {
         let issue = data.issue;
         let edition = data.edition;
         let locator = data.locator;
-        let id;
+        let sourceList: string[] = [];
         try {
             const source = await prisma.source.create({
                 data: {
@@ -189,13 +189,14 @@ export const actions: Actions = {
                     locator,
                 },
             })
-            id = source.id;
+            sourceList.push(source.id);
         } catch (err) {
             console.error(err)
             return fail(500, { message: "Could not create the article." })
         }
 
-        redirect(303, `/Validate/${id}`)
+        importList.set(sourceList);
+        redirect(303, `/Validate/`)
     },
     importFile: async ({ request }) => {
         const formData = Object.fromEntries(await request.formData());

@@ -53,5 +53,9 @@
 				</Step>
 			{/each}
 		</Stepper>
+		{#if sources.length < 2}
+			<br />
+			<a class="btn variant-filled-primary" href="/Sources">Complete</a>
+		{/if}
 	</div>
 </SignedIn>
