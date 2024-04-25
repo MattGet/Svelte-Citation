@@ -23,6 +23,7 @@
 
 	const handler = new DataHandler(data.sources, { rowsPerPage: 5 });
 	const rows = handler.getRows();
+	$: ({ sources } = data);
 
 	const submit: SubmitFunction = async ({ cancel }) => {
 		if (confirm('Are you sure you want to delete this post?')) {
@@ -44,23 +45,21 @@
 	}
 
 	// Function to populate the store with all checkboxes
-	function populateStoreWithCheckboxes() {
-		const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-		// @ts-ignore
-		checkboxes.forEach((checkbox: HTMLInputElement) => {
-			const id = checkbox.dataset.itemId;
-			if (id) {
-				sourceList.update((existingCheckedState) => {
-					const newCheckedState = { ...existingCheckedState };
-					newCheckedState[id] = checkbox.checked;
-					return newCheckedState;
-				});
+	function populateStoreWithCheckboxes(data: boolean) {
+		const list2: Record<string, boolean> = $sourceList;
+
+		sources.forEach((source) => {
+			if (!(source.id in list2)) {
+				list2[source.id] = data;
 			}
 		});
+
+		sourceList.set(list2);
 	}
 
 	// Function to handle "Select All" button click
 	function selectAll() {
+		populateStoreWithCheckboxes(true);
 		sourceList.update((existingCheckedState) => {
 			const newCheckedState = { ...existingCheckedState };
 			Object.keys(newCheckedState).forEach((key) => {
@@ -72,6 +71,7 @@
 
 	// Function to handle "Deselect All" button click
 	function deselectAll() {
+		populateStoreWithCheckboxes(false);
 		sourceList.update((existingCheckedState) => {
 			const newCheckedState = { ...existingCheckedState };
 			Object.keys(newCheckedState).forEach((key) => {
@@ -84,11 +84,6 @@
 	// Derive a store to check if any item is selected
 	const anySourceSelected = derived(sourceList, ($sourceList) => {
 		return Object.values($sourceList).some((checked) => checked);
-	});
-
-	onMount(() => {
-		// Populate the store with all checkboxes on the page
-		populateStoreWithCheckboxes();
 	});
 </script>
 
