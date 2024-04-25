@@ -97,10 +97,10 @@
 	{:else if $addCiteType == 'music'}
 		<MusicForm {user} />
 	{:else}
-		<h1 class="h1">
+		<h1 class="h1 p-10 m-10">
 			<span
 				class="bg-gradient-to-br from-red-500 to-orange-300 bg-clip-text text-transparent box-decoration-clone"
-				>Error: Form Not Found!</span
+				>Error: Select a Valid Import Type!</span
 			>
 		</h1>
 	{/if}

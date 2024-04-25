@@ -20,8 +20,7 @@ export async function pushToDB(data: any, user: string, userid: string, creator:
     let issue = data.issue;
     let edition = data.edition;
     let locator = data.locator;
-    let id = "default";
-    //let the hell of no loss begin
+    //Import only fields below
     let categories = data.categories;
     let chair = data.chair;
     let collection_editor = data["collection-editor"];
@@ -104,6 +103,7 @@ export async function pushToDB(data: any, user: string, userid: string, creator:
     let version = data.version;
     let volume_title_short = data["volume-title-short"];
     let year_suffix = data["year-suffix"];
+    let id = "default";
     try {
         const source = await prisma.source.create({
             data: {

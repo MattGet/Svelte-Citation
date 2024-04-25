@@ -52,6 +52,13 @@
 					</div>
 				</Step>
 			{/each}
+			{#if sources.length == 0}
+				<Step>
+					<svelte:fragment slot="header"><h1 class="h1">All Imports Removed...</h1></svelte:fragment
+					>
+					<h3 class="h3">Press Complete to continue!</h3>
+				</Step>
+			{/if}
 		</Stepper>
 		{#if sources.length < 2}
 			<br />

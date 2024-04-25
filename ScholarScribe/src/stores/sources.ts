@@ -7,7 +7,7 @@ export const importList: Writable<string[]> = localStorageStore('importList', []
 
 export const exportType: Writable<String> = localStorageStore('exportType', "Bibliography");
 
-export const addCiteType: Writable<String> = localStorageStore('addCiteType', "Import");
+export const addCiteType: Writable<String> = localStorageStore('addCiteType', "import");
 
 export const importType: Writable<String> = localStorageStore('importType', "BibTex");
 

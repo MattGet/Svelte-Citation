@@ -8,7 +8,7 @@ import { get } from "svelte/store"
 //@ts-ignore
 export const load: PageServerLoad = async () => {
     const list = get(importList);
-    console.log(`Import List: ${list}`);
+    //console.log(`Import List: ${list}`);
     let sources = await prisma.source.findMany({
         where: {
             id: { in: list },
