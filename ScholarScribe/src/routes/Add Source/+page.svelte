@@ -16,27 +16,34 @@
 	import SignedIn from 'clerk-sveltekit/client/SignedIn.svelte';
 	import SignedOut from 'clerk-sveltekit/client/SignedOut.svelte';
 	import MasterFormComponents from '$lib/components/Forms/MasterFormComponents.svelte';
+	import FileUpload from '$lib/components/Forms/FileUpload.svelte';
+	import { addCiteType } from '../../stores/sources';
 
-	let formType = 'import';
 	export let form;
 	let source: any;
+
+	// Function to handle changes in selection
+	function handleChange(event: any) {
+		// console.log(event.target.value);
+		addCiteType.set(event.target.value);
+	}
 </script>
 
 <SignedIn let:user>
 	<div class="space px-10 pt-10">
-		<select class="select" size="1" bind:value={formType}>
+		<select class="select" size="1" bind:value={$addCiteType} on:change={handleChange}>
 			<option value="import">Import</option>
+			<option value="file">File Upload</option>
 			<option value="webpage">Website</option>
 			<option value="journal">Journal</option>
 			<option value="book">Book</option>
 			<option value="patent">Patent</option>
 			<option value="magazine">Editorial</option>
 			<option value="music">Music</option>
-
 		</select>
 	</div>
 
-	{#if formType == 'import'}
+	{#if $addCiteType == 'import'}
 		{#if form?.message}
 			<div class="flex justify-center pt-8">
 				<div class="card p-4 variant-filled-error" style="width: 50%;">
@@ -68,17 +75,26 @@
 		{:else}
 			<Import {user} />
 		{/if}
-	{:else if formType == 'webpage'}
+	{:else if $addCiteType == 'webpage'}
 		<WebForm {user} />
-	{:else if formType == 'journal'}
+	{:else if $addCiteType == 'file'}
+		{#if form?.message}
+			<div class="flex justify-center pt-8">
+				<div class="card p-4 variant-filled-error" style="width: 50%;">
+					<h4 class="h4" style="text-align: center;">{form.message}</h4>
+				</div>
+			</div>
+		{/if}
+		<FileUpload {user} />
+	{:else if $addCiteType == 'journal'}
 		<JournalForm {user} />
-	{:else if formType == 'book'}
+	{:else if $addCiteType == 'book'}
 		<BookForm {user} />
-	{:else if formType == 'patent'}
+	{:else if $addCiteType == 'patent'}
 		<PatentForm {user} />
-	{:else if formType == 'magazine'}
+	{:else if $addCiteType == 'magazine'}
 		<MagazineForm {user} />
-	{:else if formType == 'music'}
+	{:else if $addCiteType == 'music'}
 		<MusicForm {user} />
 	{:else}
 		<h1 class="h1">

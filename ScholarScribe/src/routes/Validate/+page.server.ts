@@ -1,16 +1,20 @@
-import type { Actions } from "./$types"
+import type { Actions } from "../$types"
 import { prisma } from "$lib/server/prisma"
 import { fail, redirect } from "@sveltejs/kit"
 import type { Author } from "@prisma/client"
+import { importList } from "../../stores/sources"
+import { get } from "svelte/store"
 
 //@ts-ignore
-export const load: PageServerLoad = async ({ params }) => {
+export const load: PageServerLoad = async () => {
+    const list = get(importList);
+    let sources = await prisma.source.findMany({
+        where: {
+            id: { in: list },
+        },
+    })
     return {
-        source: await prisma.source.findUnique({
-            where: {
-                id: params.sourceid,
-            },
-        })
+        sources: sources
     }
 }
 
@@ -34,7 +38,7 @@ export const actions: Actions = {
             })
         }
 
-        redirect(303, "/Add Source")
+        return
     },
     updateSource: async ({ request }) => {
         const formData = await request.formData();
@@ -108,6 +112,6 @@ export const actions: Actions = {
             return fail(500, { message: "Could not create the article." })
         }
 
-        redirect(303, "/Sources")
+        return
     },
 }
