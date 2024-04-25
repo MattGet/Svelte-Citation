@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { FileDropzone } from '@skeletonlabs/skeleton';
 	// @ts-ignore
-	export let user;
+	export let user: any;
 
 	const authorizedExtensions = ['.bib', '.json', '.txt'];
 
