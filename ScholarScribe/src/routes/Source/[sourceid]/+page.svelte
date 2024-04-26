@@ -39,6 +39,7 @@
 		>
 	</h1>
 	<div class="space-y-4 p-10">
+		<h4 class="h4">Type: {source?.type}</h4>
 		<h4 class="h4">Created By: {JSON.parse(source?.user ?? '')?.fullName}</h4>
 		<h4 class="h4">Title: {source?.title}</h4>
 		{#if source?.URL != null && source?.URL != ''}
@@ -46,13 +47,56 @@
 				URL: <a href={source.URL} target="_blank" rel="noreferrer noopener">{source.URL}</a>
 			</h4>
 		{/if}
-		{#each source?.author as author, i}
-			<h4 class="h4">
-				Author {i + 1}: {author.given ?? ''}
-				{author.family ?? ''}
-				{author.suffix ?? ''}
-			</h4>
-		{/each}
+			<h4 class="h4">Authors: </h4>
+			{#each source?.author as author, i}
+				<h4 class="h4">
+					&emsp;Author {i + 1}: {author.given ?? ''}
+					{author.dropping_particle ?? ''}
+					{author.non_dropping_particle ?? ''}
+					{author.family ?? ''}
+					{author.suffix ?? ''}
+					{author.comma_suffix ?? ''}
+				</h4>
+			{/each}
+		{#if source?.composer != null && source.composer != ''}
+			<h4 class="h4">Composers: </h4>
+			{#each source?.composer as composer, i}
+				<h4 class="h4">
+					&emsp;Composer {i + 1}: {composer.given ?? ''}
+					{composer.dropping_particle ?? ''}
+					{composer.non_dropping_particle ?? ''}
+					{composer.family ?? ''}
+					{composer.suffix ?? ''}
+					{composer.comma_suffix ?? ''}
+				</h4>
+			{/each}
+		{/if}
+		{#if source?.editor != null && source.editor != ''}
+			<h4 class="h4">Editors: </h4>
+			{#each source?.editor as editor, i}
+				<h4 class="h4">
+					&emsp;Editor {i + 1}: {editor.given ?? ''}
+					{editor.dropping_particle ?? ''}
+					{editor.non_dropping_particle ?? ''}
+					{editor.family ?? ''}
+					{editor.suffix ?? ''}
+					{editor.comma_suffix ?? ''}
+				</h4>
+			{/each}
+		{/if}
+		{#if source?.performer != null && source.performer != ''}
+			<h4 class="h4">Performers: </h4>
+			{#each source?.performer as performer, i}
+				<h4 class="h4">
+					&emsp;Performer {i + 1}: {performer.given ?? ''}
+					{performer.dropping_particle ?? ''}
+					{performer.non_dropping_particle ?? ''}
+					{performer.family ?? ''}
+					{performer.suffix ?? ''}
+					{performer.comma_suffix ?? ''}
+				</h4>
+			{/each}
+		{/if}
 		{#if source?.date != null && source.date.year != null && source.date.year != ''}
 			<h4 class="h4">
 				Date: {source.date.month ?? ''}
@@ -63,9 +107,19 @@
 		{#if source?.publisher != null && source.publisher != ''}
 			<h4 class="h4">Publisher: {source.publisher}</h4>
 		{/if}
+		{#if source?.language != null && source.language != ''}
+			<h4 class="h4">
+				Language: {source.language ?? ''}
+			</h4>
+		{/if}
 		{#if source?.volume_title != null && source.volume_title != ''}
 			<h4 class="h4">
 				Volume Title: {source.volume_title ?? ''}
+			</h4>
+		{/if}
+		{#if source?.journalAbbreviation != null && source.journalAbbreviation != ''}
+			<h4 class="h4">
+				Abbreviation: {source.journalAbbreviation ?? ''}
 			</h4>
 		{/if}
 		{#if source?.issue != null && source.issue != ''}
@@ -78,9 +132,39 @@
 				Volume Number: {source.volume ?? ''}
 			</h4>
 		{/if}
+		{#if source?.edition != null && source.edition != ''}
+			<h4 class="h4">
+				Edition: {source.edition ?? ''}
+			</h4>
+		{/if}
+		{#if source?.version != null && source.version != ''}
+			<h4 class="h4">
+				Version: {source.version ?? ''}
+			</h4>
+		{/if}
 		{#if source?.page != null && source.page != ''}
 			<h4 class="h4">
 				Pages: {source.page ?? ''}
+			</h4>
+		{/if}
+		{#if source?.abstract != null && source.abstract != ''}
+			<h4 class="h4">
+				Abstract: {source.abstract ?? ''}
+			</h4>
+		{/if}
+		{#if source?.DOI != null && source.DOI != ''}
+			<h4 class="h4">
+				DOI: {source.DOI ?? ''}
+			</h4>
+		{/if}
+		{#if source?.ISBN != null && source.ISBN != ''}
+			<h4 class="h4">
+				ISBN: {source.ISBN ?? ''}
+			</h4>
+		{/if}
+		{#if source?.ISSN != null && source.ISSN != ''}
+			<h4 class="h4">
+				ISSN: {source.ISSN ?? ''}
 			</h4>
 		{/if}
 	</div>
