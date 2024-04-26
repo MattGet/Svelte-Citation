@@ -35,6 +35,7 @@
 		<option value="book">Book</option>
 		<option value="patent">Patent</option>
 		<option value="article-magazine">Editorial</option>
+		<option value="paper-conference">Conference</option>
 	</select>
 </label>
 <label class="label">
@@ -130,4 +131,6 @@
 <input class="input" type="hidden" name="numAuthors" value={NUMB} />
 <input class="input" type="hidden" name="userid" value={user?.id} />
 <input class="input" type="hidden" name="user" value={JSON.stringify(user)} />
+<input class="input" type="hidden" name="creator" value={user?.fullName ?? ''} />
+<input class="input" type="hidden" name="time" value={Date.now().toString()} />
 <input class="input" type="hidden" name="id" value={source?.id} />

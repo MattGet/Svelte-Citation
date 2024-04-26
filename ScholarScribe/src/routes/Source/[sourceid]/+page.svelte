@@ -1,4 +1,5 @@
 <script lang="ts">
+	// @ts-nocheck
 	import type { PageData } from './$types';
 	import { clipboard } from '@skeletonlabs/skeleton';
 	import { suffixMe } from '$lib/client/helper.funcs';
@@ -6,18 +7,15 @@
 	import AdminBanner from '$lib/components/AdminBanner.svelte';
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import { enhance } from '$app/forms';
-	//@ts-ignore
+	import CopyButton from '$lib/components/CopyButton.svelte';
 
 	export let data: PageData;
 	$: ({ source } = data);
-
-	let copied = false;
-
-	function onClickHandler(): void {
-		copied = true;
-		setTimeout(() => {
-			copied = false;
-		}, 1000);
+	let link;
+	if (typeof window !== 'undefined') {
+		link = String(window.location.href);
+	} else {
+		link = 'https://ramen.valpo.edu';
 	}
 
 	const submit: SubmitFunction = async ({ cancel }) => {
@@ -102,14 +100,7 @@
 				{/if}
 			</ClerkLoaded>
 			<a class="btn variant-filled-primary" href="/Sources">Back to Sources</a>
-			<button
-				use:clipboard={window.location.href}
-				class="btn variant-filled-secondary"
-				on:click={onClickHandler}
-				disabled={copied}
-			>
-				{copied ? 'Copied 👍' : 'Copy Link'}
-			</button>
+			<CopyButton data={link} buttonName="Copy Link" />
 		</section>
 	</div>
 </div>

@@ -1,22 +1,28 @@
-import type { Actions } from "./$types"
-import { prisma } from "$lib/server/prisma"
-import { fail, redirect } from "@sveltejs/kit"
-import type { Author } from "@prisma/client"
+import type { Actions } from "./$types";
+import { prisma } from "$lib/server/prisma";
+import { fail, redirect } from "@sveltejs/kit";
+import type { Author } from "@prisma/client";
+// @ts-ignore
 import { Cite } from '@citation-js/core';
 import '@citation-js/plugin-doi'
 import '@citation-js/plugin-isbn'
 import '@citation-js/plugin-csl'
+import '@citation-js/plugin-bibtex'
+import '@citation-js/plugin-software-formats';
 import { Months } from "$lib/client/helper.funcs";
-
+import { importList } from "../../stores/sources";
+import { pushToDB } from "$lib/server/db.serve";
 
 export const actions: Actions = {
     createSource: async ({ request }) => {
         const formData = await request.formData();
-        const { title, URL, userid, user, day, month, year, publisher, type, volume_title, volume, issue, page, edition, locator } = Object.fromEntries(formData) as {
+        const { title, URL, userid, user, creator, time, day, month, year, publisher, type, volume_title, volume, issue, page, edition, locator } = Object.fromEntries(formData) as {
             title: string
             URL: string
             userid: string
             user: string
+            creator: string
+            time: string
             day: string
             month: string
             year: string
@@ -59,6 +65,8 @@ export const actions: Actions = {
                     userid,
                     user,
                     tags,
+                    creator,
+                    last_updated: time,
                     date: {
                         year,
                         month,
@@ -84,11 +92,13 @@ export const actions: Actions = {
     },
     importSource: async ({ request }) => {
         const formData = await request.formData();
-        const { importType, importText, userid, user } = Object.fromEntries(formData) as {
+        const { importType, importText, userid, user, creator, time } = Object.fromEntries(formData) as {
             importType: string
             importText: string
             userid: string
             user: string
+            creator: string
+            time: string
         }
 
         let output;
@@ -112,61 +122,108 @@ export const actions: Actions = {
                 return fail(500, { message: "Could not fetch ISBN info." })
             }
         }
+        else if (importType == "bibtex") {
+            try {
+                let ref = await Cite.async(importText);
+                output = ref.format('data');
+            }
+            catch (Error) {
+                console.error(Error)
+                return fail(500, { message: "Could not fetch BibTex info." })
+            }
+        }
+        else if (importType == "json") {
+            try {
+                let ref = await Cite.async(importText);
+                output = ref.format('data');
+            }
+            catch (Error) {
+                console.error(Error)
+                return fail(500, { message: "Could not fetch JSON info." })
+            }
+        }
+        else if (importType == "npm") {
+            try {
+                let ref = await Cite.async(importText);
+                output = ref.format('data');
+            }
+            catch (Error) {
+                console.error(Error)
+                return fail(500, { message: "Could not fetch NPM info." })
+            }
+        }
         else {
-            output = null;
+            return fail(500, { message: "No Import Type Selected!" })
         }
 
-        const data = JSON.parse(output)[0];
-        let date = data.issued['date-parts'][0];
-        let title = data.title;
-        let type = data.type;
-        let URL = data.URL;
-        let year;
-        let month;
-        let day;
-        if (date[0] != null) year = String(date[0]);
-        if (date[1] != null) month = Object.keys(Months).at(date[1] - 1);
-        if (date[2] != null) day = String(date[2]);
-        let publisher = data.publisher;
-        let author = data.author;
-        let volume = data.volume;
-        let page = data.page;
-        let volume_title = data["container-title"];
-        let issue = data.issue;
-        let edition = data.edition;
-        let locator = data.locator;
-        let tags:any =[];
-        let id;
+        let sourceList: string[] = [];
+
+        const sources = JSON.parse(output);
+
+        await sources.forEach(async (data: any) => {
+            let response = await pushToDB(data, user, userid, creator, time);
+            if (response == "Failed to send data!") {
+                return fail(500, { message: "Failed to upload source to database" })
+            }
+            else {
+                sourceList.push(response);
+            }
+        });
+
+        await new Promise(f => setTimeout(f, 1000));
+        importList.set(sourceList);
+        throw redirect(303, `/Validate/`)
+    },
+    importFile: async ({ request }) => {
+        const formData = Object.fromEntries(await request.formData());
+        if (
+            !(formData.fileToUpload as File).name ||
+            (formData.fileToUpload as File).name === 'undefined'
+        ) {
+            return fail(400, {
+                error: true,
+                message: 'You must provide a file to upload'
+            });
+        }
+
+        const { fileToUpload } = formData as { fileToUpload: File };
+        const { userid, user, creator, time, } = formData as {
+            userid: string
+            user: string
+            creator: string
+            time: string
+        };
+
+        let template = await fileToUpload.text(); // The actual text file
+        // console.log(template)
+        let output;
         try {
-            const source = await prisma.source.create({
-                data: {
-                    title,
-                    URL,
-                    userid,
-                    user,
-                    tags,
-                    date: {
-                        year,
-                        month,
-                        day,
-                    },
-                    publisher,
-                    type,
-                    author,
-                    volume_title,
-                    volume,
-                    issue,
-                    page,
-                    edition,
-                    locator,
-                },
-            })
-            id = source.id;
-        } catch (err) {
-            console.error(err)
-            return fail(500, { message: "Could not create the article." })
+            let ref = await Cite.async(template);
+            output = ref.format('data');
+        }
+        catch (Error) {
+            console.error(Error)
+            return fail(500, { message: "Could not parse file data." })
         }
 
-        redirect(303, `/Validate/${id}`)
+        // console.log(output);
+
+        let sourceList: string[] = [];
+
+        const sources = JSON.parse(output);
+
+        await sources.forEach(async (data: any) => {
+            let response = await pushToDB(data, user, userid, creator, time);
+            if (response == "Failed to send data!") {
+                return fail(500, { message: "Failed to upload source to database" })
+            }
+            else {
+                sourceList.push(response);
+            }
+        });
+
+        await new Promise(f => setTimeout(f, 1000));
+        importList.set(sourceList);
+        throw redirect(303, `/Validate/`)
     },
 }

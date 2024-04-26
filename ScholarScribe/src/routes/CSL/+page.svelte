@@ -1,4 +1,5 @@
 <script lang="ts">
+	// @ts-nocheck
 	import { exportJSON, exportBibTex } from '$lib/client/export.funcs';
 	import { redirect, type SubmitFunction } from '@sveltejs/kit';
 	import type { PageData } from './$types';
@@ -7,6 +8,7 @@
 	import { get } from 'svelte/store';
 	import { enhance } from '$app/forms';
 	import TextDisplay from '$lib/components/TextDisplay.svelte';
+	import CopyButton from '$lib/components/CopyButton.svelte';
 
 	export let data: PageData;
 	export let form;
@@ -27,9 +29,7 @@
 		bibStyle.set(event.target.value);
 	}
 
-	function test() {
-		console.log(JSON.parse(form?.Tex));
-	}
+	function test() {}
 
 	const submit: SubmitFunction = async ({ formData }) => {
 		bibStyle.set(formData.get('style') as string);
@@ -73,13 +73,22 @@
 		</div>
 	</form>
 	<div class="px-10">
+		<div class="flex gap-10 pb-5" style="text-align: center;">
+			<h3 class="h3">Bibliography</h3>
+			<CopyButton data={{ element: 'bib-data' }} buttonName="Copy Bib as HTML" />
+			<CopyButton
+				data={form?.bibtext.replace(/\\n/g, '\n\n').replace(/['"]+/g, '')}
+				buttonName="Copy Bib as text"
+			/>
+		</div>
 		<div class="card p-5">
-			<h4 class="h4 pb-5">Bibliography:</h4>
 			{#if form?.bib}
-				{#each JSON.parse(form?.bib) as bib}
-					{@html bib[1]}
-					<br />
-				{/each}
+				<div data-clipboard="bib-data">
+					{#each JSON.parse(form?.bib) as bib}
+						{@html bib[1]}
+						<br />
+					{/each}
+				</div>
 			{/if}
 		</div>
 	</div>
@@ -137,7 +146,7 @@
 			{#each sources as source, i}
 				{#if selection.includes(source.id)}
 					<tr>
-						<td>{JSON.parse(source.user ?? '')?.fullName}</td>
+						<td>{source.creator}</td>
 						<td>{source.type}</td>
 						<td
 							>{source.title?.length ?? 30 > 30
