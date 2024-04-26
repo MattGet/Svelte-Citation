@@ -14,8 +14,31 @@ export const load: PageServerLoad = async () => {
             id: { in: list },
         },
     })
+
+    const sourcesAll = await prisma.source.findMany();
+
+    // Initialize an empty array to store all tags
+    let allTags: string[] = [];
+
+    // Loop through each source object
+    sourcesAll.forEach(source => {
+        //console.log(source.tags)
+        if (source.tags != undefined && source.tags != undefined) {
+            // Split the tags string into an array of individual tags
+            var tagsArray = source.tags.split(',');
+
+            // Concatenate the tagsArray with allTags array
+            allTags = allTags.concat(tagsArray);
+        }
+    });
+    // Create a Set to store unique tags
+    var uniqueTagsSet = new Set(allTags);
+
+    // Convert Set back to an array
+    var uniqueTagsArray = Array.from(uniqueTagsSet);
     return {
-        sources: sources
+        sources: sources,
+        tags: uniqueTagsArray
     }
 }
 

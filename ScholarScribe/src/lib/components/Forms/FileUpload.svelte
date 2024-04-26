@@ -1,7 +1,9 @@
 <script lang="ts">
 	import { FileDropzone } from '@skeletonlabs/skeleton';
+	import Tags from './Tags.svelte';
 	// @ts-ignore
 	export let user: any;
+	export let tags: any[];
 
 	const authorizedExtensions = ['.bib', '.json', '.txt'];
 
@@ -35,6 +37,7 @@
 				</svelte:fragment>
 				<svelte:fragment slot="meta">Supports CSL-JSON or BibTex</svelte:fragment>
 			</FileDropzone>
+			<Tags {tags} />
 			<input class="input" type="hidden" name="userid" value={user?.id} />
 			<input class="input" type="hidden" name="user" value={JSON.stringify(user)} />
 			<input class="input" type="hidden" name="creator" value={user?.fullName ?? ''} />

@@ -3,9 +3,11 @@
 	export let source;
 	export let user;
 	export let NUMB = 1;
+	export let tags;
 
 	import Author from '$lib/components/Forms/Author.svelte';
 	import { Months } from '$lib/client/helper.funcs';
+	import Tags from './Tags.svelte';
 
 	let maxAuthors = 10;
 
@@ -124,6 +126,7 @@
 		value={source?.publisher ?? ''}
 	/>
 </label>
+<Tags {tags} inputChipList={source.tags?.split(',') ?? []} />
 <input class="input" type="hidden" name="numAuthors" value={NUMB} />
 <input class="input" type="hidden" name="userid" value={user?.id} />
 <input class="input" type="hidden" name="user" value={JSON.stringify(user)} />

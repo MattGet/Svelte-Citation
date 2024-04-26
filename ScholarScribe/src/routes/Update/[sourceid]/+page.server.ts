@@ -5,7 +5,29 @@ import type { Author } from "@prisma/client"
 
 //@ts-ignore
 export const load: PageServerLoad = async ({ params }) => {
+    const sources = await prisma.source.findMany();
+
+    // Initialize an empty array to store all tags
+    let allTags: string[] = [];
+
+    // Loop through each source object
+    sources.forEach(source => {
+        //console.log(source.tags)
+        if (source.tags != undefined && source.tags != undefined) {
+            // Split the tags string into an array of individual tags
+            var tagsArray = source.tags.split(',');
+
+            // Concatenate the tagsArray with allTags array
+            allTags = allTags.concat(tagsArray);
+        }
+    });
+    // Create a Set to store unique tags
+    var uniqueTagsSet = new Set(allTags);
+
+    // Convert Set back to an array
+    var uniqueTagsArray = Array.from(uniqueTagsSet);
     return {
+        tags: uniqueTagsArray,
         source: await prisma.source.findUnique({
             where: {
                 id: params.sourceid,
@@ -17,7 +39,7 @@ export const load: PageServerLoad = async ({ params }) => {
 export const actions: Actions = {
     updateSource: async ({ request }) => {
         const formData = await request.formData();
-        const { title, URL, userid, user, creator, time, day, month, year, publisher, type, id, volume_title, volume, issue, page, edition, locator } = Object.fromEntries(formData) as {
+        const { title, URL, userid, user, creator, time, day, month, year, publisher, type, id, volume_title, volume, issue, page, edition, locator, tags } = Object.fromEntries(formData) as {
             title: string
             URL: string
             userid: string
@@ -36,6 +58,7 @@ export const actions: Actions = {
             page: string
             edition: string
             locator: string
+            tags: string
         }
 
         // Extracting numbAuthor as a number, assuming it's part of the form data
@@ -84,6 +107,7 @@ export const actions: Actions = {
                     page,
                     edition,
                     locator,
+                    tags,
                 },
             })
         } catch (err) {

@@ -5,6 +5,7 @@
 
 	export let data: PageData;
 	$: ({ source } = data);
+	$: ({ tags } = data);
 	const NUMB = data.source?.author.length;
 
 	// Floating UI for Popups
@@ -22,7 +23,7 @@
 		<form action="?/updateSource" method="POST">
 			<div class="space-y-8 px-20 pt-10 pb-40">
 				<h3>Update {source.type} citation</h3>
-				<MasterFormComponents {source} {user} {NUMB} />
+				<MasterFormComponents {source} {user} {NUMB} {tags} />
 				<button type="submit" class="btn variant-filled">Submit</button>
 			</div>
 		</form>

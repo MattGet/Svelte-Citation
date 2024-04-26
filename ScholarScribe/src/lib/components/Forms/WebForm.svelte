@@ -2,8 +2,10 @@
 	// @ts-nocheck
 	import Author from './Author.svelte';
 	import { Months } from '$lib/client/helper.funcs';
+	import Tags from './Tags.svelte';
 
 	export let user;
+	export let tags;
 
 	let maxAuthors = 10;
 
@@ -61,6 +63,7 @@
 				<span>URL</span>
 				<input class="input p-2" name="URL" type="link" placeholder="https://www.example.com" />
 			</label>
+			<Tags {tags} />
 			<input class="input" type="hidden" name="type" value="webpage" />
 			<input class="input" type="hidden" name="numAuthors" value={numAuthors} />
 			<input class="input" type="hidden" name="userid" value={user?.id} />
