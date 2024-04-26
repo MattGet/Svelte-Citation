@@ -147,11 +147,6 @@
 				Pages: {source.page ?? ''}
 			</h4>
 		{/if}
-		{#if source?.abstract != null && source.abstract != ''}
-			<h4 class="h4">
-				Abstract: {source.abstract ?? ''}
-			</h4>
-		{/if}
 		{#if source?.DOI != null && source.DOI != ''}
 			<h4 class="h4">
 				DOI: {source.DOI ?? ''}
@@ -165,6 +160,11 @@
 		{#if source?.ISSN != null && source.ISSN != ''}
 			<h4 class="h4">
 				ISSN: {source.ISSN ?? ''}
+			</h4>
+		{/if}
+		{#if source?.abstract != null && source.abstract != ''}
+			<h4 class="h4">
+				Abstract: {source.abstract ?? ''}
 			</h4>
 		{/if}
 	</div>
