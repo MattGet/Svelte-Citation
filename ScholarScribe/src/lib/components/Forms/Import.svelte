@@ -1,6 +1,8 @@
 <script lang="ts">
 	// @ts-nocheck
 	export let user;
+	import { InputChip } from "@skeletonlabs/skeleton";
+	let tags=[];
 </script>
 
 <div>
@@ -17,6 +19,9 @@
 					<input class="input" name="importText" type="text" placeholder="ISBN/DOI" required />
 				</section>
 			</label>
+			<div>
+				<InputChip bind:value={tags} name="tags" placeholder="Enter tags here..."/>
+			</div>
 			<input class="input" type="hidden" name="userid" value={user?.id} />
 			<input class="input" type="hidden" name="user" value={JSON.stringify(user)} />
 			<button type="submit" class="btn variant-filled">Submit</button>

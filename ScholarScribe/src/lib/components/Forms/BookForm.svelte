@@ -1,4 +1,6 @@
-<script>
+<script lang="ts">
+	import { InputChip } from '@skeletonlabs/skeleton';
+
 	// @ts-nocheck
 	import Author from './Author.svelte';
 	import { Months } from '$lib/client/helper.funcs';
@@ -24,6 +26,7 @@
 			alert('Minimum number of authors reached (1).');
 		}
 	}
+	let tags:any=[]; 
 </script>
 
 <div>
@@ -69,6 +72,9 @@
 				<span>Edition</span>
 				<input class="input" name="edition" type="text" placeholder="Edition" />
 			</label>
+			<div>
+				<InputChip bind:value={tags} name="tags" placeholder="Enter tags here..."/>
+			</div>
 			<input class="input" type="hidden" name="type" value="book" />
 			<input class="input" type="hidden" name="numAuthors" value={numAuthors} />
 			<input class="input" type="hidden" name="userid" value={user?.id} />

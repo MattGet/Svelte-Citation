@@ -100,6 +100,7 @@
 				<th>Citation Type</th>
 				<th>Title</th>
 				<th>Authors</th>
+				<th>Tags</th>
 				<th>View</th>
 				<SignedIn>
 					<th>Update</th>
@@ -123,6 +124,7 @@
 					<td>{source.type}</td>
 					<td>{source.title.length > 30 ? source.title.substring(0, 30) + '...' : source.title}</td>
 					<td>{source.author[0]?.given} {source.author[0]?.family}</td>
+					<td>{source.tags}</td>
 					<td>
 						<a class="btn variant-filled-secondary" href="/Source/{source.id}">View</a>
 					</td>

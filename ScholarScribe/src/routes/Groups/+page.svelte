@@ -24,7 +24,6 @@
 
 <!-- Responsive Container (recommended) -->
 <div class="table-container px-10 pb-10">
-	<!-- Native Table Element -->
 	<table class="table table-hover">
 		<thead>
 			<tr>
@@ -32,7 +31,6 @@
 				<th>Created By</th>
 				<th>Primary Genre</th>
 				<th>Secondary Genres</th>
-				<th>Tags</th>
 				<th>Title</th>
 				<SignedIn>
 					<th>Delete</th>
@@ -40,20 +38,19 @@
 			</tr>
 		</thead>
 		<tbody>
-			{#each groups as group, i}
+			{#each groups as group}
 				<tr>
-					
+					<td>{group.sourceids}</td>
 					<td>{group.userid}</td>
 					<td>{group.genDel}</td>
-					<td>{group.genre}</td>
-					<td>{group.tags}</td>
+					<td>{group.genre.join(', ')}</td>
 					<td>{group.title}</td>
 					<SignedIn let:user>
-							<td>
-								<form action="?/deleteGroup&id={group.id}" method="POST" use:enhance={submit}>
-									<button type="submit" class="btn variant-filled-error">Delete</button>
-								</form>
-							</td>
+						<td>
+							<form action={`?/deleteGroup&id=${group.id}`} method="POST" use:enhance={submit}>
+								<button type="submit" class="btn variant-filled-error">Delete</button>
+							</form>
+						</td>
 					</SignedIn>
 				</tr>
 			{/each}
@@ -61,9 +58,7 @@
 	</table>
 	<SignedIn let:user>
 		<div class="flex width-full justify-center p-10">
-			<a href="/Add Groups" class="btn variant-filled" data-sveltekit-preload-data="hover"
-				>Add New Group
-			</a>
+			<a href="/Add Groups" class="btn variant-filled" data-sveltekit-preload-data="hover">Add New Group</a>
 		</div>
 	</SignedIn>
 </div>

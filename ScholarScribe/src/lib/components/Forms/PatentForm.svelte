@@ -24,6 +24,8 @@
 			alert('Minimum number of authors reached (1).');
 		}
 	}
+	import { InputChip } from '@skeletonlabs/skeleton';
+	let tags=[]
 </script>
 
 <div>
@@ -61,6 +63,9 @@
 				<span>Patent Number</span>
 				<input class="input" name="locator" type="text" placeholder="Patent Number" />
 			</label>
+			<div>
+				<InputChip bind:value={tags} name="tags" placeholder="Enter tags here..."/>
+			</div>
 			<input class="input" type="hidden" name="type" value="patent" />
 			<input class="input" type="hidden" name="numAuthors" value={numAuthors} />
 			<input class="input" type="hidden" name="userid" value={user?.id} />

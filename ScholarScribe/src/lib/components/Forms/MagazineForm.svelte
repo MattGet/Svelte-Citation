@@ -2,9 +2,9 @@
 	// @ts-nocheck
 	import Author from './Author.svelte';
 	import { Months } from '$lib/client/helper.funcs';
-
+	let tags=[]
 	export let user;
-
+	import { InputChip } from '@skeletonlabs/skeleton';
 	let maxAuthors = 10;
 
 	export let numAuthors = 1;
@@ -85,6 +85,9 @@
 				<span>Page</span>
 				<input class="input" name="page" type="text" placeholder="Page" required />
 			</label>
+			<div>
+				<InputChip bind:value={tags} name="tags" placeholder="Enter tags here..."/>
+			</div>
 			<input class="input" type="hidden" name="type" value="article-magazine" />
 			<input class="input" type="hidden" name="numAuthors" value={numAuthors} />
 			<input class="input" type="hidden" name="userid" value={user?.id} />

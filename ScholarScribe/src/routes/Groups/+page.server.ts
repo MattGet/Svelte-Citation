@@ -35,5 +35,11 @@ export const actions: Actions = {
             status: 200,
         }
     },
-    
-}
+    retrieveDocumentById: async ({ request }) => {
+        const document = await prisma.source.findUnique({
+            where: {
+              id: id
+            },
+          });
+        }
+    }

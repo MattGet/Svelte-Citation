@@ -85,6 +85,11 @@
 				Pages: {source.page ?? ''}
 			</h4>
 		{/if}
+			{#each source?.tags as tags, i}
+			<h4 class="h4">
+				Tags {i + 1}: {tags ?? ''}
+			</h4>
+		{/each}
 	</div>
 	<div class="container mx-auto p-8 space-y-8">
 		<section class="flex flex-row gap-4">

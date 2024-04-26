@@ -10,7 +10,7 @@
 
 	// Floating UI for Popups
 	import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';
-	import { CodeBlock, TreeView, TreeViewItem, storePopup } from '@skeletonlabs/skeleton';
+	import { CodeBlock, InputChip, TreeView, TreeViewItem, storePopup } from '@skeletonlabs/skeleton';
 	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
 
 	import SignedIn from 'clerk-sveltekit/client/SignedIn.svelte';
@@ -20,6 +20,7 @@
 	let formType = 'import';
 	export let form;
 	let source: any;
+	let tags:any =[]; 
 </script>
 
 <SignedIn let:user>
@@ -88,4 +89,5 @@
 			>
 		</h1>
 	{/if}
+	
 </SignedIn>

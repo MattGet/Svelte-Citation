@@ -1,16 +1,20 @@
-// Import necessary modules and functions
-import { prisma } from "$lib/server/prisma";
-import { fail, redirect } from "@sveltejs/kit";
+import { prisma } from "$lib/server/prisma"
+import { fail, redirect } from "@sveltejs/kit"
 import type { Actions } from "./$types"
-import type { PageData } from "../$types";
 
-export const load = async (page: PageData) => {
-    const sources = await prisma.source.findMany();
-    return {sources };
-};
-
+//@ts-ignore
+export const load: PageServerLoad = async ({ params }) => {
+    return {
+        group: await prisma.group.findUnique({
+            where: {
+                id: params.groupid,
+            },
+        }
+        )
+    }
+}
 export const actions: Actions = {
-    creategroup: async ({ request}) => {
+    updategroup: async ({ request}) => {
     try {
         const formData = await request.formData();
         const { title, userid, genDel } = Object.fromEntries(formData) as {
@@ -19,12 +23,11 @@ export const actions: Actions = {
             genDel: string;
         };
         
-        const user = formData.get("user")?.toString() || "default_user";
+        const user = formData.get("user") || "default_user";
         const isPublicString = formData.get("isPublic");
         const isPublic = isPublicString ? Boolean(isPublicString) : false;  
         const genre = formData.get("genre")?.toString().split(",") || [];
-        const selectedSources = formData.getAll("selectedSources") || [];
-        
+        const sources = formData.get("selectedSources")?.toString().split(",") ||[];
         // Create the group with the provided data
         const group = await prisma.group.create({
             data: {
@@ -35,9 +38,9 @@ export const actions: Actions = {
                 genre,
                 isPublic,
                 sources: {
-                    connect: selectedSources.map((sourceId) => ({ id: sourceId })),
-                } as any, 
-            },
+                    connect: sources.map((sourceId) => ({ id: sourceId })),
+                } 
+            } as any,
         });
 
         // Redirect to the groups page after successful creation
