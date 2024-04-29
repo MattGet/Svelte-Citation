@@ -3,7 +3,6 @@
 	import Author from './Author.svelte';
 	import { Months } from '$lib/client/helper.funcs';
 	import Tags from './Tags.svelte';
-
 	export let user;
 	export let tags;
 
@@ -26,6 +25,7 @@
 			alert('Minimum number of authors reached (1).');
 		}
 	}
+	let tags: any = [];
 </script>
 
 <div>

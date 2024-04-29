@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	// @ts-nocheck
 	import Author from './Author.svelte';
 	import { Months } from '$lib/client/helper.funcs';
@@ -6,7 +6,6 @@
 
 	export let user;
 	export let tags;
-
 	let maxAuthors = 10;
 
 	export let numAuthors = 1;
