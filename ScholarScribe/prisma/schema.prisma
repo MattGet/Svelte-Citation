@@ -18,6 +18,7 @@ model Source {
   URL                         String?
   userid                      String
   user                        String?
+  tags                        String?
   author                      Author[]
   date                        Date?
   publisher                   String?
@@ -83,7 +84,6 @@ model Source {
   ISBN                        String?
   ISSN                        String?
   jurisdiction                String?
-  keyword                     String?
   medium                      String?
   note                        String?
   number                      String?
@@ -127,7 +127,11 @@ type Author {
   literal               String?
   parse_names           String?
   sequence              String?
-  affiliation           String[]
+  affiliation           Affiliation[]
+}
+
+type Affiliation {
+  name String?
 }
 
 model Group {

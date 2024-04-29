@@ -4,8 +4,10 @@
 	// @ts-nocheck
 	import Author from './Author.svelte';
 	import { Months } from '$lib/client/helper.funcs';
+	import Tags from './Tags.svelte';
 
 	export let user;
+	export let tags;
 
 	let maxAuthors = 10;
 
@@ -26,7 +28,6 @@
 			alert('Minimum number of authors reached (1).');
 		}
 	}
-	let tags: any = [];
 </script>
 
 <div>
@@ -72,6 +73,7 @@
 				<span>Edition</span>
 				<input class="input" name="edition" type="text" placeholder="Edition" />
 			</label>
+			<Tags {tags} />
 			<input class="input" type="hidden" name="type" value="book" />
 			<input class="input" type="hidden" name="numAuthors" value={numAuthors} />
 			<input class="input" type="hidden" name="userid" value={user?.id} />

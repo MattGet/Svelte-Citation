@@ -2,8 +2,10 @@
 	// @ts-nocheck
 	import Author from './Author.svelte';
 	import { Months } from '$lib/client/helper.funcs';
+	import Tags from './Tags.svelte';
 
 	export let user;
+	export let tags;
 
 	let maxAuthors = 10;
 
@@ -24,8 +26,6 @@
 			alert('Minimum number of authors reached (1).');
 		}
 	}
-	import { InputChip } from '@skeletonlabs/skeleton';
-	let tags = [];
 </script>
 
 <div>
@@ -63,6 +63,7 @@
 				<span>Patent Number</span>
 				<input class="input" name="locator" type="text" placeholder="Patent Number" />
 			</label>
+			<Tags {tags} />
 			<input class="input" type="hidden" name="type" value="patent" />
 			<input class="input" type="hidden" name="numAuthors" value={numAuthors} />
 			<input class="input" type="hidden" name="userid" value={user?.id} />

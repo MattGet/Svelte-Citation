@@ -1,7 +1,8 @@
 import { Months } from "$lib/client/helper.funcs";
 import { prisma } from "$lib/server/prisma";
 
-export async function pushToDB(data: any, user: string, userid: string, creator: string, time: string) {
+export async function pushToDB(data: any, user: string, userid: string, creator: string, time: string, tags: string) {
+    //console.log(data);
     let date = data.issued['date-parts'][0];
     let title = data.title;
     let type = data.type;
@@ -20,6 +21,11 @@ export async function pushToDB(data: any, user: string, userid: string, creator:
     let issue = data.issue;
     let edition = data.edition;
     let locator = data.locator;
+    //console.log(`tags: ${tags} keywords: ${data.keyword}`);
+    if (data.keyword != undefined && data.keyword != null) {
+        if (tags != null && tags != undefined) tags += `,${data.keyword}`;
+        else tags = data.keyword;
+    }
     //Import only fields below
     let categories = data.categories;
     let chair = data.chair;
@@ -113,6 +119,7 @@ export async function pushToDB(data: any, user: string, userid: string, creator:
                 user,
                 creator,
                 last_updated: time,
+                tags,
                 date: {
                     year,
                     month,
@@ -182,7 +189,6 @@ export async function pushToDB(data: any, user: string, userid: string, creator:
                 ISBN,
                 ISSN,
                 jurisdiction,
-                keyword,
                 medium,
                 note,
                 number,
