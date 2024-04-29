@@ -24,7 +24,7 @@
 			alert('Minimum number of authors reached (1).');
 		}
 	}
-	let tags=[];
+	let tags = [];
 </script>
 
 <label>
@@ -125,9 +125,6 @@
 		value={source?.publisher ?? ''}
 	/>
 </label>
-<div>
-	<InputChip bind:value={tags} name="tags" placeholder="Enter tags here..."/>
-</div>
 <input class="input" type="hidden" name="numAuthors" value={NUMB} />
 <input class="input" type="hidden" name="userid" value={user?.id} />
 <input class="input" type="hidden" name="user" value={JSON.stringify(user)} />

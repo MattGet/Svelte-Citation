@@ -1,9 +1,8 @@
 <script lang="ts">
 	import { FileDropzone } from '@skeletonlabs/skeleton';
 	// @ts-nocheck
-	export let user;
-	import { InputChip } from "@skeletonlabs/skeleton";
-	let tags=[];
+	import { InputChip } from '@skeletonlabs/skeleton';
+	let tags: any[] = [];
 	export let user: any;
 
 	let type = 'bibtex';
@@ -31,7 +30,7 @@
 				</section>
 			</label>
 			<div>
-				<InputChip bind:value={tags} name="tags" placeholder="Enter tags here..."/>
+				<InputChip bind:value={tags} name="tags" placeholder="Enter tags here..." />
 			</div>
 			<input class="input" type="hidden" name="userid" value={user?.id} />
 			<input class="input" type="hidden" name="user" value={JSON.stringify(user)} />

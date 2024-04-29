@@ -25,7 +25,7 @@
 		}
 	}
 	import { InputChip } from '@skeletonlabs/skeleton';
-	let tags=[]
+	let tags = [];
 </script>
 
 <div>
@@ -73,9 +73,6 @@
 					/>
 				</section>
 			</label>
-			<div>
-				<InputChip bind:value={tags} name="tags" placeholder="Enter tags here..."/>
-			</div>
 			<input class="input" type="hidden" name="type" value="song" />
 			<input class="input" type="hidden" name="numAuthors" value={numAuthors} />
 			<input class="input" type="hidden" name="userid" value={user?.id} />

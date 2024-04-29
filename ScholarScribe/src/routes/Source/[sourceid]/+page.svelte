@@ -47,19 +47,19 @@
 				URL: <a href={source.URL} target="_blank" rel="noreferrer noopener">{source.URL}</a>
 			</h4>
 		{/if}
-			<h4 class="h4">Authors: </h4>
-			{#each source?.author as author, i}
-				<h4 class="h4">
-					&emsp;Author {i + 1}: {author.given ?? ''}
-					{author.dropping_particle ?? ''}
-					{author.non_dropping_particle ?? ''}
-					{author.family ?? ''}
-					{author.suffix ?? ''}
-					{author.comma_suffix ?? ''}
-				</h4>
-			{/each}
+		<h4 class="h4">Authors:</h4>
+		{#each source?.author as author, i}
+			<h4 class="h4">
+				&emsp;Author {i + 1}: {author.given ?? ''}
+				{author.dropping_particle ?? ''}
+				{author.non_dropping_particle ?? ''}
+				{author.family ?? ''}
+				{author.suffix ?? ''}
+				{author.comma_suffix ?? ''}
+			</h4>
+		{/each}
 		{#if source?.composer != null && source.composer != ''}
-			<h4 class="h4">Composers: </h4>
+			<h4 class="h4">Composers:</h4>
 			{#each source?.composer as composer, i}
 				<h4 class="h4">
 					&emsp;Composer {i + 1}: {composer.given ?? ''}
@@ -72,7 +72,7 @@
 			{/each}
 		{/if}
 		{#if source?.editor != null && source.editor != ''}
-			<h4 class="h4">Editors: </h4>
+			<h4 class="h4">Editors:</h4>
 			{#each source?.editor as editor, i}
 				<h4 class="h4">
 					&emsp;Editor {i + 1}: {editor.given ?? ''}
@@ -85,7 +85,7 @@
 			{/each}
 		{/if}
 		{#if source?.performer != null && source.performer != ''}
-			<h4 class="h4">Performers: </h4>
+			<h4 class="h4">Performers:</h4>
 			{#each source?.performer as performer, i}
 				<h4 class="h4">
 					&emsp;Performer {i + 1}: {performer.given ?? ''}
@@ -147,13 +147,11 @@
 				Pages: {source.page ?? ''}
 			</h4>
 		{/if}
-    {#if source?.tags != null && source?.tags != ''}
-			{#each source?.tags as tags, i}
-			  <h4 class="h4">
-				  Tags {i + 1}: {tags ?? ''}
-			  </h4>
-		  {/each}
-    {/if}
+		{#if source?.tags != null && source?.tags != ''}
+			<h4 class="h4">
+				Tags: {source.tags ?? ''}
+			</h4>
+		{/if}
 		{#if source?.abstract != null && source.abstract != ''}
 			<h4 class="h4">
 				Abstract: {source.abstract ?? ''}
