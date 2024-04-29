@@ -3,8 +3,6 @@
 	import Tags from './Tags.svelte';
 	import { importType } from '../../../stores/sources';
 	// @ts-nocheck
-	import { InputChip } from '@skeletonlabs/skeleton';
-	let tags: any[] = [];
 	export let user: any;
 	export let tags: any;
 	// Function to handle changes in selection

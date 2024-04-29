@@ -126,7 +126,7 @@ export const actions: Actions = {
         // Create a CSV string
         let tags: any = flattenedTagValues.join(',');
         if (tags == '') tags = null;
-        console.log(`tags: ${tags}.`);
+        // console.log(`tags: ${tags}.`);
 
         try {
             const source = await prisma.source.update({

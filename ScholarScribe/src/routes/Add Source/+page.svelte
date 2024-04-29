@@ -25,7 +25,6 @@
 	export let data: PageData;
 	const tags = data.Tags;
 	let source: any;
-	let tags:any =[]; 
 
 	// Function to handle changes in selection
 	function handleChange(event: any) {
@@ -109,5 +108,4 @@
 			>
 		</h1>
 	{/if}
-	
 </SignedIn>

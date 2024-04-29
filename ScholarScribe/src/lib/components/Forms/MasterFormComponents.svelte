@@ -25,7 +25,6 @@
 			alert('Minimum number of authors reached (1).');
 		}
 	}
-	let tags = [];
 </script>
 
 <label>

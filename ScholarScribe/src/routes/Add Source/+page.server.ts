@@ -97,7 +97,7 @@ export const actions: Actions = {
         if (NUMB < 1) {
             throw new Error("Invalid numbAuthor, must be at least 1");
         }
-        const tags = formData.getAll('tags').toString().split(" "); 
+
         let author = []
 
         for (let i = 0; i < NUMB; i++) {
@@ -107,7 +107,7 @@ export const actions: Actions = {
             let authors = { given: given, family: family, suffix: suffix } as Author;
             author[i] = authors;
         }
-      
+
         try {
             const source = await prisma.source.create({
                 data: {
@@ -132,7 +132,6 @@ export const actions: Actions = {
                     page,
                     edition,
                     locator,
-                    tags,
                 },
             })
         } catch (err) {
@@ -174,7 +173,7 @@ export const actions: Actions = {
         // Create a CSV string
         let tags: any = flattenedTagValues.join(',');
         if (tags == '') tags = null;
-        console.log(`tags: ${tags}.`);
+        // console.log(`tags: ${tags}.`);
 
         let output;
         if (importType == "doi") {
