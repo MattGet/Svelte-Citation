@@ -5,6 +5,7 @@
 
 	export let data: PageData;
 	$: ({ sources } = data);
+	$: ({ tags } = data);
 	const NUMB = data.source?.author.length;
 
 	// Floating UI for Popups
@@ -39,7 +40,7 @@
 						<div class="flex-col justify-center">
 							<form action="?/updateSource" method="POST" use:enhance={submit}>
 								<div class="space-y-8 px-20 pt-10 pb-10">
-									<MasterFormComponents {source} {user} {NUMB} />
+									<MasterFormComponents {source} {user} {NUMB} {tags} />
 									<section class="flex flex-row gap-4">
 										<button type="submit" class="btn variant-filled-success">Update</button>
 										<form action="?/deleteSource&id={source.id}" method="POST">

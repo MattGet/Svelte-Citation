@@ -14,8 +14,31 @@ export const load: PageServerLoad = async () => {
             id: { in: list },
         },
     })
+
+    const sourcesAll = await prisma.source.findMany();
+
+    // Initialize an empty array to store all tags
+    let allTags: string[] = [];
+
+    // Loop through each source object
+    sourcesAll.forEach(source => {
+        //console.log(source.tags)
+        if (source.tags != undefined && source.tags != undefined) {
+            // Split the tags string into an array of individual tags
+            var tagsArray = source.tags.split(',');
+
+            // Concatenate the tagsArray with allTags array
+            allTags = allTags.concat(tagsArray);
+        }
+    });
+    // Create a Set to store unique tags
+    var uniqueTagsSet = new Set(allTags);
+
+    // Convert Set back to an array
+    var uniqueTagsArray = Array.from(uniqueTagsSet);
     return {
-        sources: sources
+        sources: sources,
+        tags: uniqueTagsArray
     }
 }
 
@@ -82,6 +105,29 @@ export const actions: Actions = {
             author[i] = authors;
         }
 
+        // Extract FormData entries
+        const formDataEntries = formData.entries();
+
+        // Initialize an array to store tag values
+        const tagValues = [];
+
+        // Iterate over FormData entries
+        for (const [name, value] of formDataEntries) {
+            // Check if the entry name is "tags"
+            if (name === 'tags') {
+                // Split the value by comma and add to tagValues array
+                tagValues.push(value);
+            }
+        }
+
+        // Flatten the tagValues array
+        const flattenedTagValues = tagValues.flat();
+
+        // Create a CSV string
+        let tags: any = flattenedTagValues.join(',');
+        if (tags == '') tags = null;
+        // console.log(`tags: ${tags}.`);
+
         try {
             const source = await prisma.source.update({
                 where: {
@@ -106,6 +152,7 @@ export const actions: Actions = {
                     page,
                     edition,
                     locator,
+                    tags,
                 },
             })
         } catch (err) {

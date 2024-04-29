@@ -10,7 +10,7 @@
 
 	// Floating UI for Popups
 	import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';
-	import { CodeBlock, TreeView, TreeViewItem, storePopup } from '@skeletonlabs/skeleton';
+	import { CodeBlock, InputChip, TreeView, TreeViewItem, storePopup } from '@skeletonlabs/skeleton';
 	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
 
 	import SignedIn from 'clerk-sveltekit/client/SignedIn.svelte';
@@ -18,8 +18,12 @@
 	import MasterFormComponents from '$lib/components/Forms/MasterFormComponents.svelte';
 	import FileUpload from '$lib/components/Forms/FileUpload.svelte';
 	import { addCiteType } from '../../stores/sources';
+	import type { PageData } from './$types';
 
 	export let form;
+
+	export let data: PageData;
+	const tags = data.Tags;
 	let source: any;
 
 	// Function to handle changes in selection
@@ -55,7 +59,7 @@
 					<TreeViewItem>
 						Import Again
 						<svelte:fragment slot="children">
-							<Import {user} />
+							<Import {user} {tags} />
 						</svelte:fragment>
 					</TreeViewItem>
 					<TreeViewItem>
@@ -64,7 +68,7 @@
 							<form action="?/createSource" method="POST">
 								<div class="space-y-8 px-20 pt-10 pb-40">
 									<h3>Manually Import Citation</h3>
-									<MasterFormComponents {source} {user} />
+									<MasterFormComponents {source} {user} {tags} />
 									<button type="submit" class="btn variant-filled">Submit</button>
 								</div>
 							</form>
@@ -73,10 +77,10 @@
 				</TreeView>
 			</div>
 		{:else}
-			<Import {user} />
+			<Import {user} {tags} />
 		{/if}
 	{:else if $addCiteType == 'webpage'}
-		<WebForm {user} />
+		<WebForm {user} {tags} />
 	{:else if $addCiteType == 'file'}
 		{#if form?.message}
 			<div class="flex justify-center pt-8">
@@ -85,17 +89,17 @@
 				</div>
 			</div>
 		{/if}
-		<FileUpload {user} />
+		<FileUpload {user} {tags} />
 	{:else if $addCiteType == 'journal'}
-		<JournalForm {user} />
+		<JournalForm {user} {tags} />
 	{:else if $addCiteType == 'book'}
-		<BookForm {user} />
+		<BookForm {user} {tags} />
 	{:else if $addCiteType == 'patent'}
-		<PatentForm {user} />
+		<PatentForm {user} {tags} />
 	{:else if $addCiteType == 'magazine'}
-		<MagazineForm {user} />
+		<MagazineForm {user} {tags} />
 	{:else if $addCiteType == 'music'}
-		<MusicForm {user} />
+		<MusicForm {user} {tags} />
 	{:else}
 		<h1 class="h1 p-10 m-10">
 			<span

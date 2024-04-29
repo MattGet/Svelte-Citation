@@ -1,10 +1,11 @@
-<script>
+<script lang="ts">
 	// @ts-nocheck
 	import Author from './Author.svelte';
 	import { Months } from '$lib/client/helper.funcs';
+	import Tags from './Tags.svelte';
 
 	export let user;
-
+	export let tags;
 	let maxAuthors = 10;
 
 	export let numAuthors = 1;
@@ -79,6 +80,7 @@
 					/>
 				</section>
 			</label>
+			<Tags {tags} />
 			<input class="input" type="hidden" name="type" value="article-journal" />
 			<input class="input" type="hidden" name="numAuthors" value={numAuthors} />
 			<input class="input" type="hidden" name="userid" value={user?.id} />

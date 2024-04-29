@@ -85,6 +85,13 @@
 	const anySourceSelected = derived(sourceList, ($sourceList) => {
 		return Object.values($sourceList).some((checked) => checked);
 	});
+
+	let tagFilter: string;
+	function handleTagSort(value2: string) {
+		// console.log(value2);
+		handler.filter(value2, 'tags');
+		tagFilter = value2;
+	}
 </script>
 
 <AdminBanner />
@@ -107,6 +114,7 @@
 				<ThSort {handler} orderBy="title">Title</ThSort>
 				<ThSort {handler} orderBy="author">Author</ThSort>
 				<ThSort {handler} orderBy="last_updated">Last Updated</ThSort>
+				<th>Tags</th>
 				<th>View</th>
 				<SignedIn>
 					<th>Update</th>
@@ -123,6 +131,7 @@
 				<ThFilter {handler} filterBy="title" />
 				<ThFilter {handler} filterBy="author" />
 				<ThFilter {handler} filterBy="last_updated" />
+				<ThFilter {handler} filterBy="tags" value={tagFilter} />
 				<th />
 				<SignedIn>
 					<th></th>
@@ -146,6 +155,22 @@
 					<td>{row.title.length > 30 ? row.title.substring(0, 50) + '...' : row.title}</td>
 					<td>{row.author[0]?.given} {row.author[0]?.family}</td>
 					<td>{new Date(Number(row.last_updated ?? '')).toLocaleString()}</td>
+					<td>
+						{#if row && row.tags}
+							<div>
+								{#each row.tags.split(',') as tag}
+									<button class="btn variant-filled-secondary p-1 m-1" on:click={handleTagSort(tag)}
+										>{tag}</button
+									>
+								{/each}
+							</div>
+						{:else}
+							<div class="card justify-center variant-filled">
+								<!-- Handle case when row or row.tags is not available -->
+								<p class="p-2">No Tags</p>
+							</div>
+						{/if}
+					</td>
 					<td>
 						<a class="btn variant-filled-secondary" href="/Source/{row.id}">View</a>
 					</td>
@@ -191,6 +216,7 @@
 				<th>Citation Type</th>
 				<th>Title</th>
 				<th>Authors</th>
+				<th>Tags</th>
 				<th>View</th>
 				<SignedIn>
 					<th>Update</th>
@@ -214,6 +240,7 @@
 					<td>{source.type}</td>
 					<td>{source.title.length > 30 ? source.title.substring(0, 30) + '...' : source.title}</td>
 					<td>{source.author[0]?.given} {source.author[0]?.family}</td>
+					<td>{source.tags}</td>
 					<td>
 						<a class="btn variant-filled-secondary" href="/Source/{source.id}">View</a>
 					</td>

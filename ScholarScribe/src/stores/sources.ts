@@ -9,6 +9,6 @@ export const exportType: Writable<String> = localStorageStore('exportType', "Bib
 
 export const addCiteType: Writable<String> = localStorageStore('addCiteType', "import");
 
-export const importType: Writable<String> = localStorageStore('importType', "BibTex");
+export const importType: Writable<String> = localStorageStore('importType', "bibtex");
 
 export const bibStyle: Writable<String> = localStorageStore('bibStyle', "apa");

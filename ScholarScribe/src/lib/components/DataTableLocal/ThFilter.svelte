@@ -2,7 +2,7 @@
 	import type { DataHandler } from '@vincjo/datatables';
 	export let handler: DataHandler;
 	export let filterBy: string;
-	let value: string;
+	export let value: string = '';
 </script>
 
 <th>
