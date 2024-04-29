@@ -3,7 +3,7 @@
 	import Tags from './Tags.svelte';
 	// @ts-ignore
 	export let user: any;
-	export let tags: any[];
+	export let tags: any;
 
 	const authorizedExtensions = ['.bib', '.json', '.txt'];
 

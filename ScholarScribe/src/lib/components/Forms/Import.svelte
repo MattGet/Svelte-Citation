@@ -4,7 +4,7 @@
 	import { importType } from '../../../stores/sources';
 	// @ts-nocheck
 	export let user: any;
-	export let tags: any[];
+	export let tags: any;
 	// Function to handle changes in selection
 	function handleChange(event: any) {
 		// console.log(event.target.value);
