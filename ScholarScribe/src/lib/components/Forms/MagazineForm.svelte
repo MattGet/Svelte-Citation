@@ -2,9 +2,9 @@
 	// @ts-nocheck
 	import Author from './Author.svelte';
 	import { Months } from '$lib/client/helper.funcs';
-
+	let tags = [];
 	export let user;
-
+	import { InputChip } from '@skeletonlabs/skeleton';
 	let maxAuthors = 10;
 
 	export let numAuthors = 1;

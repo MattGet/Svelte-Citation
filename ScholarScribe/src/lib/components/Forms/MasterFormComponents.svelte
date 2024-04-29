@@ -6,7 +6,7 @@
 
 	import Author from '$lib/components/Forms/Author.svelte';
 	import { Months } from '$lib/client/helper.funcs';
-
+	import { InputChip } from '@skeletonlabs/skeleton';
 	let maxAuthors = 10;
 
 	function addAuthorInput() {
@@ -24,6 +24,7 @@
 			alert('Minimum number of authors reached (1).');
 		}
 	}
+	let tags = [];
 </script>
 
 <label>

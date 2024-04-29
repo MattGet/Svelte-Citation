@@ -2,7 +2,7 @@
 	// @ts-nocheck
 	import Author from './Author.svelte';
 	import { Months } from '$lib/client/helper.funcs';
-
+	import { InputChip } from '@skeletonlabs/skeleton';
 	export let user;
 
 	let maxAuthors = 10;
@@ -24,6 +24,7 @@
 			alert('Minimum number of authors reached (1).');
 		}
 	}
+	let tags: any = [];
 </script>
 
 <div>

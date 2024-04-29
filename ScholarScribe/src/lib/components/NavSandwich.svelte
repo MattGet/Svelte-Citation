@@ -41,8 +41,11 @@
 					<li><a href="/User">UserProfile</a></li>
 					<li><SignOutButton signOutCallback={() => sOut()} /></li>
 					<li><a href="/Add Source">Add Source</a></li>
+					<li><a href="/Add Groups">Add Group</a></li>
+
 				</SignedIn>
 				<li><a href="/Sources">View Sources</a></li>
+				<li><a href="/Groups">View Groups</a></li>
 			</ul>
 		</nav>
 	</div>

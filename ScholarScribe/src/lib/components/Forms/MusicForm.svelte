@@ -24,6 +24,8 @@
 			alert('Minimum number of authors reached (1).');
 		}
 	}
+	import { InputChip } from '@skeletonlabs/skeleton';
+	let tags = [];
 </script>
 
 <div>
