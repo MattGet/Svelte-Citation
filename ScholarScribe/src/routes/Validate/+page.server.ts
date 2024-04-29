@@ -105,6 +105,29 @@ export const actions: Actions = {
             author[i] = authors;
         }
 
+        // Extract FormData entries
+        const formDataEntries = formData.entries();
+
+        // Initialize an array to store tag values
+        const tagValues = [];
+
+        // Iterate over FormData entries
+        for (const [name, value] of formDataEntries) {
+            // Check if the entry name is "tags"
+            if (name === 'tags') {
+                // Split the value by comma and add to tagValues array
+                tagValues.push(value);
+            }
+        }
+
+        // Flatten the tagValues array
+        const flattenedTagValues = tagValues.flat();
+
+        // Create a CSV string
+        let tags: any = flattenedTagValues.join(',');
+        if (tags == '') tags = null;
+        console.log(`tags: ${tags}.`);
+
         try {
             const source = await prisma.source.update({
                 where: {
@@ -129,6 +152,7 @@ export const actions: Actions = {
                     page,
                     edition,
                     locator,
+                    tags,
                 },
             })
         } catch (err) {

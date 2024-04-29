@@ -39,7 +39,7 @@ export const load: PageServerLoad = async ({ params }) => {
 export const actions: Actions = {
     updateSource: async ({ request }) => {
         const formData = await request.formData();
-        const { title, URL, userid, user, creator, time, day, month, year, publisher, type, id, volume_title, volume, issue, page, edition, locator, tags } = Object.fromEntries(formData) as {
+        const { title, URL, userid, user, creator, time, day, month, year, publisher, type, id, volume_title, volume, issue, page, edition, locator } = Object.fromEntries(formData) as {
             title: string
             URL: string
             userid: string
@@ -58,7 +58,6 @@ export const actions: Actions = {
             page: string
             edition: string
             locator: string
-            tags: string
         }
 
         // Extracting numbAuthor as a number, assuming it's part of the form data
@@ -80,6 +79,29 @@ export const actions: Actions = {
             let authors = { given: given, family: family, suffix: suffix } as Author;
             author[i] = authors;
         }
+
+        // Extract FormData entries
+        const formDataEntries = formData.entries();
+
+        // Initialize an array to store tag values
+        const tagValues = [];
+
+        // Iterate over FormData entries
+        for (const [name, value] of formDataEntries) {
+            // Check if the entry name is "tags"
+            if (name === 'tags') {
+                // Split the value by comma and add to tagValues array
+                tagValues.push(value);
+            }
+        }
+
+        // Flatten the tagValues array
+        const flattenedTagValues = tagValues.flat();
+
+        // Create a CSV string
+        let tags: any = flattenedTagValues.join(',');
+        if (tags == '') tags = null;
+        console.log(`tags: ${tags}.`);
 
         try {
             const source = await prisma.source.update({
