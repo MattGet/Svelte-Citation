@@ -11,7 +11,7 @@
 
 	export let data: PageData;
 	$: ({ source } = data);
-	let link;
+	let link = '';
 	if (typeof window !== 'undefined') {
 		link = String(window.location.href);
 	} else {

@@ -7,8 +7,8 @@
 
 	import SignedIn from 'clerk-sveltekit/client/SignedIn.svelte';
 	import AdminBanner from '$lib/components/AdminBanner.svelte';
-	import type { SubmitFunction } from '@sveltejs/kit'
-	
+	import type { SubmitFunction } from '@sveltejs/kit';
+
 	const submit: SubmitFunction = async ({ cancel }) => {
 		if (confirm('Are you sure you want to delete this post?')) {
 			return async ({ update }) => {
@@ -23,15 +23,15 @@
 <AdminBanner />
 
 <!-- Responsive Container (recommended) -->
-<div class="table-container px-10 pb-10">
+<div class="table-container p-10">
 	<table class="table table-hover">
 		<thead>
 			<tr>
-				<th>Sources</th>
+				<th>Group Name</th>
 				<th>Created By</th>
 				<th>Primary Genre</th>
 				<th>Secondary Genres</th>
-				<th>Title</th>
+				<th>View</th>
 				<SignedIn>
 					<th>Delete</th>
 				</SignedIn>
@@ -40,11 +40,13 @@
 		<tbody>
 			{#each groups as group}
 				<tr>
-					<td>{group.sourceids}</td>
-					<td>{group.userid}</td>
+					<td>{group.title}</td>
+					<td>{JSON.parse(group.user).fullName}</td>
 					<td>{group.genDel}</td>
 					<td>{group.genre.join(', ')}</td>
-					<td>{group.title}</td>
+					<td>
+						<a class="btn variant-filled-secondary" href="/Group/{group.id}">View</a>
+					</td>
 					<SignedIn let:user>
 						<td>
 							<form action={`?/deleteGroup&id=${group.id}`} method="POST" use:enhance={submit}>
@@ -58,7 +60,9 @@
 	</table>
 	<SignedIn let:user>
 		<div class="flex width-full justify-center p-10">
-			<a href="/Add Groups" class="btn variant-filled" data-sveltekit-preload-data="hover">Add New Group</a>
+			<a href="/Add Groups" class="btn variant-filled" data-sveltekit-preload-data="hover"
+				>Add New Group</a
+			>
 		</div>
 	</SignedIn>
 </div>
