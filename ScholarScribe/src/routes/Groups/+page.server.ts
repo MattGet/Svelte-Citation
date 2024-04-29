@@ -27,7 +27,7 @@ export const actions: Actions = {
         } catch (err) {
             console.error(err)
             return fail(500, {
-                message: "Something went wrong deleting your article",
+                message: "Something went wrong deleting your group",
             })
         }
 
@@ -38,8 +38,8 @@ export const actions: Actions = {
     retrieveDocumentById: async ({ request }) => {
         const document = await prisma.source.findUnique({
             where: {
-              id: id
+                id: id
             },
-          });
-        }
+        });
     }
+}

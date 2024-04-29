@@ -159,13 +159,13 @@
 						{#if row && row.tags}
 							<div>
 								{#each row.tags.split(',') as tag}
-									<button class="btn variant-filled-secondary p-1 m-1" on:click={handleTagSort(tag)}
+									<button class="btn variant-filled-primary p-1 m-1" on:click={handleTagSort(tag)}
 										>{tag}</button
 									>
 								{/each}
 							</div>
 						{:else}
-							<div class="card justify-center variant-filled">
+							<div class="card justify-center variant-filled-primary">
 								<!-- Handle case when row or row.tags is not available -->
 								<p class="p-2">No Tags</p>
 							</div>
