@@ -112,6 +112,8 @@ model Source {
   year_suffix                 String?
   //end of no loss allowed
   last_updated                String?
+  groupids                    String[]     @db.ObjectId
+  groups                      Group[]      @relation(fields: [groupids], references: [id])
 }
 
 type Author {
@@ -130,6 +132,18 @@ type Author {
 
 type Affiliation {
   name String?
+}
+
+model Group {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userid    String
+  user      String
+  title     String   @unique
+  genDel    String
+  genre     String[]
+  isPublic  Boolean
+  sourceids String[] @db.ObjectId
+  sources   Source[] @relation(fields: [sourceids], references: [id])
 }
 
 type Date {

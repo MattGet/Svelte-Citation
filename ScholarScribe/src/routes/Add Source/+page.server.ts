@@ -89,6 +89,7 @@ export const actions: Actions = {
         const tags = flattenedTagValues.join(',');
 
         // Extracting numbAuthor as a number, assuming it's part of the form data
+        ;
         const NUMB = Number(formData.get("numAuthors"));
         if (isNaN(NUMB)) {
             throw new Error("Invalid numbAuthor value");
@@ -96,21 +97,17 @@ export const actions: Actions = {
         if (NUMB < 1) {
             throw new Error("Invalid numbAuthor, must be at least 1");
         }
-
+        const tags = formData.getAll('tags').toString().split(" "); 
         let author = []
 
         for (let i = 0; i < NUMB; i++) {
             const given = formData.get(`given[${i}]`) as string;
             const family = formData.get(`family[${i}]`) as string;
             const suffix = formData.get(`suffix[${i}]`) as string;
-
             let authors = { given: given, family: family, suffix: suffix } as Author;
             author[i] = authors;
         }
-
-
-        console.log(tags);
-
+      
         try {
             const source = await prisma.source.create({
                 data: {
@@ -118,6 +115,7 @@ export const actions: Actions = {
                     URL,
                     userid,
                     user,
+                    tags,
                     creator,
                     last_updated: time,
                     date: {

@@ -6,7 +6,6 @@
 
 	export let user;
 	export let tags;
-
 	let maxAuthors = 10;
 
 	export let numAuthors = 1;
