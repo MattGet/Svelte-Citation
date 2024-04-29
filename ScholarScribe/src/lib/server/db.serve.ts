@@ -23,7 +23,7 @@ export async function pushToDB(data: any, user: string, userid: string, creator:
     let locator = data.locator;
     //console.log(`tags: ${tags} keywords: ${data.keyword}`);
     if (data.keyword != undefined && data.keyword != null) {
-        if (tags != null && tags != undefined) tags += data.keyword;
+        if (tags != null && tags != undefined) tags += `,${data.keyword}`;
         else tags = data.keyword;
     }
     //Import only fields below
