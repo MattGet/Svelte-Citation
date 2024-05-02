@@ -12,6 +12,7 @@
 	import Pagination from '$lib/components/DataTableLocal/Pagination.svelte';
 	import SignedIn from 'clerk-sveltekit/client/SignedIn.svelte';
 	import AdminBanner from '$lib/components/AdminBanner.svelte';
+	import { popup } from '@skeletonlabs/skeleton';
 	import { type SubmitFunction } from '@sveltejs/kit';
 	import { sourceList } from '../../stores/sources';
 	import { onMount } from 'svelte';
@@ -94,6 +95,33 @@
 		handler.filter(value2, 'tags');
 		tagFilter = value2;
 	}
+
+	let typeFilter: string;
+	function handleTypeSort(value2: string) {
+		// console.log(value2);
+		handler.filter(value2, 'type');
+		typeFilter = value2;
+	}
+
+	let creatorFilter: string;
+	function handleCreatorSort(value2: string) {
+		// console.log(value2);
+		handler.filter(value2, 'user');
+		creatorFilter = value2;
+	}
+
+	function clearFilters() {
+		handler.clearFilters();
+		tagFilter = '';
+		typeFilter = '';
+		creatorFilter = '';
+	}
+
+	const popupHover: PopupSettings = {
+		event: 'click',
+		target: 'popupHover',
+		placement: 'bottom'
+	};
 </script>
 
 <AdminBanner />
@@ -104,6 +132,7 @@
 		<Search {handler} />
 		<button class="btn variant-filled-primary" on:click={selectAll}>Select All</button>
 		<button class="btn variant-filled-secondary" on:click={deselectAll}>Deselect All</button>
+		<button class="btn variant-filled-primary" on:click={clearFilters}>Clear Filters</button>
 		<RowsPerPage {handler} />
 	</header>
 	<!-- Table -->
@@ -128,8 +157,8 @@
 			</tr>
 			<tr>
 				<th />
-				<ThFilter {handler} filterBy="creator" />
-				<ThFilter {handler} filterBy="type" />
+				<ThFilter {handler} filterBy="creator" value={creatorFilter} />
+				<ThFilter {handler} filterBy="type" value={typeFilter} />
 				<ThFilter {handler} filterBy="title" />
 				<ThFilter {handler} filterBy="author" />
 				<ThFilter {handler} filterBy="last_updated" />
@@ -142,48 +171,90 @@
 			</tr>
 		</thead>
 		<tbody>
-			{#each $rows as row}
+			{#each $rows as row, i}
 				<tr>
 					<td
 						><input
 							type="checkbox"
-							class="p-4"
+							class="p-4 m-1"
 							bind:checked={$sourceList[row.id]}
 							on:change={(e) => handleCheckboxChange(e, row.id)}
 						/></td
 					>
-					<td>{row.creator}</td>
-					<td>{row.type}</td>
+					<td>
+						<button class="btn variant-soft" on:click={handleCreatorSort(row.creator)}
+							>{row.creator}</button
+						>
+					</td>
+					<td>
+						<button class="btn variant-soft" on:click={handleTypeSort(row.type)}>{row.type}</button>
+					</td>
 					<td>{row.title.length > 30 ? row.title.substring(0, 50) + '...' : row.title}</td>
-					<td>{row.author[0]?.given} {row.author[0]?.family}</td>
+					<td>
+						{#if row.author.length > 1}
+							{row.author[0].given} {row.author[0].family}, et al.
+						{:else}
+							{row.author[0].given} {row.author[0].family}
+						{/if}
+					</td>
 					<td>{new Date(Number(row.last_updated ?? '')).toLocaleString()}</td>
 					<td>
 						{#if row && row.tags}
-							<div>
-								{#each row.tags.split(',') as tag}
-									<button class="btn variant-filled-primary p-1 m-1" on:click={handleTagSort(tag)}
-										>{tag}</button
-									>
-								{/each}
+							<button
+								class="btn variant-ringed-primary"
+								use:popup={{ event: 'click', target: 'tags-' + i, placement: 'top' }}
+							>
+								{#if row.tags.split(',').length > 1}
+									{row.tags.split(',').length} tags
+								{:else}
+									{row.tags.split(',').length} tag
+								{/if}
+							</button>
+							<div class="card p-4" data-popup="tags-{i}">
+								{#if row.tags.split(',').length > 2}
+									<div class="max-w-screen-lg mx-auto grid grid-cols-3 gap-2">
+										{#each row.tags.split(',') as tag}
+											<button
+												class="btn variant-ringed-primary p-2 m-1"
+												on:click={handleTagSort(tag)}>{tag}</button
+											>
+										{/each}
+									</div>
+								{:else if row.tags.split(',').length == 2}
+									<div class="max-w-screen-lg mx-auto grid grid-cols-2 gap-2">
+										{#each row.tags.split(',') as tag}
+											<button
+												class="btn variant-ringed-primary p-2 m-1"
+												on:click={handleTagSort(tag)}>{tag}</button
+											>
+										{/each}
+									</div>
+								{:else if row.tags.split(',').length == 1}
+									<div class="max-w-screen-lg mx-auto grid grid-cols-1 gap-2">
+										{#each row.tags.split(',') as tag}
+											<button
+												class="btn variant-ringed-primary p-2 m-1"
+												on:click={handleTagSort(tag)}>{tag}</button
+											>
+										{/each}
+									</div>
+								{/if}
 							</div>
 						{:else}
-							<div class="card justify-center variant-filled-primary">
-								<!-- Handle case when row or row.tags is not available -->
-								<p class="p-2">No Tags</p>
-							</div>
+							<div class="btn justify-center variant-ringed-primary">No Tags</div>
 						{/if}
 					</td>
 					<td>
-						<a class="btn variant-filled-secondary" href="/Source/{row.id}">View</a>
+						<a class="btn variant-ghost-secondary" href="/Source/{row.id}">View</a>
 					</td>
 					<SignedIn let:user>
 						{#if user?.publicMetadata.role == 'Admin' || user?.id == row.userid}
 							<td>
-								<a class="btn variant-filled-tertiary" href="/Update/{row.id}">Update</a>
+								<a class="btn variant-ghost-tertiary" href="/Update/{row.id}">Update</a>
 							</td>
 							<td>
 								<form action="?/deleteSource&id={row.id}" method="POST">
-									<button type="submit" class="btn variant-filled-error">Delete</button>
+									<button type="submit" class="btn variant-ghost-error">Delete</button>
 								</form>
 							</td>
 						{:else}
