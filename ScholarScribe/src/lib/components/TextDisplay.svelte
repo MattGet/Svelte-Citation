@@ -42,9 +42,7 @@
 
 <div>
 	<div class="flex gap-10">
-		<textarea cols="100" rows="10">
-			{line}
-		</textarea>
+		<textarea cols="100" rows="10">{line}</textarea>
 		<div>
 			<CopyButton data={line} buttonName="Copy Text" />
 		</div>
