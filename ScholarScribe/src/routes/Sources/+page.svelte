@@ -23,6 +23,7 @@
 
 	const handler = new DataHandler(data.sources, { rowsPerPage: 5 });
 	const rows = handler.getRows();
+	const allRows = handler.getAllRows();
 	$: ({ sources } = data);
 
 	const submit: SubmitFunction = async ({ cancel }) => {
@@ -62,8 +63,9 @@
 		populateStoreWithCheckboxes(true);
 		sourceList.update((existingCheckedState) => {
 			const newCheckedState = { ...existingCheckedState };
-			Object.keys(newCheckedState).forEach((key) => {
-				newCheckedState[key] = true;
+			// Iterate through all rows and only select those that haven't been filtered
+			$allRows.forEach((row) => {
+				newCheckedState[row.id] = true;
 			});
 			return newCheckedState;
 		});
