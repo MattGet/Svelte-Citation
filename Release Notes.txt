@@ -1,6 +1,6 @@
 Scholar Scribe, A web-based citation engine powered by Sveltekit & MongoDB
 
-Scholar Scribe Release V 0.1.4 -  4/15/2024
+Scholar Scribe Release V 0.1.4 -  5/03/2024
 
 
 New Features:
