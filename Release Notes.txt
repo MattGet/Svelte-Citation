@@ -1,5 +1,28 @@
 Scholar Scribe, A web-based citation engine powered by Sveltekit & MongoDB
 
+Scholar Scribe Release V 0.1.4 -  4/15/2024
+
+
+New Features:
+  * No loss from import to export
+  * Tags and grouping
+  * Search/filter/sort view
+  * Export by tag and group
+  * Updated source view
+  * Mendeley and Zotero Support
+  * Select and deselect all
+  * HTTPS now enabled
+  
+Known Issues:
+  * Citation styles are reset after server restart
+
+Possible features in the future:
+  * Packaging
+
+Links:
+  * Project: https://github.com/users/MattGet/projects/2/views/1
+  * GitHub Repo: https://github.com/MattGet/Svelte-Citation
+
 Scholar Scribe Release V 0.1.3 -  4/15/2024
 
 
